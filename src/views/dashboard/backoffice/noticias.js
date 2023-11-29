@@ -39,32 +39,25 @@ const Noticias = () => {
     // ])
 
     //permission
-    const [permission, setPermission] = useState([{
-        name: 'Role',
-        status: false
+    const [permission, setPermission] = useState([
+        {
+            name: 'Utilizador 1',
+            status: false,
+            avatar: process.env.PUBLIC_URL + '/img/user-512.png'
+        },
+        {
+            name: 'Utilizador 2',
+            status: true,
+            avatar: 'caminho/para/avatar2.png' // Substitua com o caminho do seu arquivo PNG
+        },
+        {
+            name: 'Utilizador 3',
+            status: false,
+            avatar: 'caminho/para/avatar3.png' // Substitua com o caminho do seu arquivo PNG
+        },
+        // Adicione mais entradas conforme necessário, cada uma com seu avatar correspondente
+    ]);
 
-    },
-    {
-        name: 'Role Add',
-        status: true
-    },
-    {
-        name: 'Role List',
-
-    },
-    {
-        name: 'Permission',
-
-    },
-    {
-        name: 'Permission Add',
-
-    },
-    {
-        name: 'Permission List',
-
-    }
-    ])
     const [name, setName] = useState('')
     const [editname, setEditname] = useState('')
     const [permissionupdateid, setUpdate] = useState('')
@@ -98,17 +91,25 @@ const Noticias = () => {
     //role
     const [role, setRole] = useState([
         {
-            name: 'Admin',
+            name: 'Utilizador',
             status: true
         },
         {
-            name: 'DEMO ADMIN',
+            name: 'Titulo',
             status: true
         },
         {
-            name: 'USER',
+            name: 'Campo',
             status: false
-        }
+        },
+        {
+            name: 'Data',
+            status: false
+        },
+        {
+            name: 'Imagem',
+            status: true
+        },
     ])
     const [name1, setName1] = useState('')
     const [roleeditname, setRolename] = useState('')

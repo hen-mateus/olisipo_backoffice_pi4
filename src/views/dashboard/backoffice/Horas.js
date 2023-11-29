@@ -30,7 +30,7 @@ const Horas = () => {
           <Card>
             <Card.Header className="d-flex justify-content-between">
               <div className="header-title">
-                <h4 className="card-title">Basic Table</h4>
+                <h4 className="card-title">Horas submetidas</h4>
               </div>
             </Card.Header>
             <Card.Body className="p-0">
@@ -51,7 +51,7 @@ const Horas = () => {
                         <div className="d-flex align-items-center">
                           <img
                             className="rounded-circle me-2"
-                            src="src/img/user-512.png"
+                            src="/img/user-512.png"
                             alt="profile"
                             width="40" // Defina o tamanho desejado para o avatar
                             height="40"
@@ -83,12 +83,14 @@ const Horas = () => {
                     <tr>
                       <td>
                         <div className="d-flex align-items-center">
-                          <Image
-                            className="rounded img-fluid avatar-40 me-3 bg-soft-primary"
-                            src={shap2}
+                          <img
+                            className="rounded-circle me-2"
+                            src="/img/user-512.png"
                             alt="profile"
+                            width="40" // Defina o tamanho desejado para o avatar
+                            height="40"
                           />
-                          <h6>Manuel Pinto</h6>
+                          <h6>Vera Alves</h6>
                         </div>
                       </td>
                       <td>
@@ -115,12 +117,14 @@ const Horas = () => {
                     <tr>
                       <td>
                         <div className="d-flex align-items-center">
-                          <Image
-                            className="rounded img-fluid avatar-40 me-3 bg-soft-primary"
-                            src={shap3}
+                          <img
+                            className="rounded-circle me-2"
+                            src="/img/user-512.png"
                             alt="profile"
+                            width="40" // Defina o tamanho desejado para o avatar
+                            height="40"
                           />
-                          <h6>João Santos</h6>
+                          <h6>Vera Alves</h6>
                         </div>
                       </td>
                       <td>
@@ -147,12 +151,14 @@ const Horas = () => {
                     <tr>
                       <td>
                         <div className="d-flex align-items-center">
-                          <Image
-                            className="rounded img-fluid avatar-40 me-3 bg-soft-primary"
-                            src={shap4}
+                          <img
+                            className="rounded-circle me-2"
+                            src="/img/user-512.png"
                             alt="profile"
+                            width="40" // Defina o tamanho desejado para o avatar
+                            height="40"
                           />
-                          <h6>Beatriz Santos</h6>
+                          <h6>Vera Alves</h6>
                         </div>
                       </td>
                       <td>
@@ -165,6 +171,13 @@ const Horas = () => {
                       <td>Janeiro</td>
                       <td>
                         <div>31/01/2023</div>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center mb-2">
+                          <Button variant="success" onClick={handleSimClick}>Sim</Button>
+                          <td></td><td></td>
+                          <Button variant="danger" onClick={handleNaoClick}>Não</Button>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
