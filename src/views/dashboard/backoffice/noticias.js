@@ -36,7 +36,7 @@ const Notícias = () => {
                                 <Table striped id="basic-table" className="mb-0" role="grid">
                                     <thead>
                                         <tr>
-                                            <th className="text-center">Utilizador</th>
+                                       
                                             <th className="text-center">Título</th>
                                             <th className="text-center">Campo</th>
                                             <th className="text-center">Data</th>
@@ -46,9 +46,7 @@ const Notícias = () => {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td style={formatTableCell()} className="text-center"   >
-                                                <h6 className="fs-5 fw-bold">Rui Santos</h6>
-                                            </td>
+                                    
                                             <td style={formatTableCell()} className="text-center">
                                             <h6 className="fs-4 fw-bold">Nova Tecnologia</h6>
                                             </td>
