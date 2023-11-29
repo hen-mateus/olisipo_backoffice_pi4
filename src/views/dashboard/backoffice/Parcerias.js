@@ -193,4 +193,4 @@ const Horas = () => {
     );
 };
 
-export default Horas;
+export default Parcerias;
