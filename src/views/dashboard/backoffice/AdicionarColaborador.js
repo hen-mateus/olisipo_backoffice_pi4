@@ -6,9 +6,11 @@ import Card from '../../../components/Card'
 const AdicionarColaborador = () => {
     const [show, setShow] = useState(false);
 
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    
     const [show1, setShow1] = useState(false);
 
     const handleClose1 = () => setShow1(false);
