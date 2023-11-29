@@ -14,7 +14,7 @@ import shap4 from "../../../assets/images/shapes/04.png";
 import shap5 from "../../../assets/images/shapes/05.png";
 import shap6 from "../../../assets/images/shapes/06.png";
 
-const Horas = () => {
+const Parcerias = () => {
     const handleSimClick = () => {
         // Lógica para lidar com o clique no botão "Sim"
     };
