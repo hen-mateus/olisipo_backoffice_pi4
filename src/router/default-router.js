@@ -47,20 +47,15 @@ import Default from '../layouts/dashboard/default';
 import AdicionarColaborador from '../views/dashboard/backoffice/AdicionarColaborador';
 import DadosPessoais from '../views/dashboard/backoffice/DadosPessoais';
 import EdicaoWeb from '../views/dashboard/backoffice/EdicaoWeb';
-import EdicaoWeb1 from '../views/dashboard/backoffice/EdicaoWeb1';
-import EdicaoWeb2 from '../views/dashboard/backoffice/EdicaoWeb2';
 import Ferias from '../views/dashboard/backoffice/Ferias';
 import GestaoDeCustos from '../views/dashboard/backoffice/GestaoDeCustos';
 import Horas from '../views/dashboard/backoffice/Horas';
 import Login from '../views/dashboard/backoffice/Login';
 import Noticias from '../views/dashboard/backoffice/noticias';
 import Notificacoes from '../views/dashboard/backoffice/Notificacoes';
-import Painel from '../views/dashboard/backoffice/Painel';
 import Parcerias from '../views/dashboard/backoffice/Parcerias';
 import Recibos from '../views/dashboard/backoffice/Recibos';
 import Reunioes from '../views/dashboard/backoffice/Reunioes';
-
-
 
 export const DefaultRouter = [
     {
@@ -68,68 +63,56 @@ export const DefaultRouter = [
         element: <Default />,
         children: [
             {
-                path: 'dashboard/AdicionarColaborador',
+                path: '/adicionarcolaborador',
                 element: <AdicionarColaborador />
             },
             {
-                path: 'dashboard/DadosPessoais',
+                path: '/dadospessoais',
                 element: <DadosPessoais />
             },
             {
-                path: 'dashboard/EdicaoWeb',
+                path: '/edicaoweb',
                 element: <EdicaoWeb />
             },
             {
-                path: 'dashboard/EdicaoWeb1',
-                element: <EdicaoWeb1 />
-            },
-            {
-                path: 'dashboard/EdicaoWeb2',
-                element: <EdicaoWeb2 />
-            },
-            {
-                path: 'dashboard/Ferias',
+                path: '/ferias',
                 element: <Ferias />
             },
             {
-                path: 'dashboard/GestaoDeCustos',
+                path: '/gestaodecustos',
                 element: <GestaoDeCustos />
             },
             {
-                path: 'dashboard/Horas',
+                path: '/horas',
                 element: <Horas />
             },
             {
-                path: 'dashboard/Login',
-                element: <Login />
-            },
-            {
-                path: 'dashboard/noticias',
+                path: '/noticias',
                 element: <Noticias />
             },
             {
-                path: 'dashboard/Notificacoes',
+                path: '/notificacoes',
                 element: <Notificacoes />
             },
             {
-                path: 'dashboard/Painel',
-                element: <Painel />
-            },
-            {
-                path: 'dashboard/Parcerias',
+                path: '/parcerias',
                 element: <Parcerias />
             },
             {
-                path: 'dashboard/Recibos',
+                path: '/recibos',
                 element: <Recibos />
             },
             {
-                path: 'dashboard/Reunioes',
+                path: '/reunioes',
                 element: <Reunioes />
             },
             {
                 path: 'dashboard',
                 element: <Index />
+            },
+            {
+                path: '/login',
+                element: <Login />
             },
             {
                 path: 'dashboard/special-pages/billing',
