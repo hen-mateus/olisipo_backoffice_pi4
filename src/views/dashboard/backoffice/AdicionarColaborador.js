@@ -76,7 +76,7 @@ const AdicionarColaborador = () => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Email:</label>
-                                                        <input type="email" className="form-control" name="email" placeholder="Email Id" />
+                                                        <input type="email" className="form-control" name="email" placeholder="Email" />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
