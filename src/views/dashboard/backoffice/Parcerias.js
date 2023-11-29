@@ -65,7 +65,9 @@ const Horas = () => {
                                                 <div>31/01/2023</div>
                                             </td>
                                             <td>
-
+                                            <div className="d-flex align-items-center mb-2">
+                                                    <Button variant="danger" onClick={handleNaoClick}>Eliminar</Button>
+                                                </div>
                                             </td>
                                             <td>
                                                 <div className="d-flex align-items-center mb-2">
