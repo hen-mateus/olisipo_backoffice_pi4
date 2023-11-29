@@ -3,16 +3,14 @@ import { Row, Col, Image, Table, Button } from "react-bootstrap";
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
 
-//progressbar
-import Progress from "../../../components/progress.js";
-
-// img
-import shap1 from "../../../assets/images/shapes/01.png";
-import shap2 from "../../../assets/images/shapes/02.png";
-import shap3 from "../../../assets/images/shapes/03.png";
-import shap4 from "../../../assets/images/shapes/04.png";
-import shap5 from "../../../assets/images/shapes/05.png";
-import shap6 from "../../../assets/images/shapes/06.png";
+const formatTableCell = () => {
+    return {
+      maxWidth: '200px',
+      overflow: 'hidden',
+      whiteSpace: 'normal', // Alterado de 'nowrap' para 'normal'
+    };
+  };
+  
 
 const Parcerias = () => {
     const handleSimClick = () => {
@@ -38,148 +36,48 @@ const Parcerias = () => {
                                 <Table striped id="basic-table" className="mb-0" role="grid">
                                     <thead>
                                         <tr>
-                                            <th>Parceria</th>
-                                            <th>Descrição</th>
-                                            <th>Benefícios</th>
-                                            <th>Categoria</th>
-                                            <th>Imagem</th>
-
-                                            <th>Ações</th>
+                                            <th className="text-center">Parceria</th>
+                                            <th className="text-center">Descrição</th>
+                                            <th className="text-center">Benefícios</th>
+                                            <th className="text-center">Categoria</th>
+                                            <th className="text-center">Imagem</th>
+                                            <th className="text-center">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                <h6>Vera Alves</h6>
-
+                                            <td style={formatTableCell()} className="text-center"   >
+                                                <h6 className="fs-4 fw-bold">FitnessUp</h6>
                                             </td>
-                                            <td>
+                                            <td style={formatTableCell()}>
                                                 <div>
                                                     <div>
-                                                        2023
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Janeiro</td>
-                                            <td>
-                                                <div>31/01/2023</div>
+                                            <td style={formatTableCell()}>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            </td>
+                                            <td style={formatTableCell()} className="text-center fs-4 fw-bold">
+                                                <div>Desporto</div>
+                                            </td>
+                                            <td className="text-center" >
+                                            <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
                                             </td>
                                             <td>
-
-                                            </td>
-                                            <td>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="success" onClick={handleSimClick}>Publicar</Button>
-                                                </div>
-
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="info" onClick={handleSimClick}>Editar</Button>
-                                                </div>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="danger" onClick={handleNaoClick}>Eliminar</Button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <h6>Manuel Pinto</h6>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <div>
-                                                        2023
+                                                <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
+                                                    <div className="d-flex">
+                                                        <Button variant="success" className="m-1" onClick={handleSimClick}>Publicar</Button>
+                                                        <Button variant="info" className="m-1" onClick={handleSimClick}>Editar</Button>
+                                                    </div>
+                                                    <div className="d-flex">
+                                                        <Button variant="danger" className="m-1" onClick={handleNaoClick}>Eliminar</Button>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Janeiro</td>
-                                            <td>
-                                                <div>31/01/2023</div>
-                                            </td>
-                                            <td></td>
-                                            <td>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="success" onClick={handleSimClick}>Publicar</Button>
-                                                </div>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="info" onClick={handleSimClick}>Editar</Button>
-                                                </div>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="danger" onClick={handleNaoClick}>Eliminar</Button>
-                                                </div>
-                                            </td>
                                         </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td>
 
-                                                <h6>João Santos</h6>
-
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <div>
-                                                        2023
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Janeiro</td>
-                                            <td>
-                                                <div>31/01/2023</div>
-                                            </td>
-                                            <td>
-
-                                            </td>
-                                            <td>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="success" onClick={handleSimClick}>Publicar</Button>
-                                                </div>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="info" onClick={handleSimClick}>Editar</Button>
-                                                </div>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="danger" onClick={handleNaoClick}>Eliminar</Button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-
-                                                <h6>Beatriz Santos</h6>
-
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <div>
-                                                        2023
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Janeiro</td>
-                                            <td>
-                                                <div>31/01/2023</div>
-                                            </td>
-
-
-                                            <td>
-
-                                            </td>
-                                            <td>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="success" onClick={handleSimClick}>Publicar</Button>
-                                                </div>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="info" onClick={handleSimClick}>Editar</Button>
-                                                </div>
-                                                <div className="d-flex align-items-center mb-2">
-                                                    <Button variant="danger" onClick={handleNaoClick}>Eliminar</Button>
-                                                </div>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </Table>
                             </div>
