@@ -38,145 +38,36 @@ const Horas = () => {
                 <Table striped id="basic-table" className="mb-0" role="grid">
                   <thead>
                     <tr>
-                      <th>Utilizador</th>
-                      <th>Ano</th>
-                      <th>Mês</th>
-                      <th>Data de submissão</th>
-                      <th>Aprovação</th>
+                      <th className="text-center">Utilizador</th>
+                      <th className="text-center">Ano</th>
+                      <th className="text-center">Mês</th>
+                      <th className="text-center">Data de submissão</th>
+                      <th className="text-center">Total Horas</th>
+                      <th className="text-center">Aprovação</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            className="rounded-circle me-2"
-                            src="/img/user-512.png"
-                            alt="profile"
-                            width="40" // Defina o tamanho desejado para o avatar
-                            height="40"
-                          />
-                          <h6>Vera Alves</h6>
-                        </div>
+                      <td className="text-center">
+                        <h6>Vera Alves</h6>
                       </td>
-                      <td>
+                      <td className="text-center">
                         <div>
                           <div>
                             2023
                           </div>
                         </div>
                       </td>
-                      <td>Janeiro</td>
-                      <td>
+                      <td className="text-center">Janeiro</td>
+                      <td className="text-center">
                         <div>31/01/2023</div>
                       </td>
+                      <td className="text-center">160</td>
                       <td>
-                        <div className="d-flex align-items-center mb-2">
-                          <Button variant="success" onClick={handleSimClick}>Sim</Button>
+                        <div className="d-flex align-items-center justify-content-center mb-2">
+                          <Button variant="success" onClick={handleSimClick}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M8.43994 12.0002L10.8139 14.3732L15.5599 9.6272" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
                           <td></td><td></td>
-                          <Button variant="danger" onClick={handleNaoClick}>Não</Button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            className="rounded-circle me-2"
-                            src="/img/user-512.png"
-                            alt="profile"
-                            width="40" // Defina o tamanho desejado para o avatar
-                            height="40"
-                          />
-                          <h6>Vera Alves</h6>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <div>
-                            2023
-                          </div>
-                        </div>
-                      </td>
-                      <td>Janeiro</td>
-                      <td>
-                        <div>31/01/2023</div>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center mb-2">
-                          <Button variant="success" onClick={handleSimClick}>Sim</Button>
-                          <td></td><td></td>
-                          <Button variant="danger" onClick={handleNaoClick}>Não</Button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            className="rounded-circle me-2"
-                            src="/img/user-512.png"
-                            alt="profile"
-                            width="40" // Defina o tamanho desejado para o avatar
-                            height="40"
-                          />
-                          <h6>Vera Alves</h6>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <div>
-                            2023
-                          </div>
-                        </div>
-                      </td>
-                      <td>Janeiro</td>
-                      <td>
-                        <div>31/01/2023</div>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center mb-2">
-                          <Button variant="success" onClick={handleSimClick}>Sim</Button>
-                          <td></td><td></td>
-                          <Button variant="danger" onClick={handleNaoClick}>Não</Button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            className="rounded-circle me-2"
-                            src="/img/user-512.png"
-                            alt="profile"
-                            width="40" // Defina o tamanho desejado para o avatar
-                            height="40"
-                          />
-                          <h6>Vera Alves</h6>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <div>
-                            2023
-                          </div>
-                        </div>
-                      </td>
-                      <td>Janeiro</td>
-                      <td>
-                        <div>31/01/2023</div>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center mb-2">
-                          <Button variant="success" onClick={handleSimClick}>Sim</Button>
-                          <td></td><td></td>
-                          <Button variant="danger" onClick={handleNaoClick}>Não</Button>
+                          <Button variant="danger" onClick={handleNaoClick}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
                         </div>
                       </td>
                     </tr>
