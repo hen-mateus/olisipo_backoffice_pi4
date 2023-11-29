@@ -11,7 +11,6 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 import Index from "./views/index";
-import { IndexRouters } from "./router";
 import { SimpleRouter } from "./router/simple-router";
 import { DefaultRouter } from "./router/default-router";
 
@@ -21,7 +20,6 @@ const router = createBrowserRouter([
     element: <Index />,
   },
   ...DefaultRouter,
-  ...IndexRouters,
   ...SimpleRouter
 ] ,{basename: process.env.PUBLIC_URL });
 
