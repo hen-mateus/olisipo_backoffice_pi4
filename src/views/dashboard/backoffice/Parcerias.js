@@ -5,12 +5,11 @@ import { Link } from "react-router-dom";
 
 const formatTableCell = () => {
     return {
-      maxWidth: '200px',
-      overflow: 'hidden',
-      whiteSpace: 'normal', // Alterado de 'nowrap' para 'normal'
+        maxWidth: '200px',
+        overflow: 'hidden',
+        whiteSpace: 'normal',
     };
-  };
-  
+};
 
 const Parcerias = () => {
     const handleSimClick = () => {
@@ -63,7 +62,7 @@ const Parcerias = () => {
                                                 <div>Desporto</div>
                                             </td>
                                             <td className="text-center" >
-                                            <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
+                                                <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
                                             </td>
                                             <td>
                                                 <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
