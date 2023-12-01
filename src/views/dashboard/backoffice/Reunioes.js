@@ -43,7 +43,6 @@ const Reunioes = () => {
                       <th className="text-center">Dia</th>
                       <th className="text-center">Hora</th>
                       <th className="text-center">Assunto</th>
-                    
                       <th className="text-center">Aprovação</th>
                     </tr>
                   </thead>
