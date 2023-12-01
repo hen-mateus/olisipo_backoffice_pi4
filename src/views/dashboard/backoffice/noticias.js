@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Table, Button } from "react-bootstrap";
+import axios from 'axios';
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
+import { baseUrl } from './baseURL';
 
 const formatTableCell = () => {
     return {
-      maxWidth: '200px',
-      overflow: 'hidden',
-      whiteSpace: 'normal', // Alterado de 'nowrap' para 'normal'
+        maxWidth: '200px',
+        overflow: 'hidden',
+        whiteSpace: 'normal', // Alterado de 'nowrap' para 'normal'
     };
-  };
-  
+};
+
 
 const Notícias = () => {
     const handleSimClick = () => {
@@ -20,6 +22,63 @@ const Notícias = () => {
     const handleNaoClick = () => {
         // Lógica para lidar com o clique no botão "Não"
     };
+
+    const [dataNoticias, setdataNoticias] = useState([]);
+
+    useEffect(() => {
+        LoadNoticias();
+    }, []);
+
+    function LoadNoticias() {
+        const url = baseUrl + "/noticias/";
+        axios.get(url)
+            .then(res => {
+                if (res.data.success) {
+                    const data = res.data.data;
+                    setdataNoticias(data);
+                } else {
+                    alert("Error Web Service!");
+                }
+            })
+            .catch(error => {
+                alert(error);
+            });
+    }
+
+    function TabelaNoticias() {
+        return dataNoticias.map((data, index) => {
+            return (
+                <tr key={index}>
+                    <td style={formatTableCell()} className="text-center fs-5 fw-bold">
+                        {data.titulo_noticia}
+                    </td>
+                    <td style={formatTableCell()} className="text-center">
+                        {data.subtitulo_noticia}
+                    </td>
+                    <td style={formatTableCell()} className="text-center">
+                        {data.corpo_noticia}
+                    </td>
+                    <td style={formatTableCell()} className="text-center fw-bold">
+                        {data.tipo_noticia}
+                    </td>
+                    <td className="text-center" >
+                        <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
+                    </td>
+                    <td>
+                        <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
+                            <div className="d-flex">
+                                <Button variant="success" className="m-1" onClick={handleSimClick}>Publicar</Button>
+                                <Button variant="info" className="m-1" onClick={handleSimClick}>Editar</Button>
+                            </div>
+                            <div className="d-flex">
+                                <Button variant="danger" className="m-1" onClick={handleNaoClick}>Eliminar</Button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            );
+        });
+    }
 
     return (
         <>
@@ -36,42 +95,17 @@ const Notícias = () => {
                                 <Table striped id="basic-table" className="mb-0" role="grid">
                                     <thead>
                                         <tr>
-                                       
+
                                             <th className="text-center">Título</th>
-                                            <th className="text-center">Campo</th>
-                                            <th className="text-center">Data</th>
+                                            <th className="text-center">Subtítulo</th>
+                                            <th className="text-center">Corpo da Notícia</th>
+                                            <th className="text-center">Tipo de Notícia</th>
                                             <th className="text-center">Imagem</th>
                                             <th className="text-center">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                    
-                                            <td style={formatTableCell()} className="text-center">
-                                            <h6 className="fs-4 fw-bold">Nova Tecnologia</h6>
-                                            </td>
-                                            <td style={formatTableCell()}>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </td>
-                                            <td style={formatTableCell()} className="text-center fs-5 fw-bold">
-                                                <div>10/10/2023</div>
-                                            </td>
-                                            <td className="text-center" >
-                                            <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
-                                            </td>
-                                            <td>
-                                                <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
-                                                    <div className="d-flex">
-                                                        <Button variant="success" className="m-1" onClick={handleSimClick}>Publicar</Button>
-                                                        <Button variant="info" className="m-1" onClick={handleSimClick}>Editar</Button>
-                                                    </div>
-                                                    <div className="d-flex">
-                                                        <Button variant="danger" className="m-1" onClick={handleNaoClick}>Eliminar</Button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
+                                        {TabelaNoticias()}
                                     </tbody>
                                 </Table>
                             </div>
