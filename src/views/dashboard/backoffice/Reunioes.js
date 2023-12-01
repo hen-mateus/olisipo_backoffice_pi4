@@ -1,10 +1,10 @@
-import React from "react";
-import { Row, Col, Image, Table, Button } from "react-bootstrap";
-import Card from "../../../components/Card";
+import React, { useEffect, useState } from "react";
+import { Row, Col, Table, Button } from "react-bootstrap";
+import axios from 'axios';
 import { Link } from "react-router-dom";
+import Card from "../../../components/Card";
+import { baseUrl } from './baseURL';
 
-//progressbar
-import Progress from "../../../components/progress.js";
 
 
 const formatTableCell = () => {
@@ -23,6 +23,59 @@ const Reunioes = () => {
   const handleNaoClick = () => {
     // Lógica para lidar com o clique no botão "Não"
   };
+
+  const [dataReunioes, setdataReunioes] = useState([]);
+
+  useEffect(() => {
+    LoadReunioes();
+  }, []);
+
+  function LoadReunioes() {
+    const url = baseUrl + "/reuniao/";
+    axios.get(url)
+      .then(res => {
+        if (res.data.success) {
+          const data = res.data.data;
+          setdataReunioes(data);
+        } else {
+          alert("Error Web Service!");
+        }
+      })
+      .catch(error => {
+        alert(error);
+      });
+  }
+  function TabelaReunioes() {
+    return dataReunioes.map((data, index) => {
+     
+      return (
+        <tr key={index}>
+          <td className="text-center">
+          {data.nome_pessoa}
+          </td>
+          <td className="text-center">
+            {data.data_reuniao}
+          </td>
+          <td className="text-center">
+            <p>{data.horas}</p>
+          </td>
+          <td className="text-center">
+            {data.motivo}
+          </td>
+          <td>
+            <div className="d-flex align-items-center justify-content-center mb-2">
+              <Button variant="success" onClick={handleSimClick}>
+                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M8.43994 12.0002L10.8139 14.3732L15.5599 9.6272" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>
+              </Button>
+              <td></td><td></td>
+              <Button variant="danger" onClick={handleNaoClick}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
+            </div>
+          </td>
+        </tr>
+      );
+    });
+  }
+
 
   return (
     <>
@@ -47,29 +100,7 @@ const Reunioes = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="text-center">
-                        <h6>Vera Alves</h6>
-                      </td>
-                      <td className="text-center">
-                        <div>
-                          <div>
-                          31/01/
-                          </div>
-                        </div>
-                      </td>
-                      <td className="text-center">15h</td>
-                      <td style={formatTableCell()}>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </td>
-                      <td>
-                        <div className="d-flex align-items-center justify-content-center mb-2">
-                          <Button variant="success" onClick={handleSimClick}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M8.43994 12.0002L10.8139 14.3732L15.5599 9.6272" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
-                          <td></td><td></td>
-                          <Button variant="danger" onClick={handleNaoClick}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
-                        </div>
-                      </td>
-                    </tr>
+                  {TabelaReunioes()}
                   </tbody>
                 </Table>
               </div>
