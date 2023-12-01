@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Table, Button } from "react-bootstrap";
+import axios from 'axios';
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
+import { baseUrl } from './baseURL';
 
 const formatTableCell = () => {
     return {
@@ -19,6 +21,63 @@ const Parcerias = () => {
     const handleNaoClick = () => {
         // Lógica para lidar com o clique no botão "Não"
     };
+
+    const [dataParcerias, setdataParcerias] = useState([]);
+
+    useEffect(() => {
+        LoadParcerias();
+    }, []);
+
+    function LoadParcerias() {
+        const url = baseUrl + "/parcerias/";
+        axios.get(url)
+            .then(res => {
+                if (res.data.success) {
+                    const data = res.data.data;
+                    setdataParcerias(data);
+                } else {
+                    alert("Error Web Service!");
+                }
+            })
+            .catch(error => {
+                alert(error);
+            });
+    }
+
+    function TabelaParcerias() {
+        return dataParcerias.map((data, index) => {
+            return (
+                <tr key={index}>
+                    <td style={formatTableCell()} className="text-center fs-5 fw-bold">
+                        {data.nome_parceria}
+                    </td>
+                    <td style={formatTableCell()}>
+                        {data.descricao_parceria}
+                    </td>
+                    <td style={formatTableCell()} className="text-center">
+                        {data.beneficios_parceria}
+                    </td>
+                    <td style={formatTableCell()} className="text-center fw-bold">
+                        {data.tipo_parceria}
+                    </td>
+                    <td className="text-center" >
+                        <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
+                    </td>
+                    <td>
+                        <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
+                            <div className="d-flex">
+                                <Button variant="success" className="m-1" onClick={handleSimClick}>Publicar</Button>
+                                <Button variant="info" className="m-1" onClick={handleSimClick}>Editar</Button>
+                            </div>
+                            <div className="d-flex">
+                                <Button variant="danger" className="m-1" onClick={handleNaoClick}>Eliminar</Button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            );
+        });
+    }
 
     return (
         <>
@@ -44,39 +103,7 @@ const Parcerias = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td style={formatTableCell()} className="text-center"   >
-                                                <h6 className="fs-4 fw-bold">FitnessUp</h6>
-                                            </td>
-                                            <td style={formatTableCell()}>
-                                                <div>
-                                                    <div>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td style={formatTableCell()}>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            </td>
-                                            <td style={formatTableCell()} className="text-center fs-4 fw-bold">
-                                                <div>Desporto</div>
-                                            </td>
-                                            <td className="text-center" >
-                                                <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
-                                            </td>
-                                            <td>
-                                                <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
-                                                    <div className="d-flex">
-                                                        <Button variant="success" className="m-1" onClick={handleSimClick}>Publicar</Button>
-                                                        <Button variant="info" className="m-1" onClick={handleSimClick}>Editar</Button>
-                                                    </div>
-                                                    <div className="d-flex">
-                                                        <Button variant="danger" className="m-1" onClick={handleNaoClick}>Eliminar</Button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
+                                        {TabelaParcerias()}
                                     </tbody>
                                 </Table>
                             </div>
