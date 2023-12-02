@@ -10,6 +10,10 @@ const EdicaoWeb = () => {
     const [toggleState, setToggleState] = useState(true);
 
     const [dataWebHeader, setdataWebHeader] = useState("");
+
+    const [dataWebSeccao, setdataWebSeccao] = useState([]);
+    const [sectionData, setSectionData] = useState([]);
+
     const [campTituloHeader, setcampTituloHeader] = useState("");
     const [campLink1, setcampLink1] = useState("");
     const [campLink2, setcampLink2] = useState("");
@@ -73,12 +77,13 @@ const EdicaoWeb = () => {
     }
 
     function LoadWebSeccao() {
-        const url = baseUrl + "/conteudowebsite/" + 3;
+        const url = baseUrl + "/conteudowebsite/";
         axios.get(url)
             .then(res => {
                 if (res.data.success) {
-                    const data = res.data.data[0];
-                    setdataWebHeader(data);
+                    const data = res.data.data;
+                    setdataWebSeccao(data);
+
                     setcampTituloSeccao(data.titulo_seccao);
                     setcampTexto1(data.texto1);
                     setcampTexto2(data.texto2);
@@ -138,7 +143,7 @@ const EdicaoWeb = () => {
     }
 
     function updateSeccao(seccaoID) {
-        
+
         console.log('seccaoID:', seccaoID);
         const url = baseUrl + `/conteudowebsite/updateseccao/${seccaoID}`;
         const dataput = {
@@ -159,6 +164,46 @@ const EdicaoWeb = () => {
             }).catch(error => {
                 alert("Error 34 " + error)
             })
+    }
+
+
+    function conteudowebSeccao() {
+        return dataWebSeccao.map((data, index) => {
+            const currentSectionData = sectionData[index] || {};
+            
+            return (
+                <Accordion.Body>
+                    <Form>
+                        <div className="header-title">
+                            <h5 className="card-title">Secção {index + 1}:</h5>
+                        </div>
+                        <Form.Group className="form-group">
+                            <Form.Label htmlFor="titulos">Título:</Form.Label>
+                            <Form.Control type="titulos" id={`titulos-${index}`} value={data.titulo_seccao}
+                                onChange={(e) => setcampTituloSeccao(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="form-group">
+                            <Form.Label htmlFor="titulo1s">Texto 1:</Form.Label>
+                            <Form.Control type="titulo1s" id={`titulo1s-${index}`} value={campTexto1}
+                                onChange={(e) => setcampTexto1(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="form-group">
+                            <Form.Label htmlFor="titulo2s">Texto 2:</Form.Label>
+                            <Form.Control type="titulo2s" id={`titulo2s-${index}`} value={data.texto2}
+                                onChange={(e) => setcampTexto2(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="form-group">
+                            <Form.Label htmlFor="titulo3s">Texto 3:</Form.Label>
+                            <Form.Control type="titulo3s" id={`titulo3s-${index}`} value={data.texto3}
+                                onChange={(e) => setcampTexto3(e.target.value)} />
+                        </Form.Group>
+                        <Button type="button" variant="warning me-3">Criar Nova Secção</Button>
+                        <Button type="button" variant="primary" onClick={() => updateSeccao(data.id_conteudo)}>Atualizar</Button>
+
+                    </Form>
+                </Accordion.Body>
+            );
+        });
     }
 
     return (
@@ -202,35 +247,7 @@ const EdicaoWeb = () => {
                                         </Accordion.Item>
                                         <Accordion.Item eventKey="1">
                                             <Accordion.Header>Corpo</Accordion.Header>
-                                            <Accordion.Body>
-                                                <Form>
-                                                    <div className="header-title">
-                                                        <h5 className="card-title">Secção 1:</h5>
-                                                    </div>
-                                                    <Form.Group className="form-group">
-                                                        <Form.Label htmlFor="titulos">Título:</Form.Label>
-                                                        <Form.Control type="titulos" id="titulos1" value={campTituloSeccao}
-                                                            onChange={(e) => setcampTituloSeccao(e.target.value)}/>
-                                                    </Form.Group>
-                                                    <Form.Group className="form-group">
-                                                        <Form.Label htmlFor="titulo1s">Texto 1:</Form.Label>
-                                                        <Form.Control type="titulo1s" id="titulo1s" value={campTexto1}
-                                                            onChange={(e) => setcampTexto1(e.target.value)}/>
-                                                    </Form.Group>
-                                                    <Form.Group className="form-group">
-                                                        <Form.Label htmlFor="titulo2s">Texto 2:</Form.Label>
-                                                        <Form.Control type="titulo2s" id="titulo2s" value={campTexto2}
-                                                            onChange={(e) => setcampTexto2(e.target.value)}/>
-                                                    </Form.Group>
-                                                    <Form.Group className="form-group">
-                                                        <Form.Label htmlFor="titulo3s">Texto 3:</Form.Label>
-                                                        <Form.Control type="titulo3s" id="titulo3s" value={campTexto3}
-                                                            onChange={(e) => setcampTexto3(e.target.value)}/>
-                                                    </Form.Group>
-                                                    <Button type="button" variant="btn btn-warning me-3">Criar Nova Secção</Button>
-                                                    <Button type="button" variant="btn btn-primary" onClick={() => updateSeccao(campIDsecção)}>Atualizar</Button>
-                                                </Form>
-                                            </Accordion.Body>
+                                            {conteudowebSeccao()}
                                         </Accordion.Item>
                                         <Accordion.Item eventKey="2">
                                             <Accordion.Header>Footer</Accordion.Header>
