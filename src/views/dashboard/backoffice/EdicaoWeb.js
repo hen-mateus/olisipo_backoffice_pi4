@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Accordion, Nav, Tab, Button, Form } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { baseUrl } from './baseURL';
+import { useParams } from "react-router-dom";
 
 const EdicaoWeb = () => {
     const [toggleState, setToggleState] = useState(true);
@@ -20,6 +21,8 @@ const EdicaoWeb = () => {
     const [campTexto2, setcampTexto2] = useState("");
     const [campTexto3, setcampTexto3] = useState("");
     const [campImagemSeccao, setcampImagemSeccao] = useState("");
+    const [campIDsecção, setcampIDsecção] = useState("");
+
 
     useEffect(() => {
         LoadWebHeader();
@@ -81,6 +84,7 @@ const EdicaoWeb = () => {
                     setcampTexto2(data.texto2);
                     setcampTexto3(data.texto3);
                     setcampImagemSeccao(data.imagem_seccao);
+                    setcampIDsecção(data.id_conteudo);
                 }
                 else {
                     alert("Error web service")
@@ -133,8 +137,10 @@ const EdicaoWeb = () => {
             })
     }
 
-    function updateSeccao() {
-        const url = baseUrl + "/conteudowebsite/updateseccao/" + 3
+    function updateSeccao(seccaoID) {
+        
+        console.log('seccaoID:', seccaoID);
+        const url = baseUrl + `/conteudowebsite/updateseccao/${seccaoID}`;
         const dataput = {
             novo_tituloseccao_param: campTituloSeccao,
             novo_texto1_param: campTexto1,
@@ -222,7 +228,7 @@ const EdicaoWeb = () => {
                                                             onChange={(e) => setcampTexto3(e.target.value)}/>
                                                     </Form.Group>
                                                     <Button type="button" variant="btn btn-warning me-3">Criar Nova Secção</Button>
-                                                    <Button type="button" variant="btn btn-primary" onClick={() => updateSeccao()}>Atualizar</Button>
+                                                    <Button type="button" variant="btn btn-primary" onClick={() => updateSeccao(campIDsecção)}>Atualizar</Button>
                                                 </Form>
                                             </Accordion.Body>
                                         </Accordion.Item>
