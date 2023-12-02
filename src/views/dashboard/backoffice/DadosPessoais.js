@@ -39,11 +39,11 @@ const DadosPessoais = () => {
 
   function TabelaAlteracaoDadosPessoais() {
     return dataDadosPessoais.map((data, index) => {
-      
+
       return (
         <tr key={index}>
           <td className="text-center">
-          {data.nome_pessoa}
+            {data.nome_pessoa}
           </td>
           <td className="text-center">
             {data.nome_pessoa_auxiliar}
@@ -52,7 +52,7 @@ const DadosPessoais = () => {
             <p>{data.email}</p>
           </td>
           <td className="text-center">
-          {data.email_auxiliar}
+            {data.email_auxiliar}
           </td>
           <td>
             <div className="d-flex align-items-center justify-content-center mb-2">
@@ -91,7 +91,7 @@ const DadosPessoais = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {TabelaAlteracaoDadosPessoais()}
+                    {TabelaAlteracaoDadosPessoais()}
                   </tbody>
                 </Table>
               </div>

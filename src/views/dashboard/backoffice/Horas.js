@@ -52,14 +52,14 @@ const Horas = () => {
 
       return (
         <tr key={index}>
-          <td className="text-center"> 
+          <td className="text-center">
             {data.nome_pessoa}
           </td>
           <td className="text-center">
             {data.ano_relatorio_horas}
           </td>
           <td className="text-center">
-            <p> {data.mes}</p>
+            {data.mes}
           </td>
           <td className="text-center">
             {data.data_relatorio_horas}
@@ -80,7 +80,6 @@ const Horas = () => {
       );
     });
   }
-
 
   return (
     <>
