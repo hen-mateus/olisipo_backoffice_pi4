@@ -1,10 +1,159 @@
-import React, { useState, } from 'react'
+import React, { useEffect, useState } from "react";
 // import { Link } from 'react-router-dom'
+import axios from 'axios';
 import { Accordion, Nav, Tab, Button, Form } from 'react-bootstrap'
 import Card from '../../../components/Card'
+import { baseUrl } from './baseURL';
 
 const EdicaoWeb = () => {
     const [toggleState, setToggleState] = useState(true);
+
+    const [dataWebHeader, setdataWebHeader] = useState("");
+    const [campTituloHeader, setcampTituloHeader] = useState("");
+    const [campLink1, setcampLink1] = useState("");
+    const [campLink2, setcampLink2] = useState("");
+    const [campImagemHeader, setcampImagemHeader] = useState("");
+    const [campTituloFooter, setcampTituloFooter] = useState("");
+    const [campTextoFooter, setcampTextoFooter] = useState("");
+    const [campTituloSeccao, setcampTituloSeccao] = useState("");
+    const [campTexto1, setcampTexto1] = useState("");
+    const [campTexto2, setcampTexto2] = useState("");
+    const [campTexto3, setcampTexto3] = useState("");
+    const [campImagemSeccao, setcampImagemSeccao] = useState("");
+
+    useEffect(() => {
+        LoadWebHeader();
+        LoadWebFooter();
+        LoadWebSeccao();
+    }, []);
+
+    function LoadWebHeader() {
+        const url = baseUrl + "/conteudowebsite/" + 1;
+        axios.get(url)
+            .then(res => {
+                if (res.data.success) {
+                    const data = res.data.data[0];
+                    setdataWebHeader(data);
+                    setcampTituloHeader(data.titulo_header);
+                    setcampLink1(data.link1);
+                    setcampLink2(data.link2);
+                    setcampImagemHeader(data.imagem_header);
+                }
+                else {
+                    alert("Error web service")
+                }
+            })
+            .catch(error => {
+                alert("Error server: " + error)
+            })
+    }
+
+    function LoadWebFooter() {
+        const url = baseUrl + "/conteudowebsite/" + 2;
+        axios.get(url)
+            .then(res => {
+                if (res.data.success) {
+                    const data = res.data.data[0];
+                    setdataWebHeader(data);
+                    setcampTituloFooter(data.titulo_footer);
+                    setcampTextoFooter(data.texto_footer);
+                    setcampLink1(data.link1);
+                    setcampLink2(data.link2);
+                }
+                else {
+                    alert("Error web service")
+                }
+            })
+            .catch(error => {
+                alert("Error server: " + error)
+            })
+    }
+
+    function LoadWebSeccao() {
+        const url = baseUrl + "/conteudowebsite/" + 3;
+        axios.get(url)
+            .then(res => {
+                if (res.data.success) {
+                    const data = res.data.data[0];
+                    setdataWebHeader(data);
+                    setcampTituloSeccao(data.titulo_seccao);
+                    setcampTexto1(data.texto1);
+                    setcampTexto2(data.texto2);
+                    setcampTexto3(data.texto3);
+                    setcampImagemSeccao(data.imagem_seccao);
+                }
+                else {
+                    alert("Error web service")
+                }
+            })
+            .catch(error => {
+                alert("Error server: " + error)
+            })
+    }
+
+    function updateHeader() {
+        const url = baseUrl + "/conteudowebsite/updateheader/" + 1
+        const dataput = {
+            novo_titulo_header_param: campTituloHeader,
+            nova_imagem_header_param: campImagemHeader,
+            novo_link1_param: campLink1,
+            novo_link2_param: campLink2
+        }
+        axios.put(url, dataput)
+            .then(response => {
+                if (response.data.success === true) {
+                    alert(response.data.message)
+                }
+                else {
+                    alert("Error")
+                }
+            }).catch(error => {
+                alert("Error 34 " + error)
+            })
+    }
+
+    function updateFooter() {
+        const url = baseUrl + "/conteudowebsite/updatefooter/" + 2
+        const dataput = {
+            novo_titulo_footer_param: campTituloFooter,
+            novo_texto_footer_param: campTextoFooter,
+            novo_link1_param: campLink1,
+            novo_link2_param: campLink2
+        }
+        axios.put(url, dataput)
+            .then(response => {
+                if (response.data.success === true) {
+                    alert(response.data.message)
+                }
+                else {
+                    alert("Error")
+                }
+            }).catch(error => {
+                alert("Error 34 " + error)
+            })
+    }
+
+    function updateSeccao() {
+        const url = baseUrl + "/conteudowebsite/updateseccao/" + 3
+        const dataput = {
+            novo_tituloseccao_param: campTituloSeccao,
+            novo_texto1_param: campTexto1,
+            novo_texto2_param: campTexto2,
+            novo_texto3_param: campTexto3,
+            novo_imagemseccao_param: campImagemSeccao
+        }
+        axios.put(url, dataput)
+            .then(response => {
+                if (response.data.success === true) {
+                    alert(response.data.message)
+                }
+                else {
+                    alert("Error")
+                }
+            }).catch(error => {
+                alert("Error 34 " + error)
+            })
+    }
 
     return (
         <>
@@ -27,14 +176,21 @@ const EdicaoWeb = () => {
                                             <Accordion.Body>
                                                 <Form>
                                                     <Form.Group className="form-group">
+                                                        <Form.Label htmlFor="tituloh">Título:</Form.Label>
+                                                        <Form.Control type="tituloh" id="tituloh" value={campTituloHeader}
+                                                            onChange={(e) => setcampTituloHeader(e.target.value)} />
+                                                    </Form.Group>
+                                                    <Form.Group className="form-group">
                                                         <Form.Label htmlFor="link1">Link 1:</Form.Label>
-                                                        <Form.Control type="link1" id="link1" />
+                                                        <Form.Control type="link1" id="link1" value={campLink1}
+                                                            onChange={(e) => setcampLink1(e.target.value)} />
                                                     </Form.Group>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="link2">Link 2:</Form.Label>
-                                                        <Form.Control type="link2" id="link2" />
+                                                        <Form.Control type="link2" id="link2" value={campLink2}
+                                                            onChange={(e) => setcampLink2(e.target.value)} />
                                                     </Form.Group>
-                                                    <Button type="button" variant="btn btn-primary">Upload</Button>
+                                                    <Button type="button" variant="btn btn-primary" onClick={() => updateHeader()}>Atualizar</Button>
                                                 </Form>
                                             </Accordion.Body>
                                         </Accordion.Item>
@@ -47,22 +203,26 @@ const EdicaoWeb = () => {
                                                     </div>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="titulos">Título:</Form.Label>
-                                                        <Form.Control type="titulos" id="titulos1" />
+                                                        <Form.Control type="titulos" id="titulos1" value={campTituloSeccao}
+                                                            onChange={(e) => setcampTituloSeccao(e.target.value)}/>
                                                     </Form.Group>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="titulo1s">Texto 1:</Form.Label>
-                                                        <Form.Control type="titulo1s" id="titulo1s" />
+                                                        <Form.Control type="titulo1s" id="titulo1s" value={campTexto1}
+                                                            onChange={(e) => setcampTexto1(e.target.value)}/>
                                                     </Form.Group>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="titulo2s">Texto 2:</Form.Label>
-                                                        <Form.Control type="titulo2s" id="titulo2s" />
+                                                        <Form.Control type="titulo2s" id="titulo2s" value={campTexto2}
+                                                            onChange={(e) => setcampTexto2(e.target.value)}/>
                                                     </Form.Group>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="titulo3s">Texto 3:</Form.Label>
-                                                        <Form.Control type="titulo3s" id="titulo3s" />
+                                                        <Form.Control type="titulo3s" id="titulo3s" value={campTexto3}
+                                                            onChange={(e) => setcampTexto3(e.target.value)}/>
                                                     </Form.Group>
                                                     <Button type="button" variant="btn btn-warning me-3">Criar Nova Secção</Button>
-                                                    <Button type="button" variant="btn btn-primary">Upload</Button>
+                                                    <Button type="button" variant="btn btn-primary" onClick={() => updateSeccao()}>Atualizar</Button>
                                                 </Form>
                                             </Accordion.Body>
                                         </Accordion.Item>
@@ -72,54 +232,29 @@ const EdicaoWeb = () => {
                                                 <Form>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="titulof">Título:</Form.Label>
-                                                        <Form.Control type="titulof" id="titulof1" />
+                                                        <Form.Control type="titulof" id="titulof1" value={campTituloFooter}
+                                                            onChange={(e) => setcampTituloFooter(e.target.value)} />
                                                     </Form.Group>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="titulot">Texto:</Form.Label>
-                                                        <Form.Control type="titulot" id="titulot1" />
+                                                        <Form.Control type="titulot" id="titulot1" value={campTextoFooter}
+                                                            onChange={(e) => setcampTextoFooter(e.target.value)} />
                                                     </Form.Group>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="link1">Link 1:</Form.Label>
-                                                        <Form.Control type="link1" id="link1" />
+                                                        <Form.Control type="link1" id="link1" value={campLink1}
+                                                            onChange={(e) => setcampLink1(e.target.value)} />
                                                     </Form.Group>
                                                     <Form.Group className="form-group">
                                                         <Form.Label htmlFor="link2">Link 2:</Form.Label>
-                                                        <Form.Control type="link2" id="link2" />
+                                                        <Form.Control type="link2" id="link2" value={campLink2}
+                                                            onChange={(e) => setcampLink2(e.target.value)} />
                                                     </Form.Group>
-                                                    <Button type="button" variant="btn btn-primary">Upload</Button>
+                                                    <Button type="button" variant="btn btn-primary" onClick={() => updateFooter()}>Atualizar</Button>
                                                 </Form>
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
-                                </div>
-                            </Tab.Pane>
-                            <Tab.Pane eventKey="second" className={toggleState === false ? 'active' : ''} id="content-accordion-code" role="tabpanel" aria-labelledby="typo-output">
-                                <div className="section-block">
-                                    <pre className="language-markup"><code className="language-markup">
-                                        {`<div className="bd-example">
-<Accordion defaultActiveKey="0">
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Accordion Item #1</Accordion.Header>
-        <Accordion.Body>
-        This is the first item's accordion body. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the .accordion-body, though the transition does limit overflow.
-        </Accordion.Body>
-    </Accordion.Item>
-    <Accordion.Item eventKey="1">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
-        <Accordion.Body>
-        This is the second item's accordion body. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the .accordion-body, though the transition does limit overflow.
-        </Accordion.Body>
-    </Accordion.Item>
-    <Accordion.Item eventKey="2">
-        <Accordion.Header>Accordion Item #3</Accordion.Header>
-        <Accordion.Body>
-        This is the third item's accordion body. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the .accordion-body, though the transition does limit overflow.
-        </Accordion.Body>
-    </Accordion.Item>
-    </Accordion>
-</div>
-`}
-                                    </code></pre>
                                 </div>
                             </Tab.Pane>
                         </Tab.Content>
