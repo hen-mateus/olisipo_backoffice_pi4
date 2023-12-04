@@ -1,11 +1,101 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useEffect,useState } from 'react'
 import { Row, Col, Form, Image } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
+
 // img
 import imgsuccess from '../../../assets/images/pages/img-success.png'
 const AdicionarColaborador = () => {
     const [show, AccountShow] = useState('A');
+    const [campManager, setcampManager] = useState("");
+    const [campIdTipo, setcampIdTipo] = useState("");
+    const [campNome, setcampNome] = useState("");
+    const [campEmail, setcampEmail] = useState("");
+    const [campPassword, setcampPassword] = useState("");
+    const [campCliente, setcampCliente] = useState("");
+    const [campAtiva, setcampAtiva] = useState("");
+    const [campDeleted, setcampDeleted] = useState("");
+    const [campCurriculo, setcampCurriculo] = useState("");
+    const [campNumColaborador, setcampNumColaborador] = useState("");
+    const [campContribuinte, setcampContribuinte] = useState("");
+
+
+    const [managers, setManagers] = useState([]);
+    const [roles, setRoles] = useState([]);
+
+    useEffect(() => {
+        const fetchRoles = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/roles"); // Substitua pela URL correta da API para buscar os gêneros
+                setRoles(response.data.data); // Assume-se que a resposta da API retorna uma lista de objetos de gêneros
+            } catch (error) {
+                console.error("Erro ao buscar os roles:", error);
+            }
+        };
+
+        fetchRoles();
+    }, []);
+
+
+
+    function SendSave() {
+
+
+        if (campManager === "") {
+            alert("Atribua um manager!")
+        }
+        else if (campIdTipo === "") {
+            alert("Atribua um role!")
+        }
+        else if (campNome === "") {
+            alert("Insira um nome!")
+        }
+        else if (campEmail === "") {
+            alert("Insira um email!")
+        }
+        else if (campPassword === "") {
+            alert("Insira uma password!")
+        }
+        else if (campCliente === "") {
+            alert("Insira um cliente!")
+        }
+        else if (campNumColaborador === "") {
+            alert("Insira um Numero de Colaborador!")
+        } else if (campContribuinte === "") {
+            alert("Insira o numero de contribuinte!")
+        }
+        else {
+            const baseUrl = "http://localhost:3000/pessoas/register"
+            const datapost = {
+                id_tipo_param: campIdTipo,
+                nome_pessoa_param: campNome,
+                email_param: campEmail,
+                password_param: campPassword,
+                cliente_param: campCliente,
+                ativa_param: true,
+                deleted_param: false,
+                curriculo_param: campCurriculo,
+                numero_colaborador_param: campNumColaborador,
+                contribuinte_param: campContribuinte,
+                pes_id_param: campManager
+            }
+
+            axios.post(baseUrl, datapost)
+                .then(response => {
+
+                    if (response.data.success === true) {
+                        alert(response.data.message)
+                    }
+                    else {
+                        alert(response.data.message)
+                    }
+                }).catch(error => {
+                    alert("Error 34 " + error)
+                })
+        }
+    }
+
     return (
         <>
             <div>
@@ -76,19 +166,33 @@ const AdicionarColaborador = () => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Email:</label>
-                                                        <input type="email" className="form-control" name="email" placeholder="Email" />
+                                                        <input type="email" className="form-control" name="email" placeholder="Email" value={campEmail} onChange={value =>
+                                                            setcampEmail(value.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Nome:</label>
-                                                        <input type="text" className="form-control" name="uname" placeholder="Nome completo" />
+                                                        <input type="text" className="form-control" name="uname" placeholder="Nome completo" value={campNome} onChange={value =>
+                                                            setcampNome(value.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Password:</label>
-                                                        <input type="password" className="form-control" name="pwd" placeholder="Password" />
+                                                        <input type="password" className="form-control" name="pwd" placeholder="Password" value={campPassword} onChange={value =>
+                                                            setcampPassword(value.target.value)} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="form-label">Role:</label>
+                                                        <select id="inputState" className="form-control" value={campIdTipo} onChange={value => setcampIdTipo(value.target.value)}>
+                                                            <option value="" disabled>Escolha um role:</option>
+                                                            {roles.map(role => (
+                                                                <option key={role.id_tipo} value={role.id_tipo}>{role.tipo}</option>
+                                                            ))}
+                                                        </select>
                                                     </div>
                                                 </div>
 
@@ -110,15 +214,32 @@ const AdicionarColaborador = () => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Contribuinte</label>
-                                                        <input type="text" className="form-control" name="fname" placeholder="Contribuinte" />
+                                                        <input type="text" className="form-control" name="fname" placeholder="Contribuinte" value={campContribuinte} onChange={value => setcampContribuinte(value.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Número de Colaborador:</label>
-                                                        <input type="text" className="form-control" name="lname" placeholder="Número de Colaborador:" />
+                                                        <input type="number" className="form-control" name="lname" placeholder="Número de Colaborador:" value={campNumColaborador} onChange={value => setcampNumColaborador(value.target.value)} />
                                                     </div>
                                                 </div>
+
+
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="form-label">Manager</label>
+                                                        <input type="number" className="form-control" name="fname" placeholder="Manager" value={campManager} onChange={value => setcampManager(value.target.value)} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="form-label">Cliente:</label>
+                                                        <input type="text" className="form-control" name="lname" placeholder="Cliente:" value={campCliente} onChange={value => setcampCliente(value.target.value)} />
+                                                    </div>
+                                                </div>
+
 
                                             </div>
                                         </div>
@@ -137,11 +258,14 @@ const AdicionarColaborador = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Upload Curriculo</label>
-                                                <input type="file" className="form-control" name="pic" accept="image/*" />
+                                                <input type="file" className="form-control" name="pic" accept="image/*" value={campCurriculo} onChange={value => setcampCurriculo(value.target.value)} />
                                             </div>
 
                                         </div>
-                                        <button type="button" name="next" className="btn btn-primary next action-button float-end" value="Submit" onClick={() => AccountShow('Image')} >Submit</button>
+                                        <button type="button" name="next" className="btn btn-primary next action-button float-end" value="Submit" onClick={() => {
+                                            SendSave();
+                                            AccountShow('Image');
+                                        }}>Submit</button>
                                         <button type="button" name="previous" className="btn btn-dark previous action-button-previous float-end me-1" value="Previous" onClick={() => AccountShow('Account')} >Previous</button>
                                     </fieldset>
                                     <fieldset className={`${show === 'Image' ? 'd-block' : 'd-none'}`}>
