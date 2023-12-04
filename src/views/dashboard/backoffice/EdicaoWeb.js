@@ -8,12 +8,8 @@ import { useParams } from "react-router-dom";
 
 const EdicaoWeb = () => {
     const [toggleState, setToggleState] = useState(true);
-
     const [dataWebHeader, setdataWebHeader] = useState("");
-
     const [dataWebSeccao, setdataWebSeccao] = useState([]);
-    const [sectionData, setSectionData] = useState([]);
-
     const [campTituloHeader, setcampTituloHeader] = useState("");
     const [campLink1, setcampLink1] = useState("");
     const [campLink2, setcampLink2] = useState("");
@@ -169,8 +165,6 @@ const EdicaoWeb = () => {
 
     function conteudowebSeccao() {
         return dataWebSeccao.map((data, index) => {
-            const currentSectionData = sectionData[index] || {};
-            
             return (
                 <Accordion.Body>
                     <Form>
