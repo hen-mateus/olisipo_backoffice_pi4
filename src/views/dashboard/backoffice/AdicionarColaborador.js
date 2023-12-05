@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col, Form, Image } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
@@ -20,22 +20,32 @@ const AdicionarColaborador = () => {
     const [campNumColaborador, setcampNumColaborador] = useState("");
     const [campContribuinte, setcampContribuinte] = useState("");
 
-
     const [managers, setManagers] = useState([]);
     const [roles, setRoles] = useState([]);
 
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/roles"); // Substitua pela URL correta da API para buscar os gêneros
-                setRoles(response.data.data); // Assume-se que a resposta da API retorna uma lista de objetos de gêneros
+                const response = await axios.get("http://localhost:3000/roles");
+                setRoles(response.data.data);
             } catch (error) {
                 console.error("Erro ao buscar os roles:", error);
             }
         };
+        const fetchManagers = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/pessoas/managers");
+                setManagers(response.data.data);
+            } catch (error) {
+                console.error("Erro ao buscar os managers:", error);
+            }
+        };
 
         fetchRoles();
+        fetchManagers();
     }, []);
+
+
 
 
 
@@ -127,7 +137,7 @@ const AdicionarColaborador = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                                     </svg>
                                                 </div>
-                                                <span>Dados para a empresa</span>
+                                                <span>Empresa</span>
                                             </Link>
                                         </li>
                                         <li id="payment" className={`${show === 'Image' ? ' active done' : ''} ${show === 'Personal' ? 'active' : ''} col-lg-3 col-md-6 mb-2 text-start`}>
@@ -230,7 +240,13 @@ const AdicionarColaborador = () => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Manager</label>
-                                                        <input type="number" className="form-control" name="fname" placeholder="Manager" value={campManager} onChange={value => setcampManager(value.target.value)} />
+
+                                                        <select id="inputState" className="form-control" value={campManager} onChange={value => setcampManager(value.target.value)}>
+                                                            <option value="" disabled>Escolha um manager:</option>
+                                                            {managers.map(manager => (
+                                                                <option key={manager.id_pessoa} value={manager.id_pessoa}>{manager.nome_pessoa} - {manager.numero_colaborador}</option>
+                                                            ))}
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
