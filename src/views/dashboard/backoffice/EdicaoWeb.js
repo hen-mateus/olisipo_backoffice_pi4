@@ -5,6 +5,7 @@ import { Accordion, Nav, Tab, Button, Form } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { baseUrl } from './baseURL';
 import { useParams } from "react-router-dom";
+import Index from "..";
 
 const EdicaoWeb = () => {
     const [toggleState, setToggleState] = useState(true);
@@ -167,18 +168,18 @@ const EdicaoWeb = () => {
         return dataWebSeccao.map((data, index) => {
             return (
                 <Accordion.Body>
-                    <Form>
+                    <Form name={`Form-${index}`} >
                         <div className="header-title">
                             <h5 className="card-title">Secção {index + 1}:</h5>
                         </div>
                         <Form.Group className="form-group">
                             <Form.Label htmlFor="titulos">Título:</Form.Label>
-                            <Form.Control type="titulos" id={`titulos-${index}`} value={data.titulo_seccao}
+                            <Form.Control type="titulos" name={`titulos-${index}`} id={`titulos-${index}`} value={data.titulo_seccao}
                                 onChange={(e) => setcampTituloSeccao(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="form-group">
                             <Form.Label htmlFor="titulo1s">Texto 1:</Form.Label>
-                            <Form.Control type="titulo1s" id={`titulo1s-${index}`} value={campTexto1}
+                            <Form.Control type="titulo1s"name={`texto1-${index}`} id={`titulo1s-${index}`} value={campTexto1}
                                 onChange={(e) => setcampTexto1(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="form-group">
@@ -191,8 +192,8 @@ const EdicaoWeb = () => {
                             <Form.Control type="titulo3s" id={`titulo3s-${index}`} value={data.texto3}
                                 onChange={(e) => setcampTexto3(e.target.value)} />
                         </Form.Group>
-                        <Button type="button" variant="warning me-3">Criar Nova Secção</Button>
-                        <Button type="button" variant="primary" onClick={() => updateSeccao(data.id_conteudo)}>Atualizar</Button>
+                        <Button type="button" id={`btn1-${index}`} variant="warning me-3">Criar Nova Secção</Button>
+                        <Button type="button" id={`btn2-${index}`} variant="primary" onClick={() => updateSeccao(data.id_conteudo)}>Atualizar</Button>
 
                     </Form>
                 </Accordion.Body>

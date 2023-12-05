@@ -50,6 +50,9 @@ const Reunioes = () => {
      
       return (
         <tr key={index}>
+          <td>
+            
+          </td>
           <td className="text-center">
           {data.nome_pessoa}
           </td>
@@ -92,7 +95,8 @@ const Reunioes = () => {
                 <Table striped id="basic-table" className="mb-0" role="grid">
                   <thead>
                     <tr>
-                      <th className="text-center">Utilizador</th>
+                      <th className="text-center">Colaborador</th>
+                      <th className="text-center">Manager</th>
                       <th className="text-center">Dia</th>
                       <th className="text-center">Hora</th>
                       <th className="text-center">Assunto</th>
