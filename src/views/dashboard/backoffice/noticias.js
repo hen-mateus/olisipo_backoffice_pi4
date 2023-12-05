@@ -5,6 +5,8 @@ import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
 import { baseUrl } from './baseURL';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const formatTableCell = () => {
     return {
@@ -14,11 +16,10 @@ const formatTableCell = () => {
     };
 };
 
-
 const Notícias = () => {
     const { noticiasId } = useParams();
     const [dataNoticias, setdataNoticias] = useState([]);
-    const [dataNoticiasEdit, setdataNoticiasEdit] = useState([]);
+    const [dataNoticiasEdit, setdataNoticiasEdit] = useState("");
     const [campTipoNoticia, setcampTipoNoticia] = useState([]);
     const [campTituloNoticia, setcampTituloNoticia] = useState([]);
     const [campSubtituloNoticia, setcampSubtituloNoticia] = useState([]);
@@ -26,6 +27,12 @@ const Notícias = () => {
     const [campImagemNoticia, setcampImagemNoticia] = useState([]);
     const [campPublicada, setcampPublicada] = useState([]);
     const [datatiposNoticias, setdatatipoNoticias] = useState([]);
+
+    const [campCriarTipoNoticia, setcampCriarTipoNoticia] = useState([]);
+    const [campCriarTituloNoticia, setcampCriarTituloNoticia] = useState([]);
+    const [campCriarSubtituloNoticia, setcampCriarSubtituloNoticia] = useState([]);
+    const [campCriarCorpoNoticia, setcampCriarCorpoNoticia] = useState([]);
+    const [campCriarImagemNoticia, setcampCriarImagemNoticia] = useState([]);
 
     const [show1, setShow1] = useState(false);
     const [show2, setShow2] = useState(false);
@@ -36,8 +43,8 @@ const Notícias = () => {
     const handleShow2 = () => setShow2(true);
 
     const handleEditarClick = (noticiaId) => {
-        LoadNoticiaIndividual(noticiaId);
         handleShow1();
+        LoadNoticiaIndividual(noticiaId);
     };
 
     const handleGuardarEdição = (noticiaId) => {
@@ -118,20 +125,19 @@ const Notícias = () => {
 
     function updateNoticia(noticiaId) {
         const url = baseUrl + "/noticias/update/" + noticiaId
-        console.log(url)
         const dataput = {
             novo_id_tipo_noticia_param: campTipoNoticia,
             novo_titulo_param: campTituloNoticia,
             novo_subtitulo_param: campSubtituloNoticia,
             novo_corpo_param: campCorpoNoticia,
             nova_imagem_param: campImagemNoticia,
-            nova_publicacao_param: campPublicada
+            nova_publicacao_param: false
         }
-        console.log(dataput)
         axios.put(url, dataput)
             .then(response => {
                 if (response.data.success === true) {
                     alert(response.data.message)
+                    LoadNoticias();
                 }
                 else {
                     alert("Error")
@@ -142,29 +148,29 @@ const Notícias = () => {
     }
 
     function inserirNoticia() {
-        if (campTipoNoticia === "") {
+        if (campCriarTipoNoticia === "") {
             alert("Atribua um tipo de notícia!")
         }
-        else if (campTituloNoticia === "") {
+        else if (campCriarTituloNoticia === "") {
             alert("Atribua um título!")
         }
-        else if (campSubtituloNoticia === "") {
+        else if (campCriarSubtituloNoticia === "") {
             alert("Insira um subtítulo!")
         }
-        else if (campCorpoNoticia === "") {
+        else if (campCriarCorpoNoticia === "") {
             alert("Insira um corpo!")
         }
-        else if (campImagemNoticia === "") {
+        else if (campCriarImagemNoticia === "") {
             alert("Insira uma imagem!")
         }
         else {
             const url = baseUrl + "/noticias/create/";
             const datapost = {
-                id_tipo_noticia_param: campTipoNoticia,
-                titulo_noticia_param: campTituloNoticia,
-                subtitulo_noticia_param: campSubtituloNoticia,
-                corpo_noticia_param: campCorpoNoticia,
-                imagem_noticia_param: campImagemNoticia,
+                id_tipo_noticia_param: campCriarTipoNoticia,
+                titulo_noticia_param: campCriarTituloNoticia,
+                subtitulo_noticia_param: campCriarSubtituloNoticia,
+                corpo_noticia_param: campCriarCorpoNoticia,
+                imagem_noticia_param: campCriarImagemNoticia,
                 noticia_publicada_param: false,
             }
 
@@ -173,6 +179,7 @@ const Notícias = () => {
 
                     if (response.data.success === true) {
                         alert(response.data.message)
+                        LoadNoticias();
                     }
                     else {
                         alert(response.data.message)
@@ -181,6 +188,48 @@ const Notícias = () => {
                     alert("Error 34 " + error)
                 })
         }
+    }
+
+    function DeleteNoticia(id) {
+        Swal.fire({
+            title: 'Tem a certeza que quer eliminar?',
+            text: 'Não vai conseguir recuperar esta notícia!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, eliminar!',
+            cancelButtonText: 'Não, quero manter'
+        }).then((result) => {
+            if (result.value) {
+                SendDeleteNoticia(id)
+            } else if (result.dismiss ===
+                Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'A sua notícia não foi eliminada',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function SendDeleteNoticia(id) {
+        const url = baseUrl + "/noticias/delete/";
+        axios.post(url, {
+            id_noticia_param: id
+        })
+            .then(response => {
+                if (response.data.success) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'A notícia foi eliminada com sucesso.',
+                        'success'
+                    )
+                }
+                LoadNoticias();
+            })
+            .catch(error => {
+                alert("Error 325 ")
+            })
     }
 
     function TabelaNoticias() {
@@ -207,7 +256,6 @@ const Notícias = () => {
                             <div className="d-flex">
                                 <Button variant="success" className="m-1" onClick="">Publicar</Button>
                                 <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_noticia)}>Editar</Button>
-                                <Button variant="info" className="m-1" onClick={() => handleNovaNoticia()}>Nova</Button>
                                 <Modal
                                     show={show1}
                                     onHide={handleClose1}
@@ -261,62 +309,9 @@ const Notícias = () => {
                                         <Button variant="primary" onClick={() => handleGuardarEdição(data.id_noticia)}>Guardar</Button>
                                     </Modal.Footer>
                                 </Modal>
-                                <Modal
-                                    show={show2}
-                                    onHide={handleClose2}
-                                    backdrop="static"
-                                    keyboard={false}
-                                >
-                                    <Modal.Header closeButton>
-                                        <Modal.Title>Editar Notícia</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <Form>
-                                            <Form.Group className="form-group">
-                                                <Form.Label htmlFor="titulon">Título:</Form.Label>
-                                                <Form.Control type="titulon" id="titulon" value={campTituloNoticia}
-                                                    onChange={(e) => setcampTituloNoticia(e.target.value)} />
-                                            </Form.Group>
-                                            <Form.Group className="form-group">
-                                                <Form.Label htmlFor="subtitulon">Subtítulo:</Form.Label>
-                                                <Form.Control type="subtitulon" id="subtitulon" value={campSubtituloNoticia}
-                                                    onChange={(e) => setcampSubtituloNoticia(e.target.value)} />
-                                            </Form.Group>
-                                            <Form.Group className="form-group">
-                                                <Form.Label htmlFor="corpon">Corpo da Notícia:</Form.Label>
-                                                <Form.Control as="textarea" id="corpon" value={campCorpoNoticia}
-                                                    onChange={(e) => setcampCorpoNoticia(e.target.value)} />
-                                            </Form.Group>
-                                            <Form.Group className="form-group">
-                                                <Form.Label htmlFor="imagemn">Imagem:</Form.Label>
-                                                <Form.Control type="imagemn" id="imagemn" value={campImagemNoticia}
-                                                    onChange={(e) => setcampImagemNoticia(e.target.value)} />
-                                            </Form.Group>
-                                            <Form.Group className="form-group">
-                                                <Form.Label htmlFor="tipoNoticia">Tipo de Notícia:</Form.Label>
-                                                <Form.Control
-                                                    as="select"
-                                                    id="tipoNoticia"
-                                                    value={campTipoNoticia}
-                                                    onChange={(e) => setcampTipoNoticia(e.target.value)}
-                                                >
-                                                    <option value="">Selecione um Tipo de Notícia</option>
-                                                    {datatiposNoticias.map((tipo) => (
-                                                        <option key={tipo.id_tipo_noticia} value={tipo.id_tipo_noticia}>
-                                                            {tipo.tipo_noticia}
-                                                        </option>
-                                                    ))}
-                                                </Form.Control>
-                                            </Form.Group>
-                                        </Form>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button variant="primary" onClick={() => handleCriarNoticia()}>Criar Notícia</Button>
-                                    </Modal.Footer>
-                                </Modal>
                             </div>
                             <div className="d-flex">
-                                <Button variant="danger" className="m-1" onClick="">Eliminar</Button>
+                                <Button variant="danger" className="m-1" onClick={() => DeleteNoticia(data.id_noticia)}>Eliminar</Button>
                             </div>
                         </div>
                     </td>
@@ -333,6 +328,60 @@ const Notícias = () => {
                         <Card.Header className="d-flex justify-content-between">
                             <div className="header-title">
                                 <h4 className="card-title">Notícias</h4>
+                                <Button variant="info" className="mt-3" onClick={() => handleNovaNoticia()}>Adicionar Nova Notícia</Button>
+                                <Modal
+                                    show={show2}
+                                    onHide={handleClose2}
+                                    backdrop="static"
+                                    keyboard={false}
+                                >
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Criar Notícia</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Form>
+                                            <Form.Group className="form-group">
+                                                <Form.Label htmlFor="titulon">Título:</Form.Label>
+                                                <Form.Control type="titulon" id="titulon" value={campCriarTipoNoticia}
+                                                    onChange={(e) => setcampCriarTituloNoticia(e.target.value)} />
+                                            </Form.Group>
+                                            <Form.Group className="form-group">
+                                                <Form.Label htmlFor="subtitulon">Subtítulo:</Form.Label>
+                                                <Form.Control type="subtitulon" id="subtitulon" value={campCriarSubtituloNoticia}
+                                                    onChange={(e) => setcampCriarSubtituloNoticia(e.target.value)} />
+                                            </Form.Group>
+                                            <Form.Group className="form-group">
+                                                <Form.Label htmlFor="corpon">Corpo da Notícia:</Form.Label>
+                                                <Form.Control as="textarea" id="corpon" value={campCriarCorpoNoticia}
+                                                    onChange={(e) => setcampCriarCorpoNoticia(e.target.value)} />
+                                            </Form.Group>
+                                            <Form.Group className="form-group">
+                                                <Form.Label htmlFor="imagemn">Imagem:</Form.Label>
+                                                <Form.Control type="imagemn" id="imagemn" value={campCriarImagemNoticia}
+                                                    onChange={(e) => setcampCriarImagemNoticia(e.target.value)} />
+                                            </Form.Group>
+                                            <Form.Group className="form-group">
+                                                <Form.Label htmlFor="tipoNoticia">Tipo de Notícia:</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    id="tipoNoticia"
+                                                    value={campCriarTipoNoticia}
+                                                    onChange={(e) => setcampCriarTipoNoticia(e.target.value)}
+                                                >
+                                                    <option value="" disabled>Selecione um Tipo de Notícia</option>
+                                                    {datatiposNoticias.map((tipo) => (
+                                                        <option key={tipo.id_tipo_noticia} value={tipo.id_tipo_noticia}>
+                                                            {tipo.tipo_noticia}
+                                                        </option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Form.Group>
+                                        </Form>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="primary" onClick={() => handleCriarNoticia()}>Criar Notícia</Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>
                         </Card.Header>
                         <Card.Body className="p-0">
@@ -340,7 +389,6 @@ const Notícias = () => {
                                 <Table striped id="basic-table" className="mb-0" role="grid">
                                     <thead>
                                         <tr>
-
                                             <th className="text-center">Título</th>
                                             <th className="text-center">Subtítulo</th>
                                             <th className="text-center">Corpo da Notícia</th>
