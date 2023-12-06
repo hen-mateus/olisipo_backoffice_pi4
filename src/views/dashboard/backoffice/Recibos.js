@@ -1,27 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Table, Button } from "react-bootstrap";
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { baseUrl } from './baseURL';
 
 //progressbar
 import Progress from "../../../components/progress.js";
 
-// img
-import shap1 from "../../../assets/images/shapes/01.png";
-import shap2 from "../../../assets/images/shapes/02.png";
-import shap3 from "../../../assets/images/shapes/03.png";
-import shap4 from "../../../assets/images/shapes/04.png";
-import shap5 from "../../../assets/images/shapes/05.png";
-import shap6 from "../../../assets/images/shapes/06.png";
-
 const Recibos = () => {
-  const handleSimClick = () => {
-    // Lógica para lidar com o clique no botão "Sim"
-  };
+  const [dataRecibos, setdataRecibos] = useState([]);
+  const [campRecibopdf, setcampRecibopdf] = useState('');
+  const [envioRealizado, setEnvioRealizado] = useState(false);
 
-  const handleNaoClick = () => {
-    // Lógica para lidar com o clique no botão "Não"
-  };
+  useEffect(() => {
+    LoadRecibos();
+  }, []);
+
+  function LoadRecibos() {
+    const url = baseUrl + "/recibosvenc/";
+    axios.get(url)
+      .then(res => {
+        if (res.data.success) {
+          const data = res.data.data;
+          setdataRecibos(data);
+        } else {
+          alert("Error Web Service!");
+        }
+      })
+      .catch(error => {
+        alert(error);
+      });
+  }
+
+  function updateRecibo(parceriaId) {
+    if (campRecibopdf === "") {
+      alert("Escolha um ficheiro!")
+    }
+    else {
+      const url = baseUrl + "/recibosvenc/update/" + parceriaId
+      console.log(url)
+      const dataput = {
+        recibo_pdf_param: campRecibopdf,
+      }
+      axios.put(url, dataput)
+        .then(response => {
+          if (response.data.success === true) {
+            alert(response.data.message)
+            setEnvioRealizado(true);
+            LoadRecibos();
+          }
+          else {
+            alert("Error")
+          }
+        }).catch(error => {
+          alert("Error 34 " + error)
+        })
+    }
+  }
+
+  function getFormattedDate(dateString) {
+    const options = { month: 'long', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('pt-PT', options);
+  }
+
+  function TabelaRecibos() {
+    return dataRecibos.map((data, index) => {
+      const formattedDate = getFormattedDate(data.data_recibo);
+
+      const handleEnviarClick = () => {
+        updateRecibo(data.id_recibo);
+      };
+      return (
+        <tr key={index}>
+          <td className="text-center">
+            <h6>{data.nome_pessoa}</h6>
+          </td>
+          <td className="text-center">
+            <div>
+              <div>
+                {formattedDate}
+              </div>
+            </div>
+          </td>
+          <td className="text-center">
+            <div>
+              <input type="file" className="form-control" name="pic" accept="image/*" value={campRecibopdf} onChange={(value) => setcampRecibopdf(value.target.value)} disabled={envioRealizado}
+              />
+            </div>
+          </td>
+          <td>
+            <div className="d-flex align-items-center justify-content-center mb-2">
+              <Button variant="success" onClick={handleEnviarClick} disabled={envioRealizado}>
+                Enviar
+              </Button>
+            </div>
+          </td>
+        </tr>
+      );
+    });
+  }
 
   return (
     <>
@@ -39,43 +117,14 @@ const Recibos = () => {
                   <thead>
                     <tr>
                       <th className="text-center">Utilizador</th>
-                      <th className="text-center">Data</th>
+                      <th className="text-center">Data do Recibo</th>
                       <th className="text-center">Recibo</th>
 
                       <th className="text-center">Envio</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="text-center">
-                        <h6>Vera Alves</h6>
-                      </td>
-                      <td className="text-center">
-                        <div>
-                          <div>
-                            Janeiro 2023
-                          </div>
-                        </div>
-                      </td>
-
-                      <td className="text-center">
-
-                        <div>
-
-                          <Button variant="light" onClick={handleSimClick}>
-                            Upload
-                          </Button>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center justify-content-center mb-2">
-                          <Button variant="success" onClick={handleSimClick}>
-                            Enviar
-                          </Button>
-
-                        </div>
-                      </td>
-                    </tr>
+                    {TabelaRecibos()}
                   </tbody>
                 </Table>
               </div>
