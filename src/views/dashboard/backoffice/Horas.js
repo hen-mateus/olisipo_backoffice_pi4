@@ -49,7 +49,6 @@ const Horas = () => {
 
   function TabelaHoras() {
     return dataHoras.map((data, index) => {
-
       return (
         <tr key={index}>
           <td className="text-center">
