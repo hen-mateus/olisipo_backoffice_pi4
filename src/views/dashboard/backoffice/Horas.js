@@ -8,14 +8,6 @@ import { baseUrl } from './baseURL';
 //progressbar
 import Progress from "../../../components/progress.js";
 
-// img
-import shap1 from "../../../assets/images/shapes/01.png";
-import shap2 from "../../../assets/images/shapes/02.png";
-import shap3 from "../../../assets/images/shapes/03.png";
-import shap4 from "../../../assets/images/shapes/04.png";
-import shap5 from "../../../assets/images/shapes/05.png";
-import shap6 from "../../../assets/images/shapes/06.png";
-
 const Horas = () => {
   const handleSimClick = () => {
     // Lógica para lidar com o clique no botão "Sim"
@@ -49,7 +41,6 @@ const Horas = () => {
 
   function TabelaHoras() {
     return dataHoras.map((data, index) => {
-
       return (
         <tr key={index}>
           <td className="text-center">

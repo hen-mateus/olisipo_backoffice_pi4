@@ -45,10 +45,6 @@ const AdicionarColaborador = () => {
         fetchManagers();
     }, []);
 
-
-
-
-
     function SendSave() {
 
 
@@ -281,7 +277,7 @@ const AdicionarColaborador = () => {
                                         </div>
                                         <button type="button" name="next" className="btn btn-primary next action-button float-end" value="Submit" onClick={() => {
                                             SendSave();
-                                           ;
+                                            ;
                                         }}>Submit</button>
                                         <button type="button" name="previous" className="btn btn-dark previous action-button-previous float-end me-1" value="Previous" onClick={() => AccountShow('Account')} >Previous</button>
                                     </fieldset>
