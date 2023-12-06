@@ -73,6 +73,14 @@ const Recibos = () => {
       };
       return (
         <tr key={index}>
+
+          <td className="text-center">
+          {data.nome_pessoa_1}
+          </td>
+          <td className="text-center">
+          {data.nome_pessoa_2}
+          </td>
+
           <td className="text-center">
             <h6>{data.nome_pessoa}</h6>
           </td>
