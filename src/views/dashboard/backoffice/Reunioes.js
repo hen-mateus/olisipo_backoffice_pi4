@@ -50,11 +50,11 @@ const Reunioes = () => {
      
       return (
         <tr key={index}>
-          <td>
-            
+          <td className="text-center">
+          {data.nome_pessoa_1}
           </td>
           <td className="text-center">
-          {data.nome_pessoa}
+          {data.nome_pessoa_2}
           </td>
           <td className="text-center">
             {data.data_reuniao}
