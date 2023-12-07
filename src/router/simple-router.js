@@ -5,7 +5,7 @@ import React from 'react'
 import ConfirmMail from '../views/dashboard/auth/confirm-mail'
 import LockScreen from '../views/dashboard/auth/lock-screen'
 import Recoverpw from '../views/dashboard/auth/recoverpw'
-import SignIn from '../views/dashboard/auth/sign-in'
+import Login from '../views/dashboard/backoffice/Login'
 import SignUp from '../views/dashboard/auth/sign-up'
 // errors
 import Error404 from '../views/dashboard/errors/error404'
@@ -35,8 +35,8 @@ import Maintenance from '../views/dashboard/errors/maintenance'
 
 export const SimpleRouter = [
     {
-        path: 'auth/sign-in',
-        element: <SignIn />
+        path: '/login',
+        element: <Login />
     },
     {
         path: 'auth/sign-up',

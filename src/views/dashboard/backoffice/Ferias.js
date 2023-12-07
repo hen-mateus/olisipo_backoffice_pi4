@@ -6,14 +6,6 @@ import Card from "../../../components/Card";
 import { baseUrl } from './baseURL';
 
 const Ferias = () => {
-  const handleSimClick = () => {
-    // Lógica para lidar com o clique no botão "Sim"
-  };
-
-  const handleNaoClick = () => {
-    // Lógica para lidar com o clique no botão "Não"
-  };
-
   const [dataFerias, setdataFerias] = useState([]);
 
   useEffect(() => {
@@ -34,6 +26,48 @@ const Ferias = () => {
       .catch(error => {
         alert(error);
       });
+  }
+
+  function inserirRelacaoAprovada(id_ferias) {
+    const url = baseUrl + "/relacaoestados/createferias/";
+    const datapost = {
+      id_estado: 1,
+      id_ferias: id_ferias,
+    }
+    axios.post(url, datapost)
+      .then(response => {
+
+        if (response.data.success === true) {
+          alert(response.data.message)
+          LoadFerias();
+        }
+        else {
+          alert(response.data.message)
+        }
+      }).catch(error => {
+        alert("Error 34 " + error)
+      })
+  }
+
+  function inserirRelacaoRecusada(id_ferias) {
+    const url = baseUrl + "/relacaoestados/createferias/";
+    const datapost = {
+      id_estado: 2,
+      id_ferias: id_ferias,
+    }
+    axios.post(url, datapost)
+      .then(response => {
+
+        if (response.data.success === true) {
+          alert(response.data.message)
+          LoadFerias();
+        }
+        else {
+          alert(response.data.message)
+        }
+      }).catch(error => {
+        alert("Error 34 " + error)
+      })
   }
 
   function calcularDiferencaDias(dataInicio, dataFim) {
@@ -64,11 +98,11 @@ const Ferias = () => {
           </td>
           <td>
             <div className="d-flex align-items-center justify-content-center mb-2">
-              <Button variant="success" onClick={handleSimClick}>
+              <Button variant="success" onClick={() => inserirRelacaoAprovada(data.id_ferias)}>
                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M8.43994 12.0002L10.8139 14.3732L15.5599 9.6272" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>
               </Button>
               <td></td><td></td>
-              <Button variant="danger" onClick={handleNaoClick}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
+              <Button variant="danger" onClick={() => inserirRelacaoRecusada(data.id_ferias)}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
             </div>
           </td>
         </tr>
