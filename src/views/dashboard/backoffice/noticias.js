@@ -34,15 +34,21 @@ const Notícias = () => {
     const [campCriarCorpoNoticia, setcampCriarCorpoNoticia] = useState([]);
     const [campCriarImagemNoticia, setcampCriarImagemNoticia] = useState([]);
 
+    const [noticiaIdEditar, setnoticiaIdEditar] = useState(null);
+
     const [show1, setShow1] = useState(false);
     const [show2, setShow2] = useState(false);
 
-    const handleClose1 = () => setShow1(false);
+    const handleClose1 = () => {
+        setnoticiaIdEditar(null);
+        setShow1(false);
+    };
     const handleShow1 = () => setShow1(true);
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
 
     const handleEditarClick = (noticiaId) => {
+        setnoticiaIdEditar(noticiaId);
         handleShow1();
         LoadNoticiaIndividual(noticiaId);
     };
@@ -255,9 +261,11 @@ const Notícias = () => {
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
                             <div className="d-flex">
                                 <Button variant="success" className="m-1" onClick="">Publicar</Button>
-                                <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_noticia)}>Editar</Button>
+                            </div>
+                            <div className="d-flex">
+                            <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_noticia)}>Editar</Button>
                                 <Modal
-                                    show={show1}
+                                    show={show1 && noticiaIdEditar === data.id_noticia}
                                     onHide={handleClose1}
                                     backdrop="static"
                                     keyboard={false}
@@ -309,8 +317,6 @@ const Notícias = () => {
                                         <Button variant="primary" onClick={() => handleGuardarEdição(data.id_noticia)}>Guardar</Button>
                                     </Modal.Footer>
                                 </Modal>
-                            </div>
-                            <div className="d-flex">
                                 <Button variant="danger" className="m-1" onClick={() => DeleteNoticia(data.id_noticia)}>Eliminar</Button>
                             </div>
                         </div>

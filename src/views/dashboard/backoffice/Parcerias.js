@@ -33,17 +33,23 @@ const Parcerias = () => {
     const [campCriarBeneficiosParceria, setcampCriarBeneficiosParceria] = useState([]);
     const [campCriarImagemParceria, setcampCriarImagemParceria] = useState([]);
 
+    const [parceriaIdEditar, setParceriaIdEditar] = useState(null);
+
     const [show1, setShow1] = useState(false);
     const [show2, setShow2] = useState(false);
 
-    const handleClose1 = () => setShow1(false);
+    const handleClose1 = () => {
+        setParceriaIdEditar(null);
+        setShow1(false);
+    };
     const handleShow1 = () => setShow1(true);
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
 
     const handleEditarClick = (parceriaId) => {
-        handleShow1();
+        setParceriaIdEditar(parceriaId);
         LoadParceriaIndividual(parceriaId);
+        handleShow1();
     };
 
     const handleGuardarEdição = (parceriaId) => {
@@ -122,7 +128,6 @@ const Parcerias = () => {
 
     function updateParceria(parceriaId) {
         const url = baseUrl + "/parcerias/update/" + parceriaId
-        console.log(url)
         const dataput = {
             novo_id_tipo_parceria_param: campTipoParceria,
             novo_nome_param: campNomeParceria,
@@ -171,8 +176,6 @@ const Parcerias = () => {
                 imagem_parceria_param: campCriarImagemParceria,
                 parceria_publicada_param: false,
             }
-            console.log(datapost)
-            console.log(url)
             axios.post(url, datapost)
                 .then(response => {
                     if (response.data.success === true) {
@@ -253,9 +256,11 @@ const Parcerias = () => {
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
                             <div className="d-flex">
                                 <Button variant="success" className="m-1" onClick="">Publicar</Button>
-                                <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_parceria)}>Editar</Button>
+                            </div>
+                            <div className="d-flex">
+                            <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_parceria)}>Editar</Button>
                                 <Modal
-                                    show={show1}
+                                    show={show1 && parceriaIdEditar === data.id_parceria}
                                     onHide={handleClose1}
                                     backdrop="static"
                                     keyboard={false}
@@ -307,8 +312,6 @@ const Parcerias = () => {
                                         <Button variant="primary" onClick={() => handleGuardarEdição(data.id_parceria)}>Guardar</Button>
                                     </Modal.Footer>
                                 </Modal>
-                            </div>
-                            <div className="d-flex">
                                 <Button variant="danger" className="m-1" onClick={() => DeleteParceria(data.id_parceria)}>Eliminar</Button>
                             </div>
                         </div>

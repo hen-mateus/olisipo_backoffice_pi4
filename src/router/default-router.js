@@ -111,10 +111,6 @@ export const DefaultRouter = [
                 element: <Index />
             },
             {
-                path: '/login',
-                element: <Login />
-            },
-            {
                 path: 'dashboard/special-pages/billing',
                 element: <Billing />
             },
