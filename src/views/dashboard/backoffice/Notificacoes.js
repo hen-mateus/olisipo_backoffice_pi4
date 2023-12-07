@@ -1,4 +1,4 @@
-import React, {useEffect,Fragment,memo} from 'react'
+import React, {useEffect, Fragment,memo} from 'react'
 import { Navbar,Container,Nav,Dropdown} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import CustomToggle from '../../../components/dropdowns'
@@ -93,7 +93,7 @@ const Header = memo((props) => {
                                                 <div className="d-flex align-items-center">
                                                     <img className="p-1 avatar-40 rounded-pill bg-soft-primary" src={shapes1} alt=""/>
                                                     <div className="ms-3 w-100">
-                                                        <h6 className="mb-0 ">Emma Watson Bni</h6>
+                                                        <h6 className="mb-0 ">Ajudas de Custo</h6>
                                                         <div className="d-flex justify-content-between align-items-center">
                                                             <p className="mb-0">95 MB</p>
                                                             <small className="float-right font-size-12">Just Now</small>
@@ -107,7 +107,7 @@ const Header = memo((props) => {
                                                         <img className="p-1 avatar-40 rounded-pill bg-soft-primary" src={shapes2} alt=""/>
                                                     </div>
                                                     <div className="ms-3 w-100">
-                                                        <h6 className="mb-0 ">New customer is join</h6>
+                                                        <h6 className="mb-0 ">Relatorio de horas</h6>
                                                         <div className="d-flex justify-content-between align-items-center">
                                                             <p className="mb-0">Cyst Bni</p>
                                                             <small className="float-right font-size-12">5 days ago</small>
@@ -119,7 +119,7 @@ const Header = memo((props) => {
                                                 <div className="d-flex align-items-center">
                                                     <img className="p-1 avatar-40 rounded-pill bg-soft-primary" src={shapes3} alt=""/>
                                                     <div className="ms-3 w-100">
-                                                        <h6 className="mb-0 ">Two customer is left</h6>
+                                                        <h6 className="mb-0 ">Pedidos de Férias</h6>
                                                         <div className="d-flex justify-content-between align-items-center">
                                                             <p className="mb-0">Cyst Bni</p>
                                                             <small className="float-right font-size-12">2 days ago</small>
@@ -131,7 +131,7 @@ const Header = memo((props) => {
                                                 <div className="d-flex align-items-center">
                                                     <img className="p-1 avatar-40 rounded-pill bg-soft-primary" src={shapes4} alt=""/>
                                                     <div className="w-100 ms-3">
-                                                        <h6 className="mb-0 ">New Mail from Fenny</h6>
+                                                        <h6 className="mb-0 ">Alteração de Dados Pessoais</h6>
                                                         <div className="d-flex justify-content-between align-items-center">
                                                             <p className="mb-0">Cyst Bni</p>
                                                             <small className="float-right font-size-12">3 days ago</small>
