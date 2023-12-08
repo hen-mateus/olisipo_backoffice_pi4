@@ -238,6 +238,25 @@ const Notícias = () => {
             })
     }
 
+    function publicarNoticia(noticiaId) {
+        const url = baseUrl + "/noticias/update/" + noticiaId;
+        const dataput = {
+            nova_publicacao_param: !dataNoticias.find(noticia => noticia.id_noticia === noticiaId).noticia_publicada
+        };
+        axios.put(url, dataput)
+            .then(response => {
+                if (response.data.success === true) {
+                    alert(response.data.message);
+                    LoadNoticias();
+                } else {
+                    alert("Error");
+                }
+            })
+            .catch(error => {
+                alert("Error 34 " + error);
+            });
+    }
+
     function TabelaNoticias() {
         return dataNoticias.map((data, index) => {
             return (
@@ -260,10 +279,16 @@ const Notícias = () => {
                     <td>
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
                             <div className="d-flex">
-                                <Button variant="success" className="m-1" onClick="">Publicar</Button>
+                                <Button
+                                    variant="success"
+                                    className="m-1"
+                                    onClick={() => publicarNoticia(data.id_noticia)}
+                                >
+                                    {data.noticia_publicada ? "Despublicar" : "Publicar"}
+                                </Button>
                             </div>
                             <div className="d-flex">
-                            <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_noticia)}>Editar</Button>
+                                <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_noticia)}>Editar</Button>
                                 <Modal
                                     show={show1 && noticiaIdEditar === data.id_noticia}
                                     onHide={handleClose1}

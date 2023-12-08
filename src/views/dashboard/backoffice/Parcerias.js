@@ -233,6 +233,25 @@ const Parcerias = () => {
             })
     }
 
+    function publicarParceria(parceriaId) {
+        const url = baseUrl + "/parcerias/update/" + parceriaId;
+        const dataput = {
+            nova_publicacao_param: !dataParcerias.find(parceria => parceria.id_parceria === parceriaId).parceria_publicada
+        };
+        axios.put(url, dataput)
+            .then(response => {
+                if (response.data.success === true) {
+                    alert(response.data.message);
+                    LoadParcerias();
+                } else {
+                    alert("Error");
+                }
+            })
+            .catch(error => {
+                alert("Error 34 " + error);
+            });
+    }
+
     function TabelaParcerias() {
         return dataParcerias.map((data, index) => {
             return (
@@ -255,10 +274,16 @@ const Parcerias = () => {
                     <td>
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
                             <div className="d-flex">
-                                <Button variant="success" className="m-1" onClick="">Publicar</Button>
+                                <Button
+                                    variant="success"
+                                    className="m-1"
+                                    onClick={() => publicarParceria(data.id_parceria)}
+                                >
+                                    {data.parceria_publicada ? "Despublicar" : "Publicar"}
+                                </Button>
                             </div>
                             <div className="d-flex">
-                            <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_parceria)}>Editar</Button>
+                                <Button variant="info" className="m-1" onClick={() => handleEditarClick(data.id_parceria)}>Editar</Button>
                                 <Modal
                                     show={show1 && parceriaIdEditar === data.id_parceria}
                                     onHide={handleClose1}
