@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Fragment, memo } from 'react'
-import axios from 'axios';
+import axios from '../../../../views/dashboard/backoffice/axiosConfig';
 import { Navbar, Container, Nav, Dropdown } from 'react-bootstrap'
-
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CustomToggle from '../../../dropdowns'
+import Cookies from 'js-cookie';
 import { baseUrl } from '../../../../views/dashboard/backoffice/baseURL';
 
 //img
@@ -34,6 +34,8 @@ import { useSelector } from 'react-redux';
 import * as SettingSelector from '../../../../store/setting/selectors'
 
 const Header = memo((props) => {
+    let history = useNavigate()
+
     const navbarHide = useSelector(SettingSelector.navbar_show); // array
     const headerNavbar = useSelector(SettingSelector.header_navbar)
     useEffect(() => {
@@ -52,11 +54,12 @@ const Header = memo((props) => {
 
     const [dataNotificacoes, setdataNotificacoes] = useState([]);
 
-
-
+    const [campNomeUtilizador, setcampNomeUtilizador] = useState([]);
+    const [campRoleUtilizador, setcampRoleUtilizador] = useState([]);
 
     useEffect(() => {
         LoadNotificacoes();
+        LoadUtilizador()
     }, []);
 
     function LoadNotificacoes() {
@@ -75,6 +78,7 @@ const Header = memo((props) => {
                 alert(error);
             });
     }
+
     function Notificacoes() {
         return dataNotificacoes.map((data, index) => {
             return (
@@ -95,6 +99,40 @@ const Header = memo((props) => {
             );
         });
 
+    }
+
+    function LoadUtilizador() {
+        const url = baseUrl + "/pessoas/getId";
+        axios.get(url)
+            .then(res => {
+                if (res.data.success) {
+                    const data = res.data.data[0];
+                    setcampNomeUtilizador(data.nome_pessoa);
+                    setcampRoleUtilizador(data.tipo);
+                }
+                else {
+                    alert("Error web service")
+                }
+            })
+            .catch(error => {
+                alert("Error server: " + error)
+            })
+    }
+
+    function handleLogout() {
+        const url = baseUrl + "/pessoas/logout/";
+        axios.post(url)
+            .then(response => {
+                if (response.data.success === true) {
+                    Cookies.remove('token');
+                    history('/login');
+                } else {
+                    alert("Erro Logout")
+                }
+            })
+            .catch(error => {
+                alert("Error 34 " + error)
+            });
     }
 
     const minisidebar = () => {
@@ -140,7 +178,7 @@ const Header = memo((props) => {
                                             </div>
                                         </div>
                                         <div className="p-0 card-body">
-                                        {Notificacoes()}
+                                            {Notificacoes()}
                                         </div>
                                     </div>
                                 </Dropdown.Menu>
@@ -149,15 +187,13 @@ const Header = memo((props) => {
                                 <Dropdown.Toggle as={CustomToggle} variant=" nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src={avatars1} alt="User-Profile" className="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
                                     <div className="caption ms-3 d-none d-md-block ">
-                                        <h6 className="mb-0 caption-title">Patrícia Cabral</h6>
-                                        <p className="mb-0 caption-sub-title">Admin</p>
+                                        <h6 className="mb-0 caption-title">{campNomeUtilizador}</h6>
+                                        <p className="mb-0 caption-sub-title">{campRoleUtilizador}</p>
                                     </div>
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className="dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <Dropdown.Item href="https://templates.iqonic.design/hope-ui/react/build/dashboard/app/user-profile">Profile</Dropdown.Item>
-                                    <Dropdown.Item href="https://templates.iqonic.design/hope-ui/react/build/dashboard/app/user-privacy-setting">Privacy Setting</Dropdown.Item>
-                                    <Dropdown.Divider />
-                                    <Dropdown.Item href="https://templates.iqonic.design/hope-ui/react/build/auth/sign-in">Logout</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleLogout()}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Nav>

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axiosConfig';
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Form, Image } from 'react-bootstrap'
 import Card from '../../../components/Card'

@@ -107,7 +107,7 @@ export const DefaultRouter = [
                 element: <Reunioes />
             },
             {
-                path: 'dashboard',
+                path: '/dashboard',
                 element: <Index />
             },
             {
