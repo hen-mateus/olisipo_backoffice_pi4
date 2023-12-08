@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Form, Button, ListGroup, } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from './axiosConfig';
+import { baseUrl } from './baseURL';
 import Card from '../../../components/Card'
+import Cookies from 'js-cookie';
 
 // img
 import facebook from '../../../assets/images/brands/fb.svg'
@@ -12,6 +15,38 @@ import auth1 from '../../../assets/images/auth/01.png'
 
 const Login = () => {
    let history = useNavigate()
+   const [campEmail, setcampEmail] = useState([]);
+   const [campPass, setcampPass] = useState([]);
+
+   function handleLogin() {
+      if (campEmail === "") {
+         alert("Insira um e-mail!")
+      }
+      else if (campPass === "") {
+         alert("Insira uma password!")
+      }
+      else {
+         const url = baseUrl + "/pessoas/login/";
+         const datapost = {
+            email_param: campEmail,
+            pass_param: campPass,
+         }
+         axios.post(url, datapost)
+            .then(response => {
+               if (response.data.success === true) {
+                  const token = response.data.token;
+                  Cookies.set('token', token, { expires: 7 });
+                  history('/dashboard');
+               } else {
+                  alert("Erro Login")
+               }
+            })
+            .catch(error => {
+               alert("Error 34 " + error)
+            });
+      }
+   }
+
    return (
       <>
          <section className="login-content">
@@ -35,15 +70,16 @@ const Login = () => {
                               <Form>
                                  <Row>
                                     <Col lg="12">
+                                       <di><h3>Email: rui@email.com</h3><h3>Pass: rui</h3></di>
                                        <Form.Group className="form-group">
                                           <Form.Label htmlFor="email" className="">Email</Form.Label>
-                                          <Form.Control type="email" className="" id="email" aria-describedby="email" placeholder=" " />
+                                          <Form.Control type="email" className="" id="email" aria-describedby="email" placeholder=" " value={campEmail} onChange={(e) => setcampEmail(e.target.value)} />
                                        </Form.Group >
                                     </Col>
                                     <Col lg="12" className="">
                                        <Form.Group className="form-group">
                                           <Form.Label htmlFor="password" className="">Password</Form.Label>
-                                          <Form.Control type="password" className="" id="password" aria-describedby="password" placeholder=" " />
+                                          <Form.Control type="password" className="" id="password" aria-describedby="password" placeholder=" " value={campPass} onChange={(e) => setcampPass(e.target.value)} />
                                        </Form.Group>
                                     </Col>
                                     <Col lg="12" className="d-flex justify-content-between">
@@ -55,7 +91,7 @@ const Login = () => {
                                     </Col>
                                  </Row>
                                  <div className="d-flex justify-content-center">
-                                    <Button onClick={() => history.push('/dashboard')} type="button" variant="btn btn-primary">Sign In</Button>
+                                    <Button onClick={() => handleLogin()} type="button" variant="btn btn-primary">Sign In</Button>
                                  </div>
                                  <p className="text-center my-3">or sign in with other accounts?</p>
                                  <div className="d-flex justify-content-center">

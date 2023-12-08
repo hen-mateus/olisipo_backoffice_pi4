@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Table, Button, Modal, Form } from "react-bootstrap";
-import axios from 'axios';
+import axios from './axiosConfig';
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
 import { baseUrl } from './baseURL';

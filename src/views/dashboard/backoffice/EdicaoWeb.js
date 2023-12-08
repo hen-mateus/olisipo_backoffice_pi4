@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { Link } from 'react-router-dom'
-import axios from 'axios';
+import axios from './axiosConfig';
 import { Accordion, Nav, Tab, Button, Form } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { baseUrl } from './baseURL';

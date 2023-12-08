@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Table, Button } from "react-bootstrap";
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from './axiosConfig';
 import { baseUrl } from './baseURL';
 
 //progressbar
