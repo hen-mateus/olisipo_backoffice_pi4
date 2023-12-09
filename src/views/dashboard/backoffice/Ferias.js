@@ -86,6 +86,7 @@ const Ferias = () => {
       return (
         <tr key={index}>
           <td className="text-center">
+            {data.tipo_estado}
           </td>
           <td className="text-center">
             {data.nome_pessoa}
