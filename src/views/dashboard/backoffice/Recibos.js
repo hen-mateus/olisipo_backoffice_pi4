@@ -10,8 +10,7 @@ import Progress from "../../../components/progress.js";
 
 const Recibos = () => {
   const [dataRecibos, setdataRecibos] = useState([]);
-  const [campRecibopdf, setcampRecibopdf] = useState('');
-  const [envioRealizado, setEnvioRealizado] = useState(false);
+  const [campRecibopdf, setcampRecibopdf] = useState("");
 
   useEffect(() => {
     LoadRecibos();
@@ -33,35 +32,42 @@ const Recibos = () => {
       });
   }
 
-  function updateRecibo(parceriaId) {
-    if (campRecibopdf === "") {
-      alert("Escolha um ficheiro!")
+  function updateRecibo(reciboId) {
+    if (!campRecibopdf) {
+      alert("Escolha um ficheiro!");
+      return;
     }
-    else {
-      const url = baseUrl + "/recibosvenc/update/" + parceriaId
-      console.log(url)
-      const dataput = {
-        recibo_pdf_param: campRecibopdf,
+
+    const url = baseUrl + "/recibosvenc/update/" + reciboId;
+    const formData = new FormData();
+    formData.append('recibo_pdf_param', campRecibopdf); // Assuming campRecibopdf contains the file object
+
+    axios.put(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
-      axios.put(url, dataput)
-        .then(response => {
-          if (response.data.success === true) {
-            alert(response.data.message)
-            setEnvioRealizado(true);
-            LoadRecibos();
-          }
-          else {
-            alert("Error")
-          }
-        }).catch(error => {
-          alert("Error 34 " + error)
-        })
-    }
+    })
+      .then(response => {
+        if (response.data.success === true) {
+          alert(response.data.message);
+          LoadRecibos();
+        } else {
+          alert("Error");
+        }
+      })
+      .catch(error => {
+        alert("Error 34 " + error);
+      });
   }
+
 
   function getFormattedDate(dateString) {
     const options = { month: 'long', year: 'numeric' };
     return new Date(dateString).toLocaleDateString('pt-PT', options);
+  }
+
+  function handleFileChange(event) {
+    setcampRecibopdf(event.target.files[0]);
   }
 
   function TabelaRecibos() {
@@ -71,6 +77,7 @@ const Recibos = () => {
       const handleEnviarClick = () => {
         updateRecibo(data.id_recibo);
       };
+
       return (
         <tr key={index}>
           <td className="text-center">
@@ -85,13 +92,18 @@ const Recibos = () => {
           </td>
           <td className="text-center">
             <div>
-              <input type="file" className="form-control" name="pic" accept="image/*" value={campRecibopdf} onChange={(value) => setcampRecibopdf(value.target.value)} disabled={envioRealizado}
+              <input
+                type="file"
+                className="form-control"
+                name="pic"
+                accept="image/*"
+                onChange={handleFileChange}
               />
             </div>
           </td>
           <td>
             <div className="d-flex align-items-center justify-content-center mb-2">
-              <Button variant="success" onClick={handleEnviarClick} disabled={envioRealizado}>
+              <Button variant="success" onClick={handleEnviarClick}>
                 Enviar
               </Button>
             </div>
