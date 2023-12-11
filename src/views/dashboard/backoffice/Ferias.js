@@ -7,7 +7,7 @@ import { baseUrl } from './baseURL';
 const Ferias = () => {
   const [dataFerias, setdataFerias] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2);
+  const [itemsPerPage] = useState(5);
 
   useEffect(() => {
     LoadFerias();
@@ -146,8 +146,9 @@ const Ferias = () => {
       </Row>
 
       {/* Pagination Controls */}
+      {totalPages > 1 && (
       <Row>
-        <Col className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-end">
           <Pagination>
             {Array.from({ length: totalPages }, (_, index) => (
               <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
@@ -157,6 +158,7 @@ const Ferias = () => {
           </Pagination>
         </Col>
       </Row>
+    )}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Image, Table, Button, Modal, Form } from "react-bootstrap";
+import { Row, Col, Image, Table, Button, Modal, Form, Pagination } from "react-bootstrap";
 import axios from './axiosConfig';
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
@@ -65,6 +65,17 @@ const Notícias = () => {
     const handleCriarNoticia = () => {
         inserirNoticia();
     };
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
+    // Pagination logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = dataNoticias.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(dataNoticias.length / itemsPerPage);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
 
     useEffect(() => {
         LoadNoticias();
@@ -437,6 +448,19 @@ const Notícias = () => {
                     </Card>
                 </Col>
             </Row>
+            {totalPages > 1 && (
+                <Row>
+                    <Col className="d-flex justify-content-end">
+                        <Pagination>
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
+            )}
         </>
     );
 };

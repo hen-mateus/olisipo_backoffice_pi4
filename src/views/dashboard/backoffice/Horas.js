@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button, Modal, Form } from "react-bootstrap";
+import { Row, Col, Table, Button, Modal, Form, Pagination  } from "react-bootstrap";
 import axios from './axiosConfig';
 import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
@@ -11,6 +11,15 @@ import Progress from "../../../components/progress.js";
 const Horas = () => {
   const [dataHoras, setdataHoras] = useState([]);
   const [dataFaltas, setdataFaltas] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = dataHoras.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(dataHoras.length / itemsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [pessoaIdSelecionada, setPessoaIdSelecionada] = useState(null);
   const [dataHoraSubmetida, setDataHoraSubmetida] = useState(null);
@@ -245,6 +254,19 @@ const Horas = () => {
           </Card>
         </Col>
       </Row>
+      {totalPages > 1 && (
+      <Row>
+        <Col className="d-flex justify-content-end">
+          <Pagination>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                {index + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        </Col>
+      </Row>
+    )}
     </>
   );
 };
