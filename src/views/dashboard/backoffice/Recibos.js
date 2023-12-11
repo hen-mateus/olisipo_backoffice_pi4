@@ -4,18 +4,16 @@ import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
 import axios from './axiosConfig';
 import { baseUrl } from './baseURL';
-
 //progressbar
 import Progress from "../../../components/progress.js";
 
 const Recibos = () => {
   const [dataRecibos, setdataRecibos] = useState([]);
-  const [campRecibopdf, setcampRecibopdf] = useState("");
+  const [campRecibopdf, setcampRecibopdf] = useState('');
 
   useEffect(() => {
     LoadRecibos();
   }, []);
-
   function LoadRecibos() {
     const url = baseUrl + "/recibosvenc/";
     axios.get(url)
@@ -32,42 +30,37 @@ const Recibos = () => {
       });
   }
 
-  function updateRecibo(reciboId) {
-    if (!campRecibopdf) {
-      alert("Escolha um ficheiro!");
-      return;
+  function updateRecibo(parceriaId) {
+    if (campRecibopdf === "") {
+      alert("Escolha um ficheiro!")
     }
-
-    const url = baseUrl + "/recibosvenc/update/" + reciboId;
-    const formData = new FormData();
-    formData.append('recibo_pdf_param', campRecibopdf); // Assuming campRecibopdf contains the file object
-
-    axios.put(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
+    else {
+      const url = baseUrl + "/recibosvenc/update/" + parceriaId
+      const now = new Date();
+      const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+      const dataput = {
+        data_submissao_recibo_param: formattedDate,
+        recibo_pdf_param: campRecibopdf,
+        confirmacao_submissao_recibo_param: true
       }
-    })
-      .then(response => {
-        if (response.data.success === true) {
-          alert(response.data.message);
-          LoadRecibos();
-        } else {
-          alert("Error");
-        }
-      })
-      .catch(error => {
-        alert("Error 34 " + error);
-      });
+      axios.put(url, dataput)
+        .then(response => {
+          if (response.data.success === true) {
+            alert(response.data.message)
+            LoadRecibos();
+          }
+          else {
+            alert("Error")
+          }
+        }).catch(error => {
+          alert("Error 34 " + error)
+        })
+    }
   }
-
 
   function getFormattedDate(dateString) {
     const options = { month: 'long', year: 'numeric' };
     return new Date(dateString).toLocaleDateString('pt-PT', options);
-  }
-
-  function handleFileChange(event) {
-    setcampRecibopdf(event.target.files[0]);
   }
 
   function TabelaRecibos() {
@@ -77,7 +70,6 @@ const Recibos = () => {
       const handleEnviarClick = () => {
         updateRecibo(data.id_recibo);
       };
-
       return (
         <tr key={index}>
           <td className="text-center">
@@ -97,7 +89,7 @@ const Recibos = () => {
                 className="form-control"
                 name="pic"
                 accept="image/*"
-                onChange={handleFileChange}
+                onChange={(event) => setcampRecibopdf(event.target.files[0].name)}
               />
             </div>
           </td>
@@ -112,7 +104,6 @@ const Recibos = () => {
       );
     });
   }
-
   return (
     <>
       <Row>
@@ -131,7 +122,6 @@ const Recibos = () => {
                       <th className="text-center">Utilizador</th>
                       <th className="text-center">Data do Recibo</th>
                       <th className="text-center">Recibo</th>
-
                       <th className="text-center">Envio</th>
                     </tr>
                   </thead>
@@ -147,5 +137,4 @@ const Recibos = () => {
     </>
   );
 };
-
 export default Recibos;
