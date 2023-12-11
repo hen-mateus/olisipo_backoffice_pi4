@@ -164,7 +164,7 @@ const Default = memo((props) => {
           <Header />
           <SubHeader />
         </div>
-        <div className="py-0 conatiner-fluid content-inner mt-n5">
+        <div className="py-0 container-fluid content-inner mt-n5">
           {/* <DefaultRouter /> */}
           <Outlet />
         </div>

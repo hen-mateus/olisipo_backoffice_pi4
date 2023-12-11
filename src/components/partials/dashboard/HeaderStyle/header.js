@@ -171,7 +171,7 @@ const Header = memo((props) => {
             .then(response => {
                 if (response.data.success === true) {
                     Cookies.remove('token');
-                    history('/login');
+                    history('/');
                 } else {
                     alert("Erro Logout")
                 }

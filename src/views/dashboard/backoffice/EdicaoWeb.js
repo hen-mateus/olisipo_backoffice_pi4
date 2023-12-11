@@ -17,11 +17,6 @@ const EdicaoWeb = () => {
     const [campImagemHeader, setcampImagemHeader] = useState("");
     const [campTituloFooter, setcampTituloFooter] = useState("");
     const [campTextoFooter, setcampTextoFooter] = useState("");
-    const [campTituloSeccao, setcampTituloSeccao] = useState("");
-    const [campTexto1, setcampTexto1] = useState("");
-    const [campTexto2, setcampTexto2] = useState("");
-    const [campTexto3, setcampTexto3] = useState("");
-    const [campImagemSeccao, setcampImagemSeccao] = useState("");
     const [campIDsecção, setcampIDsecção] = useState("");
 
 
@@ -80,7 +75,6 @@ const EdicaoWeb = () => {
                 if (res.data.success) {
                     const data = res.data.data;
                     setdataWebSeccao(data);
-
                     setcampTituloSeccao(data.titulo_seccao);
                     setcampTexto1(data.texto1);
                     setcampTexto2(data.texto2);
@@ -139,16 +133,30 @@ const EdicaoWeb = () => {
             })
     }
 
-    function updateSeccao(seccaoID) {
+    const handleInputChange = (e, index, campo) => {
+        const newDataWebSeccao = dataWebSeccao.map((data, i) => {
+            if (i === index) {
+                return { ...data, [campo]: e.target.value };
+            }
+            return data;
+        });
 
-        console.log('seccaoID:', seccaoID);
-        const url = baseUrl + `/conteudowebsite/updateseccao/${seccaoID}`;
+        setdataWebSeccao(newDataWebSeccao);
+    };
+
+    const handleSubmit = (e, id_conteudo) => {
+        e.preventDefault();
+
+        // Faça algo com os valores, por exemplo, enviar para o servidor
+        const data = dataWebSeccao.find((d) => d.id_conteudo === id_conteudo);
+        console.log('Valores do formulário:', data);
+        const url = baseUrl + `/conteudowebsite/updateseccao/` + data.id_conteudo;
         const dataput = {
-            novo_tituloseccao_param: campTituloSeccao,
-            novo_texto1_param: campTexto1,
-            novo_texto2_param: campTexto2,
-            novo_texto3_param: campTexto3,
-            novo_imagemseccao_param: campImagemSeccao
+            novo_tituloseccao_param: data.titulo_seccao,
+            novo_texto1_param: data.texto1,
+            novo_texto2_param: data.texto2,
+            novo_texto3_param: data.texto3,
+            novo_imagemseccao_param: data.imagem_seccao
         }
         axios.put(url, dataput)
             .then(response => {
@@ -161,40 +169,46 @@ const EdicaoWeb = () => {
             }).catch(error => {
                 alert("Error 34 " + error)
             })
-    }
-
+    };
 
     function conteudowebSeccao() {
         return dataWebSeccao.map((data, index) => {
             return (
                 <Accordion.Body>
-                    <Form name={`Form-${index}`} >
+                    <Form key={data.id_conteudo} onSubmit={(e) => handleSubmit(e, data.id_conteudo)}>
                         <div className="header-title">
-                            <h5 className="card-title">Secção {index + 1}:</h5>
+                            <h5 className="card-title">{`Secção ${index + 1}`}</h5>
                         </div>
                         <Form.Group className="form-group">
-                            <Form.Label htmlFor="titulos">Título:</Form.Label>
-                            <Form.Control type="titulos" name={`titulos-${index}`} id={`titulos-${index}`} value={data.titulo_seccao}
-                                onChange={(e) => setcampTituloSeccao(e.target.value)} />
+                            <Form.Label htmlFor={`titulos-${index}`}>Título:</Form.Label>
+                            <Form.Control type="text"
+                                id={`titulos-${index}`}
+                                value={data.titulo_seccao}
+                                onChange={(e) => handleInputChange(e, index, 'titulo_seccao')} />
                         </Form.Group>
                         <Form.Group className="form-group">
-                            <Form.Label htmlFor="titulo1s">Texto 1:</Form.Label>
-                            <Form.Control type="titulo1s"name={`texto1-${index}`} id={`titulo1s-${index}`} value={campTexto1}
-                                onChange={(e) => setcampTexto1(e.target.value)} />
+                            <Form.Label htmlFor={`titulo1s-${index}`}>Texto 1:</Form.Label>
+                            <Form.Control type="text"
+                                id={`titulo1s-${index}`}
+                                value={data.texto1}
+                                onChange={(e) => handleInputChange(e, index, 'texto1')} />
                         </Form.Group>
                         <Form.Group className="form-group">
-                            <Form.Label htmlFor="titulo2s">Texto 2:</Form.Label>
-                            <Form.Control type="titulo2s" id={`titulo2s-${index}`} value={data.texto2}
-                                onChange={(e) => setcampTexto2(e.target.value)} />
+                            <Form.Label htmlFor={`titulo2s-${index}`}>Texto 2:</Form.Label>
+                            <Form.Control type="text"
+                                id={`titulo2s-${index}`}
+                                value={data.texto2}
+                                onChange={(e) => handleInputChange(e, index, 'texto2')} />
                         </Form.Group>
                         <Form.Group className="form-group">
-                            <Form.Label htmlFor="titulo3s">Texto 3:</Form.Label>
-                            <Form.Control type="titulo3s" id={`titulo3s-${index}`} value={data.texto3}
-                                onChange={(e) => setcampTexto3(e.target.value)} />
+                            <Form.Label htmlFor={`titulo3s-${index}`}>Texto 3:</Form.Label>
+                            <Form.Control type="text"
+                                id={`titulo3s-${index}`}
+                                value={data.texto3}
+                                onChange={(e) => handleInputChange(e, index, 'texto3')} />
                         </Form.Group>
                         <Button type="button" id={`btn1-${index}`} variant="warning me-3">Criar Nova Secção</Button>
-                        <Button type="button" id={`btn2-${index}`} variant="primary" onClick={() => updateSeccao(data.id_conteudo)}>Atualizar</Button>
-
+                        <Button id={`btn2-${index}`} type="submit" variant="primary">Atualizar</Button>
                     </Form>
                 </Accordion.Body>
             );
