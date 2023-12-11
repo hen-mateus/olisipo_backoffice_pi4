@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Row, Col, Table, Button, Pagination } from "react-bootstrap";
 import axios from './axiosConfig';
 import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
@@ -24,6 +24,18 @@ const GestaoDeCustos = () => {
 
   const [dataAjudasCusto, setdataAjudasCusto] = useState([]);
   const [dataDespesasViatura, setdataDespesasViatura] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = dataAjudasCusto.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(dataAjudasCusto.length / itemsPerPage);
+  const currentItems1 = dataDespesasViatura.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages1 = Math.ceil(dataDespesasViatura.length / itemsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     LoadAjudasCusto();
@@ -243,6 +255,19 @@ const GestaoDeCustos = () => {
           </Card>
         </Col>
       </Row>
+      {totalPages1 > 1 && (
+                <Row>
+                    <Col className="d-flex justify-content-end">
+                        <Pagination>
+                            {Array.from({ length: totalPages1 }, (_, index) => (
+                                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
+            )}
       <Row>
         <Col sm="12">
           <Card>
@@ -273,6 +298,19 @@ const GestaoDeCustos = () => {
           </Card>
         </Col>
       </Row>
+      {totalPages > 1 && (
+                <Row>
+                    <Col className="d-flex justify-content-end">
+                        <Pagination>
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
+            )}
     </>
   );
 };

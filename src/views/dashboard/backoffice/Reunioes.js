@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Row, Col, Table, Button, Pagination } from "react-bootstrap";
 import axios from './axiosConfig';
 import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
@@ -17,6 +17,14 @@ const formatTableCell = () => {
 
 const Reunioes = () => {
   const [dataReunioes, setdataReunioes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = dataReunioes.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(dataReunioes.length / itemsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     LoadReunioes();
@@ -122,6 +130,19 @@ const Reunioes = () => {
           </Card>
         </Col>
       </Row>
+      {totalPages > 1 && (
+                <Row>
+                    <Col className="d-flex justify-content-end">
+                        <Pagination>
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
+            )}
     </>
   );
 };

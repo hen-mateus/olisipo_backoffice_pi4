@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Image, Table, Button } from "react-bootstrap";
+import { Row, Col, Image, Table, Button, Pagination } from "react-bootstrap";
 import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
 import axios from './axiosConfig';
@@ -9,7 +9,17 @@ import Progress from "../../../components/progress.js";
 
 const Recibos = () => {
   const [dataRecibos, setdataRecibos] = useState([]);
-  const [campRecibopdf, setcampRecibopdf] = useState('');
+
+  const [campRecibopdf, setcampRecibopdf] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = dataRecibos.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(dataRecibos.length / itemsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
 
   useEffect(() => {
     LoadRecibos();
@@ -134,6 +144,19 @@ const Recibos = () => {
           </Card>
         </Col>
       </Row>
+      {totalPages > 1 && (
+                <Row>
+                    <Col className="d-flex justify-content-end">
+                        <Pagination>
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
+            )}
     </>
   );
 };

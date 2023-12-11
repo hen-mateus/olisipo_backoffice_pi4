@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Row, Col, Table, Button , Pagination} from "react-bootstrap";
 import axios from './axiosConfig';
 import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
@@ -7,19 +7,22 @@ import { baseUrl } from './baseURL';
 
 
 const DadosPessoais = () => {
-  const handleSimClick = () => {
-    // Lógica para lidar com o clique no botão "Sim"
-  };
-
-  const handleNaoClick = () => {
-    // Lógica para lidar com o clique no botão "Não"
-  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
 
   const [dataDadosPessoais, setdataDadosPessoais] = useState([]);
 
   useEffect(() => {
     LoadDadosPessoais();
   }, []);
+
+    // Pagination logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = dataDadosPessoais.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(dataDadosPessoais.length / itemsPerPage);
+  
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   function LoadDadosPessoais() {
     const url = baseUrl + "/pessoasauxiliar/";
@@ -138,6 +141,19 @@ const DadosPessoais = () => {
           </Card>
         </Col>
       </Row>
+      {totalPages > 1 && (
+      <Row>
+        <Col className="d-flex justify-content-end">
+          <Pagination>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                {index + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        </Col>
+      </Row>
+    )}
     </>
   );
 };
