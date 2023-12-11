@@ -292,76 +292,49 @@ const Index = memo((props) => {
                 }}
     
               >
-                <SwiperSlide className="card card-slide" >
-                  <div className="card-body">
-                    <div className="progress-widget">
-                      <Circularprogressbar
-                        stroke={variableColors.primary}
-                        width="60px"
-                        height="60px"
-                        Linecap="rounded"
-                        trailstroke="#ddd"
-                        strokewidth="4px"
-                        style={{ width: 60, height: 60 }}
-                        value={90}
-                        id="circle-progress-01"
-                      >
-                        <svg
-                          className=""
-                          width="24"
-                          height="24px"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z"
-                          />
-                        </svg>
-                      </Circularprogressbar>
-                      <div className="progress-detail">
-                        <p className="mb-2">Total Sales</p>
-                        <h4 className="counter">
-                          $<CountUp start={120} end={560} duration={3} />K
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className=" card card-slide">
-                  <div className="card-body">
-                    <div className="progress-widget">
-                      <Circularprogressbar
-                        stroke={variableColors.info}
-                        width="60px"
-                        height="60px"
-                        trailstroke="#ddd"
-                        strokewidth="4px"
-                        Linecap="rounded"
-                        style={{ width: 60, height: 60 }}
-                        value={60}
-                        id="circle-progress-02"
-                      >
-                        <svg
-                          className=""
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z"
-                          />
-                        </svg>
-                      </Circularprogressbar>
+  <SwiperSlide className="card card-slide">
+  <div className="card-body">
+    <p className="mb-2">Total Sales</p>
+    <h4 className="counter">
+      $<CountUp start={120} end={560} duration={3} />K
+    </h4>
+  </div>
+</SwiperSlide>
+
+<SwiperSlide className="card card-slide">
+  <div className="card-body">
+    <div className="progress-widget" style={{ display: 'flex', alignItems: 'center' }}>
+      {/* Conteúdo do retângulo */}
+      <div style={{ marginRight: 'auto' }}>
+        <p className="mb-2">Total Sales</p>
+        <h4 className="counter">
+          $<CountUp start={120} end={560} duration={3} />K
+        </h4>
+      </div>
+      {/* Ícone */}
+      <img src="icon1.png" alt="Ícone" className="custom-icon" />
+      {/* Fim do conteúdo do retângulo */}
+      <Circularprogressbar
+        stroke={variableColors.info}
+        width="60px"
+        height="60px"
+        trailstroke="#ddd"
+        strokewidth="4px"
+        Linecap="rounded"
+        style={{ width: 60, height: 60 }}
+        value={60}
+        id="circle-progress-02"
+      />
+    </div>
+  </div>
+</SwiperSlide>
+
                       <div className="progress-detail">
                         <p className="mb-2">Total Profit</p>
                         <h4 className="counter">
                           $<CountUp start={20} end={158} duration={3} />K
                         </h4>
                       </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
                 <SwiperSlide className=" card card-slide">
                   <div className="card-body">
                     <div className="progress-widget">
