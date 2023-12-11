@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Row, Col, Table, Button, Pagination } from "react-bootstrap";
 import axios from './axiosConfig';
-import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
 import { baseUrl } from './baseURL';
 
 const Ferias = () => {
   const [dataFerias, setdataFerias] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(2);
 
   useEffect(() => {
     LoadFerias();
@@ -33,20 +34,19 @@ const Ferias = () => {
     const datapost = {
       id_estado: 1,
       id_ferias: id_ferias,
-    }
+    };
     axios.post(url, datapost)
       .then(response => {
-
         if (response.data.success === true) {
-          alert(response.data.message)
+          alert(response.data.message);
           LoadFerias();
+        } else {
+          alert(response.data.message);
         }
-        else {
-          alert(response.data.message)
-        }
-      }).catch(error => {
-        alert("Error 34 " + error)
       })
+      .catch(error => {
+        alert("Error 34 " + error);
+      });
   }
 
   function inserirRelacaoRecusada(id_ferias) {
@@ -54,20 +54,19 @@ const Ferias = () => {
     const datapost = {
       id_estado: 2,
       id_ferias: id_ferias,
-    }
+    };
     axios.post(url, datapost)
       .then(response => {
-
         if (response.data.success === true) {
-          alert(response.data.message)
+          alert(response.data.message);
           LoadFerias();
+        } else {
+          alert(response.data.message);
         }
-        else {
-          alert(response.data.message)
-        }
-      }).catch(error => {
-        alert("Error 34 " + error)
       })
+      .catch(error => {
+        alert("Error 34 " + error);
+      });
   }
 
   function calcularDiferencaDias(dataInicio, dataFim) {
@@ -80,26 +79,28 @@ const Ferias = () => {
     return diferencaEmDias;
   }
 
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = dataFerias.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(dataFerias.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   function TabelaFerias() {
-    return dataFerias.map((data, index) => {
+    return currentItems.map((data, index) => {
       const dias = calcularDiferencaDias(data.data_comeco, data.data_fim);
       return (
         <tr key={index}>
-          <td className="text-center">
-            {data.tipo_estado}
-          </td>
-          <td className="text-center">
-            {data.nome_pessoa}
-          </td>
+          <td className="text-center">{data.tipo_estado}</td>
+          <td className="text-center">{data.nome_pessoa}</td>
           <td className="text-center">
             <p>{data.data_comeco} a {data.data_fim}</p>
           </td>
-          <td className="text-center">
-            {dias}
-          </td>
+          <td className="text-center">{dias}</td>
           <td>
             <div className="d-flex align-items-center justify-content-center mb-2">
-              <Button variant="success" onClick={() => inserirRelacaoAprovada(data.id_ferias)}>
+            <Button variant="success" onClick={() => inserirRelacaoAprovada(data.id_ferias)}>
                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M8.43994 12.0002L10.8139 14.3732L15.5599 9.6272" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>
               </Button>
               <td></td><td></td>
@@ -110,6 +111,7 @@ const Ferias = () => {
       );
     });
   }
+  
 
   return (
     <>
@@ -140,6 +142,19 @@ const Ferias = () => {
               </div>
             </Card.Body>
           </Card>
+        </Col>
+      </Row>
+
+      {/* Pagination Controls */}
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <Pagination>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                {index + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
         </Col>
       </Row>
     </>
