@@ -1,5 +1,6 @@
 # Portal do Colaborador Olisipo - Backoffice
 
+```
 src
   ├── assets
   │    ├── images
@@ -117,3 +118,4 @@ src
   ├── package-lock.json
   ├── package.json
   └── README.md
+```
