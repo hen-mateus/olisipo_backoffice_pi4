@@ -278,7 +278,7 @@ const Parcerias = () => {
                         {data.tipo_parceria}
                     </td>
                     <td className="text-center" >
-                        <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
+                        <img src="http://193.137.7.33/~estgv22798/BannerAnimado%20-%20Trabalho%20Individual%20N%c2%ba1/images/Garrafa.png" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
                     </td>
                     <td>
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
@@ -320,9 +320,15 @@ const Parcerias = () => {
                                                     onChange={(e) => setcampBeneficiosParceria(e.target.value)} />
                                             </Form.Group>
                                             <Form.Group className="form-group">
-                                                <Form.Label htmlFor="imagemp">Imagem:</Form.Label>
-                                                <Form.Control type="imagemp" id="imagemnp" value={campImagemParceria}
-                                                    onChange={(e) => setcampImagemParceria(e.target.value)} />
+                                                <Form.Label htmlFor="imagemn">Imagem da Parceria:</Form.Label>
+                                                <Form.Control
+                                                    type="file"
+                                                    id="imagemParceria"
+                                                    className="form-control"
+                                                    name="pic"
+                                                    accept="image/*"
+                                                    onChange={(event) => setcampImagemParceria(event.target.files[0].name)}
+                                                />
                                             </Form.Group>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoParceria">Tipo de Parceria:</Form.Label>
@@ -391,9 +397,14 @@ const Parcerias = () => {
                                                     onChange={(e) => setcampCriarBeneficiosParceria(e.target.value)} />
                                             </Form.Group>
                                             <Form.Group className="form-group">
-                                                <Form.Label htmlFor="imagemp">Imagem:</Form.Label>
-                                                <Form.Control type="imagemp" id="imagemp" value={campCriarImagemParceria}
-                                                    onChange={(e) => setcampCriarImagemParceria(e.target.value)} />
+                                                <Form.Label htmlFor="imagemp">Imagem da Parceria:</Form.Label>
+                                                <Form.Control
+                                                    type="file"
+                                                    className="form-control"
+                                                    name="pic"
+                                                    accept="image/*"
+                                                    onChange={(event) => setcampCriarImagemParceria(event.target.files[0].name)}
+                                                />
                                             </Form.Group>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoParceria">Tipo de Parceria:</Form.Label>

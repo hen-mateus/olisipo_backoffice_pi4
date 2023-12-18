@@ -35,10 +35,6 @@ import Maintenance from '../views/dashboard/errors/maintenance'
 
 export const SimpleRouter = [
     {
-        path: '/login',
-        element: <Login />
-    },
-    {
         path: 'auth/sign-up',
         element: <SignUp />
     },

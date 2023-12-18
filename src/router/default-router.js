@@ -56,18 +56,12 @@ import Notificacoes from '../views/dashboard/backoffice/Notificacoes';
 import Parcerias from '../views/dashboard/backoffice/Parcerias';
 import Recibos from '../views/dashboard/backoffice/Recibos';
 import Reunioes from '../views/dashboard/backoffice/Reunioes';
-import PrivateRoute from '../views/dashboard/backoffice/privateRoute';
 
 export const DefaultRouter = [
     {
         path: '/',
         element: <Default />,
         children: [
-
-            {
-                path: '/privateRoute',
-                element: <PrivateRoute />
-            },
             {
                 path: '/adicionarcolaborador',
                 element: <AdicionarColaborador />
