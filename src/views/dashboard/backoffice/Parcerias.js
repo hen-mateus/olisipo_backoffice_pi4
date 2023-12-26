@@ -278,7 +278,7 @@ const Parcerias = () => {
                         {data.tipo_parceria}
                     </td>
                     <td className="text-center" >
-                        <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
+                        <img src={data.imagem_parceria}  alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
                     </td>
                     <td>
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">

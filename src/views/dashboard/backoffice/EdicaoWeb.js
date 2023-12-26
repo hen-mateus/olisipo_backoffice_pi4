@@ -18,6 +18,12 @@ const EdicaoWeb = () => {
     const [campTituloFooter, setcampTituloFooter] = useState("");
     const [campTextoFooter, setcampTextoFooter] = useState("");
     const [campIDsecção, setcampIDsecção] = useState("");
+    const [campTituloSeccao, setcampTituloSeccao] = useState("");
+    const [campTexto1, setcampTexto1] = useState("");
+    const [campTexto2, setcampTexto2] = useState("");
+    const [campTexto3, setcampTexto3] = useState("");
+    const [campImagemSeccao, setcampImagemSeccao] = useState("");
+
 
 
     useEffect(() => {
