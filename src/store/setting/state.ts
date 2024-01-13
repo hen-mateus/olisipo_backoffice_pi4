@@ -6,7 +6,7 @@ export const initialState: SettingState = {
   "storeKey": "huisetting-react",
   "setting": {
     "app_name": {
-      "value": "Hope UI"
+      "value": "Olisipo Portal"
     },
     "theme_scheme_direction": {
       "value": "ltr"
@@ -21,8 +21,8 @@ export const initialState: SettingState = {
     },
     "theme_color": {
       "colors": {
-        "--{{prefix}}primary": "#3a57e8",
-        "--{{prefix}}info": "#08B1BA"
+        "--{{prefix}}primary": "#32D700",
+        "--{{prefix}}info": "#7ADD5C"
       },
       "value": "theme-color-default"
     },
@@ -45,7 +45,7 @@ export const initialState: SettingState = {
       "value": "default"
     },
     "sidebar_color": {
-      "value": "sidebar-white"
+      "value": "sidebar-dark"
     },
     "sidebar_type": {
       "value": []
@@ -80,7 +80,7 @@ export const defaultState: SettingDefaultState = {
       target: '[data-setting="app_name"]',
       choices: [],
       type: "text",
-      value: "Hope UI",
+      value: "",
     },
     theme_scheme_direction: {
       target: "html",
@@ -117,8 +117,8 @@ export const defaultState: SettingDefaultState = {
       ],
       type: "default",
       colors: {
-        "--{{prefix}}primary": "#3a57e8",
-        "--{{prefix}}info": "#08B1BA",
+        "--{{prefix}}primary": "#32D700",
+        "--{{prefix}}info": "#7ADD5C",
       },
       value: "theme-color-default",
     },

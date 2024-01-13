@@ -117,7 +117,7 @@ const AdicionarColaborador = () => {
                             <Card.Body>
                                 <Form id="form-wizard1" className="text-center mt-3">
                                     <ul id="top-tab-list" className="p-0 row list-inline">
-                                        <li className={` ${show === 'Image ' ? ' active done ' : ''} ${show === 'Personal' ? ' active done ' : ''} ${show === 'Account' ? ' active done ' : ''} ${show === 'A' ? 'active ' : ''} col-lg-3 col-md-6 text-start mb-2 active `} id="account">
+                                        <li className={` ${show === 'Image ' ? ' active  ' : ''} ${show === 'Personal' ? ' active  ' : ''} ${show === 'Account' ? ' active  ' : ''} ${show === 'A' ? 'active ' : ''} col-lg-3 col-md-6 text-start mb-2 active `} id="account">
                                             <Link to="#">
                                                 <div className="iq-icon me-3">
                                                     <svg className="svg-icon" xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -127,7 +127,7 @@ const AdicionarColaborador = () => {
                                                 <span>Dados Pessoais</span>
                                             </Link>
                                         </li>
-                                        <li id="personal" className={`${show === 'Personal' ? ' active done' : ''} ${show === 'Image' ? ' active done' : ''} ${show === 'Account' ? 'active ' : ''} col-lg-3 col-md-6 mb-2 text-start`}>
+                                        <li id="personal" className={`${show === 'Personal' ? ' active' : ''} ${show === 'Image' ? ' active ' : ''} ${show === 'Account' ? 'active ' : ''} col-lg-3 col-md-6 mb-2 text-start`}>
                                             <Link to="#">
                                                 <div className="iq-icon me-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -137,7 +137,7 @@ const AdicionarColaborador = () => {
                                                 <span>Empresa</span>
                                             </Link>
                                         </li>
-                                        <li id="payment" className={`${show === 'Image' ? ' active done' : ''} ${show === 'Personal' ? 'active' : ''} col-lg-3 col-md-6 mb-2 text-start`}>
+                                        <li id="payment" className={`${show === 'Image' ? ' active ' : ''} ${show === 'Personal' ? 'active' : ''} col-lg-3 col-md-6 mb-2 text-start`}>
                                             <Link to="#">
                                                 <div className="iq-icon me-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
