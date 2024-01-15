@@ -1,6 +1,7 @@
 import React, { useEffect, memo, Fragment } from "react";
 import { Row, Col, Dropdown, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import './backoffice/css/main.css';
 
 //circular
 import Circularprogressbar from "../../components/circularprogressbar.js";
@@ -290,229 +291,101 @@ const Index = memo((props) => {
                   2040: { slidesPerView: 7 },
                   2440: { slidesPerView: 8 }
                 }}
-    
               >
-  <SwiperSlide className="card card-slide">
-  <div className="card-body">
-    <p className="mb-2">Total Sales</p>
-    <h4 className="counter">
-      $<CountUp start={120} end={560} duration={3} />K
-    </h4>
-  </div>
-</SwiperSlide>
 
-<SwiperSlide className="card card-slide">
-  <div className="card-body">
-    <div className="progress-widget" style={{ display: 'flex', alignItems: 'center' }}>
-      {/* Conteúdo do retângulo */}
-      <div style={{ marginRight: 'auto' }}>
-        <p className="mb-2">Total Sales</p>
-        <h4 className="counter">
-          $<CountUp start={120} end={560} duration={3} />K
-        </h4>
-      </div>
-      {/* Ícone */}
-      <img src="icon1.png" alt="Ícone" className="custom-icon" />
-      {/* Fim do conteúdo do retângulo */}
-      <Circularprogressbar
-        stroke={variableColors.info}
-        width="60px"
-        height="60px"
-        trailstroke="#ddd"
-        strokewidth="4px"
-        Linecap="rounded"
-        style={{ width: 60, height: 60 }}
-        value={60}
-        id="circle-progress-02"
-      />
-    </div>
-  </div>
-</SwiperSlide>
+                <SwiperSlide className="card card-slide" style={{ width: '20%', height: '110px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <div className="card-body" style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                    <img
+                      src="green.jpg"
+                      alt="Ícone"
+                      className="background-image"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        margin: '0',
+                        padding: '0',
+                        display: 'block',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                      }}
+                    />
+                    <p className="mb-2" style={{ position: 'center', color: 'white', textAlign: 'center', width: '100%', top: '50%', transform: 'translateY(-50%)' }}>Colaboradores</p>
+                    <button className="button">Ver</button>
+                  </div>
+                </SwiperSlide>
 
-                      <div className="progress-detail">
-                        <p className="mb-2">Total Profit</p>
-                        <h4 className="counter">
-                          $<CountUp start={20} end={158} duration={3} />K
-                        </h4>
-                      </div>
-                <SwiperSlide className=" card card-slide">
-                  <div className="card-body">
-                    <div className="progress-widget">
-                      <Circularprogressbar
-                        stroke={variableColors.primary}
-                        width="60px"
-                        height="60px"
-                        trailstroke="#ddd"
-                        strokewidth="4px"
-                        Linecap="rounded"
-                        style={{ width: 60, height: 60 }}
-                        value={70}
-                        id="circle-progress-03"
-                      >
-                        <svg className="" width="24" viewBox="0 0 24 24">
-                          <path
-                            fill="currentColor"
-                            d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z"
-                          />
-                        </svg>
-                      </Circularprogressbar>
-                      <div className="progress-detail">
-                        <p className="mb-2">Total Cost</p>
-                        <h4 className="counter">
-                          $<CountUp start={120} end={378} duration={3} />K
-                        </h4>
-                      </div>
-                    </div>
+                <SwiperSlide className="card card-slide" style={{ width: '20%', height: '110px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <div className="card-body" style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                    <img
+                      src="green.jpg"
+                      alt="Ícone"
+                      className="background-image"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        margin: '0',
+                        padding: '0',
+                        display: 'block',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                      }}
+                    />
+                    <p className="mb-2" style={{ position: 'center', color: 'white', textAlign: 'center', width: '100%', top: '50%', transform: 'translateY(-50%)' }}>Clientes</p>
+                    <button className="button">Ver</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide className=" card card-slide">
-                  <div className="card-body">
-                    <div className="progress-widget">
-                      <Circularprogressbar
-                        stroke={variableColors.info}
-                        width="60px"
-                        height="60px"
-                        trailstroke="#ddd"
-                        strokewidth="4px"
-                        Linecap="rounded"
-                        style={{ width: 60, height: 60 }}
-                        value={60}
-                        id="circle-progress-04"
-                      >
-                        <svg
-                          className=""
-                          width="24px"
-                          height="24px"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z"
-                          />
-                        </svg>
-                      </Circularprogressbar>
-                      <div className="progress-detail">
-                        <p className="mb-2">Revenue</p>
-                        <h4 className="counter">
-                          $<CountUp start={212} end={742} duration={3} />K
-                        </h4>
-                      </div>
-                    </div>
+
+                <SwiperSlide className="card card-slide" style={{ width: '20%', height: '110px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <div className="card-body" style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                    <img
+                      src="green.jpg"
+                      alt="Ícone"
+                      className="background-image"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        margin: '0',
+                        padding: '0',
+                        display: 'block',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                      }}
+                    />
+                    <p className="mb-2" style={{ position: 'center', color: 'white', textAlign: 'center', width: '100%', top: '50%', transform: 'translateY(-50%)' }}>Manager</p>
+                    <button className="button">Ver</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide className=" card card-slide">
-                  <div className="card-body">
-                    <div className="progress-widget">
-                      <Circularprogressbar
-                        stroke={variableColors.primary}
-                        width="60px"
-                        height="60px"
-                        trailstroke="#ddd"
-                        strokewidth="4px"
-                        Linecap="rounded"
-                        style={{ width: 60, height: 60 }}
-                        value={50}
-                        id="circle-progress-05"
-                      >
-                        <svg
-                          className=""
-                          width="24px"
-                          height="24px"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z"
-                          />
-                        </svg>
-                      </Circularprogressbar>
-                      <div className="progress-detail">
-                        <p className="mb-2">Net Income</p>
-                        <h4 className="counter">
-                          $<CountUp start={35} end={150} duration={3} />K
-                        </h4>
-                      </div>
-                    </div>
+
+                <SwiperSlide className="card card-slide" style={{ width: '20%', height: '110px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <div className="card-body" style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                    <img
+                      src="green.jpg"
+                      alt="Ícone"
+                      className="background-image"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        margin: '0',
+                        padding: '0',
+                        display: 'block',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                      }}
+                    />
+                    <p className="mb-2" style={{ position: 'center', color: 'white', textAlign: 'center', width: '100%', top: '50%', transform: 'translateY(-50%)' }}>Parcerias</p>
+                    <button className="button">Ver</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide className=" card card-slide">
-                  <div className="card-body">
-                    <div className="progress-widget">
-                      <Circularprogressbar
-                        stroke={variableColors.info}
-                        width="60px"
-                        height="60px"
-                        trailstroke="#ddd"
-                        Linecap="rounded"
-                        strokewidth="4px"
-                        value={40}
-                        style={{ width: 60, height: 60 }}
-                        id="circle-progress-06"
-                      >
-                        <svg
-                          className=""
-                          width="24px"
-                          height="24px"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z"
-                          />
-                        </svg>
-                      </Circularprogressbar>
-                      <div className="progress-detail">
-                        <p className="mb-2">Today</p>
-                        <h4 className="counter">
-                          $<CountUp start={652} end={4600} duration={3} />
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className=" card card-slide">
-                  <div className="card-body">
-                    <div className="progress-widget">
-                      <Circularprogressbar
-                        stroke={colors}
-                        Linecap="rounded"
-                        trailstroke="#ddd"
-                        strokewidth="4px"
-                        width="60px"
-                        height="60px"
-                        value={30}
-                        style={{ width: 60, height: 60 }}
-                        id="circle-progress-07"
-                      >
-                        <svg
-                          className=""
-                          width="24px"
-                          height="24px"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z"
-                          />
-                        </svg>
-                      </Circularprogressbar>
-                      <div className="progress-detail">
-                        <p className="mb-2">Members</p>
-                        <h4 className="counter">
-                          <CountUp
-                            start={2}
-                            end={11.2}
-                            duration={3}
-                            decimals={1}
-                          />
-                          M
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <div className="swiper-button swiper-button-next"></div>
-                <div className="swiper-button swiper-button-prev"></div>
+
+
               </Swiper>
             </div>
           </Row>
@@ -523,8 +396,8 @@ const Index = memo((props) => {
               <div className="card" data-aos="fade-up" data-aos-delay="800">
                 <div className="flex-wrap card-header d-flex justify-content-between">
                   <div className="header-title">
-                    <h4 className="card-title">$855.8K</h4>
-                    <p className="mb-0">Gross Sales</p>
+                    <h4 className="card-title">Clientes e Parcerias</h4>
+                    <p className="mb-0">Taxa de crescimento</p>
                   </div>
                   <div className="d-flex align-items-center align-self-center">
                     <div className="d-flex align-items-center text-primary">
@@ -544,7 +417,7 @@ const Index = memo((props) => {
                         </g>
                       </svg>
                       <div className="ms-2">
-                        <span className="text-gray">Sales</span>
+                        <span className="text-gray">Clientes</span>
                       </div>
                     </div>
                     <div className="d-flex align-items-center ms-3 text-info">
@@ -564,7 +437,7 @@ const Index = memo((props) => {
                         </g>
                       </svg>
                       <div className="ms-2">
-                        <span className="text-gray">Cost</span>
+                        <span className="text-gray">Parcerias</span>
                       </div>
                     </div>
                   </div>
@@ -575,12 +448,12 @@ const Index = memo((props) => {
                       type="button"
                       id="dropdownMenuButtonSM"
                     >
-                      This Week
+                      Esta Semana
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#">This Week</Dropdown.Item>
-                      <Dropdown.Item href="#">This Month</Dropdown.Item>
-                      <Dropdown.Item href="#">This Year</Dropdown.Item>
+                      <Dropdown.Item href="#">Esta Semana</Dropdown.Item>
+                      <Dropdown.Item href="#">Este Mês</Dropdown.Item>
+                      <Dropdown.Item href="#">Este Ano</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
@@ -598,7 +471,7 @@ const Index = memo((props) => {
               <div className="card" data-aos="fade-up" data-aos-delay="900">
                 <div className="flex-wrap card-header d-flex justify-content-between">
                   <div className="header-title">
-                    <h4 className="card-title">Earnings</h4>
+                    <h4 className="card-title">Ganhos</h4>
                   </div>
                   <Dropdown>
                     <Dropdown.Toggle
@@ -607,12 +480,12 @@ const Index = memo((props) => {
                       type="button"
                       id="dropdownMenuButtonSM"
                     >
-                      This Week
+                      Esta Semana
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#">This Week</Dropdown.Item>
-                      <Dropdown.Item href="#">This Month</Dropdown.Item>
-                      <Dropdown.Item href="#">This Year</Dropdown.Item>
+                      <Dropdown.Item href="#">Esta Semana</Dropdown.Item>
+                      <Dropdown.Item href="#">Este Mês</Dropdown.Item>
+                      <Dropdown.Item href="#">Este Ano</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
@@ -666,7 +539,7 @@ const Index = memo((props) => {
                           </g>
                         </svg>
                         <div className="ms-3">
-                          <span className="text-gray">Accessories</span>
+                          <span className="text-gray">Acessórios</span>
                           <h6>176K</h6>
                         </div>
                       </div>
@@ -679,7 +552,7 @@ const Index = memo((props) => {
               <div className="card" data-aos="fade-up" data-aos-delay="1000">
                 <div className="flex-wrap card-header d-flex justify-content-between">
                   <div className="header-title">
-                    <h4 className="card-title">Conversions</h4>
+                    <h4 className="card-title">Conversões</h4>
                   </div>
                   <Dropdown>
                     <Dropdown.Toggle
@@ -688,12 +561,12 @@ const Index = memo((props) => {
                       type="button"
                       id="dropdownMenuButtonSM"
                     >
-                      This Week
+                      Esta Semana
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#">This Week</Dropdown.Item>
-                      <Dropdown.Item href="#">This Month</Dropdown.Item>
-                      <Dropdown.Item href="#">This Year</Dropdown.Item>
+                      <Dropdown.Item href="#">Esta Semana</Dropdown.Item>
+                      <Dropdown.Item href="#">Este Mês</Dropdown.Item>
+                      <Dropdown.Item href="#">Este Ano</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
@@ -716,7 +589,7 @@ const Index = memo((props) => {
               >
                 <div className="flex-wrap card-header d-flex justify-content-between">
                   <div className="header-title">
-                    <h4 className="mb-2 card-title">Enterprise Clients</h4>
+                    <h4 className="mb-2 card-title">Clientes Empresariais</h4>
                     <p className="mb-0">
                       <svg
                         className="me-2"
@@ -729,7 +602,7 @@ const Index = memo((props) => {
                           d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
                         />
                       </svg>
-                      15 new acquired this month
+                      15 novos adquiridos este mês
                     </p>
                   </div>
                 </div>
@@ -742,10 +615,10 @@ const Index = memo((props) => {
                     >
                       <thead>
                         <tr>
-                          <th>COMPANIES</th>
-                          <th>CONTACTS</th>
-                          <th>ORDER</th>
-                          <th>COMPLETION</th>
+                          <th>EMPRESAS</th>
+                          <th>CONTACTOS</th>
+                          <th>ENCOMENDA</th>
+                          <th>CONCLUSÃO</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -757,7 +630,7 @@ const Index = memo((props) => {
                                 src={shapes1}
                                 alt="profile"
                               />
-                              <h6>Addidis Sportwear</h6>
+                              <h6>Roupas Esportivas Adidas</h6>
                             </div>
                           </td>
                           <td>
@@ -803,7 +676,7 @@ const Index = memo((props) => {
                                 src={shapes5}
                                 alt="profile"
                               />
-                              <h6>Netflixer Platforms</h6>
+                              <h6>Plataformas de Streaming (Netflixer)</h6>
                             </div>
                           </td>
                           <td>
@@ -844,7 +717,7 @@ const Index = memo((props) => {
                                 src={shapes2}
                                 alt="profile"
                               />
-                              <h6>Shopifi Stores</h6>
+                              <h6>Lojas Shopify</h6>
                             </div>
                           </td>
                           <td>
@@ -885,7 +758,7 @@ const Index = memo((props) => {
                                 src={shapes3}
                                 alt="profile"
                               />
-                              <h6>Bootstrap Technologies</h6>
+                              <h6>Tecnologias Bootstrap</h6>
                             </div>
                           </td>
                           <td>
@@ -936,7 +809,7 @@ const Index = memo((props) => {
                                 src={shapes4}
                                 alt="profile"
                               />
-                              <h6>Community First</h6>
+                              <h6>Comunidade Primeiro</h6>
                             </div>
                           </td>
                           <td>
@@ -976,16 +849,17 @@ const Index = memo((props) => {
           <Row>
             <Col md="12" lg="12">
               <div
-                className="card credit-card-widget"
+                className="card credit-card-widget" 
                 data-aos="fade-up"
                 data-aos-delay="700"
               >
-                <div className="pb-4 border-0 card-header">
-                  <div className="p-4 border border-white rounded primary-gradient-card">
+                <div className="pb-4 border-0 card-header" style={{ background: 'linear-gradient(to , #4CAF50, #00C853)' }}
+                >
+                  <div className="p-4 border border-white rounded primary-gradient-card" >
                     <div className="d-flex justify-content-between align-items-center">
                       <div>
                         <h5 className="font-weight-bold">VISA </h5>
-                        <p className="mb-0">PREMIUM ACCOUNT</p>
+                        <p className="mb-0">CONTA PREMIUM</p>
                       </div>
                       <div className="master-card-content">
                         <svg
@@ -1021,11 +895,11 @@ const Index = memo((props) => {
                       </div>
                     </div>
                     <div className="mb-2 d-flex align-items-center justify-content-between">
-                      <p className="mb-0">Card holder</p>
-                      <p className="mb-0">Expire Date</p>
+                      <p className="mb-0">Titular do Cartão</p>
+                      <p className="mb-0">Data de Expiração</p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between">
-                      <h6>Mike Smith</h6>
+                      <h6>Henrique de 9</h6>
                       <h6 className="ms-5">06/11</h6>
                     </div>
                   </div>
@@ -1052,7 +926,7 @@ const Index = memo((props) => {
                       </div>
                       <div className="ms-3">
                         <h5>1153</h5>
-                        <small className="mb-0">Products</small>
+                        <small className="mb-0">Produtos</small>
                       </div>
                     </div>
                     <div className="d-flex align-itmes-center">
@@ -1075,7 +949,7 @@ const Index = memo((props) => {
                       </div>
                       <div className="ms-3">
                         <h5>81K</h5>
-                        <small className="mb-0">Order Served</small>
+                        <small className="mb-0">Pedido Servido</small>
                       </div>
                     </div>
                   </div>
@@ -1088,14 +962,14 @@ const Index = memo((props) => {
                         </span>
                       </div>
                     </div>
-                    <p className="text-info">Life time sales</p>
+                    <p className="text-info">Vendas ao Longo da Vida</p>
                   </div>
                   <div className="grid-cols-2 d-grid gap">
                     <button className="btn btn-primary text-uppercase">
-                      SUMMARY
+                    RESUMO
                     </button>
                     <button className="btn btn-info text-uppercase">
-                      ANALYTICS
+                    ANÁLISE
                     </button>
                   </div>
                 </div>
@@ -1106,12 +980,12 @@ const Index = memo((props) => {
                     <h2 className="mb-2">
                       750<small>K</small>
                     </h2>
-                    <p className="mb-0 text-gray">Website Visitors</p>
+                    <p className="mb-0 text-gray">Visitantes do Website</p>
                   </div>
                   <hr className="hr-vertial" />
                   <div>
                     <h2 className="mb-2">7,500</h2>
-                    <p className="mb-0 text-gray">New Customers</p>
+                    <p className="mb-0 text-gray">Novos Clientes</p>
                   </div>
                 </div>
               </div>
@@ -1120,7 +994,7 @@ const Index = memo((props) => {
               <div className="card" data-aos="fade-up" data-aos-delay="600">
                 <div className="flex-wrap card-header d-flex justify-content-between">
                   <div className="header-title">
-                    <h4 className="mb-2 card-title">Activity overview</h4>
+                    <h4 className="mb-2 card-title">Visão Geral da Atividade</h4>
                     <p className="mb-0">
                       <svg
                         className="me-2"
@@ -1133,7 +1007,7 @@ const Index = memo((props) => {
                           d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z"
                         />
                       </svg>
-                      16% this month
+                      16% neste mês
                     </p>
                   </div>
                 </div>
@@ -1141,35 +1015,35 @@ const Index = memo((props) => {
                   <div className="mb-2 d-flex profile-media align-items-top">
                     <div className="mt-1 profile-dots-pills border-primary"></div>
                     <div className="ms-4">
-                      <h6 className="mb-1 ">$2400, Purchase</h6>
+                      <h6 className="mb-1 ">$2400, Compra</h6>
                       <span className="mb-0">11 JUL 8:10 PM</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex profile-media align-items-top">
                     <div className="mt-1 profile-dots-pills border-primary"></div>
                     <div className="ms-4">
-                      <h6 className="mb-1 ">New order #8744152</h6>
+                      <h6 className="mb-1 ">Novo pedido #8744152</h6>
                       <span className="mb-0">11 JUL 11 PM</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex profile-media align-items-top">
                     <div className="mt-1 profile-dots-pills border-primary"></div>
                     <div className="ms-4">
-                      <h6 className="mb-1 ">Affiliate Payout</h6>
+                      <h6 className="mb-1 ">Pagamento de Afiliado</h6>
                       <span className="mb-0">11 JUL 7:64 PM</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex profile-media align-items-top">
                     <div className="mt-1 profile-dots-pills border-primary"></div>
                     <div className="ms-4">
-                      <h6 className="mb-1 ">New user added</h6>
+                      <h6 className="mb-1 ">Novo colaborador adicionado</h6>
                       <span className="mb-0">11 JUL 1:21 AM</span>
                     </div>
                   </div>
                   <div className="mb-1 d-flex profile-media align-items-top">
                     <div className="mt-1 profile-dots-pills border-primary"></div>
                     <div className="ms-4">
-                      <h6 className="mb-1 ">Product added</h6>
+                      <h6 className="mb-1 ">Produto adicionado</h6>
                       <span className="mb-0">11 JUL 4:50 AM</span>
                     </div>
                   </div>

@@ -79,13 +79,13 @@ const Sidebar = memo((props) => {
         className={` ${sidebarColor} ${sidebarType.join( " " )} ${sidebarMenuStyle} ${sidebarHide.join( " " ) ? 'sidebar-none' : 'sidebar'}   sidebar-base  ` }
         data-sidebar="responsive"
       >
-        <div className="sidebar-header d-flex align-items-center justify-content-start">
+        <div className="sidebar-header d-flex align-items-center justify-content-start" style={{ backgroundColor: 'rgb(207, 246, 205)' }}>
           <Link to="/dashboard" className="navbar-brand">
             <Logo />
             <h4 className="logo-title">{props.app_name}</h4>
           </Link>
           <div
-            className="sidebar-toggle"
+            className="sidebar-toggle" style={{ backgroundColor: 'rgb(173, 232, 87)' }}
             data-toggle="sidebar"
             data-active="true"
             onClick={minisidebar}
@@ -100,15 +100,15 @@ const Sidebar = memo((props) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M4.25 12.2744L19.25 12.2744"
-                  stroke="currentColor"
+                  d="M4.25 12.2744L19.25 12.2744" 
+                  stroke="black"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 ></path>
                 <path
                   d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976"
-                  stroke="currentColor"
+                  stroke="black"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
