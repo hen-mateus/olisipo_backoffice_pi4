@@ -4,6 +4,8 @@ import axios from './axiosConfig';
 import { Accordion, Nav, Tab, Button, Form, Modal } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { baseUrl } from './baseURL';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 import { useParams } from "react-router-dom";
 import Index from "..";
 
@@ -218,6 +220,48 @@ const EdicaoWeb = () => {
         }
     }
 
+    function DeleteSeccao(id) {
+        Swal.fire({
+            title: 'Tem a certeza que quer eliminar?',
+            text: 'Não vai conseguir recuperar esta secção!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, eliminar!',
+            cancelButtonText: 'Não, quero manter'
+        }).then((result) => {
+            if (result.value) {
+                SendDeleteSeccao(id)
+            } else if (result.dismiss ===
+                Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'A secção não foi eliminada',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function SendDeleteSeccao(id) {
+        const url = baseUrl + "/conteudowebsite/delete/";
+        axios.post(url, {
+            id_conteudowebsite_param: id
+        })
+            .then(response => {
+                if (response.data.success) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'A secção foi eliminada com sucesso.',
+                        'success'
+                    )
+                }
+                LoadWebSeccao();
+            })
+            .catch(error => {
+                alert("Error 325 ")
+            })
+    }
+
     function conteudowebSeccao() {
         return dataWebSeccao.map((data, index) => {
             return (
@@ -265,6 +309,7 @@ const EdicaoWeb = () => {
                             />
                         </Form.Group>
                         <Button id={`btn2-${index}`} type="submit" variant="primary">Atualizar</Button>
+                        <Button variant="danger" className="m-1" onClick={() => DeleteSeccao(data.id_conteudo)}>Eliminar</Button>
                     </Form>
                 </Accordion.Body>
             );
@@ -297,12 +342,12 @@ const EdicaoWeb = () => {
                                         </Form.Group>
                                         <Form.Group className="form-group">
                                             <Form.Label htmlFor="texto1">Texto 1:</Form.Label>
-                                            <Form.Control type="texto1" id="texto1" value={campTexto3}
+                                            <Form.Control type="texto1" id="texto1" value={campTexto1}
                                                 onChange={(e) => setcampTexto1(e.target.value)} />
                                         </Form.Group>
                                         <Form.Group className="form-group">
                                             <Form.Label htmlFor="texto2">Texto 2:</Form.Label>
-                                            <Form.Control type="texto2" id="texto2" value={campTexto3}
+                                            <Form.Control type="texto2" id="texto2" value={campTexto2}
                                                 onChange={(e) => setcampTexto2(e.target.value)} />
                                         </Form.Group>
                                         <Form.Group className="form-group">
