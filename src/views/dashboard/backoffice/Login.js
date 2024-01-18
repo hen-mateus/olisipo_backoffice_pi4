@@ -5,7 +5,7 @@ import axios from './axiosConfig';
 import { baseUrl } from './baseURL';
 import Card from '../../../components/Card'
 import Cookies from 'js-cookie';
-import OlisipoLogo from '../../../assets/images/olisipo/Olisipo_LogoBlack.png';
+import OlisipoLogo from '../../../assets/images/olisipo/Olisipo_LogoBlack_pequeno-01.png';
 import LoginFundo from '../../../assets/images/olisipo/login_fundo.png';
 
 const Login = () => {
@@ -50,7 +50,7 @@ const Login = () => {
                <Col md="6">
                   <Card className="card-transparent bg-transparent shadow-none d-flex justify-content-center mb-0">
                      <Card.Body>
-                     <Link to="/dashboard" className="navbar-brand d-flex align-items-center mb-4">
+                     <Link to="/webpage" className="navbar-brand d-flex align-items-center mb-4">
                            <Image src={OlisipoLogo} alt="Olisipo Logo" className="logo-image mx-auto mt-auto" height={100}/>
                         </Link>
                         <p className="mb-4 text-center text-dark">Entra para te manteres conectado</p>

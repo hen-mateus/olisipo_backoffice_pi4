@@ -5,8 +5,8 @@ import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
 import { baseUrl } from './baseURL';
 import { useParams } from 'react-router-dom';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const formatTableCell = () => {
     return {

@@ -11,6 +11,7 @@ import SignUp from '../views/dashboard/auth/sign-up'
 import Error404 from '../views/dashboard/errors/error404'
 import Error500 from '../views/dashboard/errors/error500'
 import Maintenance from '../views/dashboard/errors/maintenance'
+import MicroSite from '../views/dashboard/backoffice/microSite';
 
 // const SimpleRouter = () => {
 //     return (
@@ -34,6 +35,10 @@ import Maintenance from '../views/dashboard/errors/maintenance'
 // }
 
 export const SimpleRouter = [
+    {
+        path: '/webpage',
+        element: <MicroSite />
+    },
     {
         path: 'auth/sign-up',
         element: <SignUp />
