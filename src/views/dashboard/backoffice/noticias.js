@@ -66,16 +66,13 @@ const Notícias = () => {
         inserirNoticia();
     };
 
-
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
-    // Pagination logic
+    const [itemsPerPage] = useState(3);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = dataNoticias.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(dataNoticias.length / itemsPerPage);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
 
     useEffect(() => {
         LoadNoticias();
@@ -269,7 +266,7 @@ const Notícias = () => {
     }
 
     function TabelaNoticias() {
-        return dataNoticias.map((data, index) => {
+        return currentItems.map((data, index) => {
             return (
                 <tr key={index}>
                     <td style={formatTableCell()} className="text-center fs-5 fw-bold">

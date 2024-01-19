@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Row, Col, Form, Image } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
+import { baseUrl } from './baseURL';
 
 // img
 import imgsuccess from '../../../assets/images/pages/img-success.png'
@@ -26,7 +27,7 @@ const AdicionarColaborador = () => {
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/roles");
+                const response = await axios.get(baseUrl +"/roles");
                 setRoles(response.data.data);
             } catch (error) {
                 console.error("Erro ao buscar os roles:", error);
@@ -34,7 +35,7 @@ const AdicionarColaborador = () => {
         };
         const fetchManagers = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/pessoas/managers");
+                const response = await axios.get(baseUrl +"/pessoas/managers");
                 setManagers(response.data.data);
             } catch (error) {
                 console.error("Erro ao buscar os managers:", error);
@@ -172,30 +173,30 @@ const AdicionarColaborador = () => {
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label className="form-label">Email:</label>
+                                                        <label className="form-label">Email</label>
                                                         <input type="email" className="form-control" name="email" placeholder="Email" value={campEmail} onChange={value =>
                                                             setcampEmail(value.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label className="form-label">Nome:</label>
+                                                        <label className="form-label">Nome</label>
                                                         <input type="text" className="form-control" name="uname" placeholder="Nome completo" value={campNome} onChange={value =>
                                                             setcampNome(value.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label className="form-label">Password:</label>
+                                                        <label className="form-label">Password</label>
                                                         <input type="password" className="form-control" name="pwd" placeholder="Password" value={campPassword} onChange={value =>
                                                             setcampPassword(value.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label className="form-label">Role:</label>
+                                                        <label className="form-label">Cargo</label>
                                                         <select id="inputState" className="form-control" value={campIdTipo} onChange={value => setcampIdTipo(value.target.value)}>
-                                                            <option value="" disabled>Escolha um role:</option>
+                                                            <option value="" disabled>Escolha o cargo</option>
                                                             {roles.map(role => (
                                                                 <option key={role.id_tipo} value={role.id_tipo}>{role.tipo}</option>
                                                             ))}
@@ -226,8 +227,8 @@ const AdicionarColaborador = () => {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label className="form-label">Número de Colaborador:</label>
-                                                        <input type="number" className="form-control" name="lname" placeholder="Número de Colaborador:" value={campNumColaborador} onChange={value => setcampNumColaborador(value.target.value)} />
+                                                        <label className="form-label">Número de Colaborador</label>
+                                                        <input type="text" className="form-control" name="lname" placeholder="Número de Colaborador" value={campNumColaborador} onChange={value => setcampNumColaborador(value.target.value)} />
                                                     </div>
                                                 </div>
 
@@ -239,7 +240,7 @@ const AdicionarColaborador = () => {
                                                         <label className="form-label">Manager</label>
 
                                                         <select id="inputState" className="form-control" value={campManager} onChange={value => setcampManager(value.target.value)}>
-                                                            <option value="" disabled>Escolha um manager:</option>
+                                                            <option value="" disabled>Escolha o manager do colaborador</option>
                                                             {managers.map(manager => (
                                                                 <option key={manager.id_pessoa} value={manager.id_pessoa}>{manager.nome_pessoa} - {manager.numero_colaborador}</option>
                                                             ))}
@@ -248,8 +249,8 @@ const AdicionarColaborador = () => {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label className="form-label">Cliente:</label>
-                                                        <input type="text" className="form-control" name="lname" placeholder="Cliente:" value={campCliente} onChange={value => setcampCliente(value.target.value)} />
+                                                        <label className="form-label">Cliente</label>
+                                                        <input type="text" className="form-control" name="lname" placeholder="Cliente" value={campCliente} onChange={value => setcampCliente(value.target.value)} />
                                                     </div>
                                                 </div>
 
@@ -263,14 +264,13 @@ const AdicionarColaborador = () => {
                                         <div className="form-card text-start">
                                             <div className="row">
                                                 <div className="col-7">
-                                                    <h3 className="mb-4">Upload Curriculo:</h3>
+                                                    <h3 className="mb-4">Upload Currículo</h3>
                                                 </div>
                                                 <div className="col-5">
                                                     <h2 className="steps">Step 3 - 4</h2>
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label className="form-label">Upload Curriculo</label>
                                                 <input type="file" className="form-control" name="pic" accept="image/*" value={campCurriculo} onChange={value => setcampCurriculo(value.target.value)} />
                                             </div>
 

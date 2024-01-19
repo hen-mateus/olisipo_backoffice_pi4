@@ -9,17 +9,15 @@ import Progress from "../../../components/progress.js";
 
 const Recibos = () => {
   const [dataRecibos, setdataRecibos] = useState([]);
-
   const [campRecibopdf, setcampRecibopdf] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = dataRecibos.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(dataRecibos.length / itemsPerPage);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
 
   useEffect(() => {
     LoadRecibos();
@@ -74,7 +72,7 @@ const Recibos = () => {
   }
 
   function TabelaRecibos() {
-    return dataRecibos.map((data, index) => {
+    return currentItems.map((data, index) => {
       const formattedDate = getFormattedDate(data.data_recibo);
 
       const handleEnviarClick = () => {

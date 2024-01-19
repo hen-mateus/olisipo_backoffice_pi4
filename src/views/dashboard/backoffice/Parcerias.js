@@ -65,8 +65,7 @@ const Parcerias = () => {
     };
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
-    // Pagination logic
+    const [itemsPerPage] = useState(3);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = dataParcerias.slice(indexOfFirstItem, indexOfLastItem);
@@ -262,7 +261,7 @@ const Parcerias = () => {
     }
 
     function TabelaParcerias() {
-        return dataParcerias.map((data, index) => {
+        return currentItems.map((data, index) => {
             return (
                 <tr key={index}>
                     <td style={formatTableCell()} className="text-center fs-5 fw-bold">
@@ -278,7 +277,7 @@ const Parcerias = () => {
                         {data.tipo_parceria}
                     </td>
                     <td className="text-center" >
-                        <img src="http://193.137.7.33/~estgv22798/BannerAnimado%20-%20Trabalho%20Individual%20N%c2%ba1/images/Garrafa.png" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
+                        <img src={data.imagem_parceria} alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
                     </td>
                     <td>
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
