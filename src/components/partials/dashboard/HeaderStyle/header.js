@@ -5,25 +5,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import CustomToggle from '../../../dropdowns'
 import Cookies from 'js-cookie';
 import { baseUrl } from '../../../../views/dashboard/backoffice/baseURL';
-
-//img
-import flag1 from '../../../../assets/images/Flag/flag001.png'
-import flag2 from '../../../../assets/images/Flag/flag-02.png'
-import flag3 from '../../../../assets/images/Flag/flag-03.png'
-import flag4 from '../../../../assets/images/Flag/flag-04.png'
-import flag5 from '../../../../assets/images/Flag/flag-05.png'
-import flag6 from '../../../../assets/images/Flag/flag-06.png'
-import shapes1 from '../../../../assets/images/shapes/01.png'
-import shapes2 from '../../../../assets/images/shapes/02.png'
-import shapes3 from '../../../../assets/images/shapes/03.png'
-import shapes4 from '../../../../assets/images/shapes/04.png'
-import shapes5 from '../../../../assets/images/shapes/05.png'
+import { jwtDecode } from 'jwt-decode';
 import avatars1 from '../../../../assets/images/avatars/01.png'
-import avatars2 from '../../../../assets/images/avatars/avtar_1.png'
-import avatars3 from '../../../../assets/images/avatars/avtar_2.png'
-import avatars4 from '../../../../assets/images/avatars/avtar_3.png'
-import avatars5 from '../../../../assets/images/avatars/avtar_4.png'
-import avatars6 from '../../../../assets/images/avatars/avtar_5.png'
+
 // logo
 import Logo from '../../components/logo'
 
@@ -39,7 +23,6 @@ const Header = memo((props) => {
     const navbarHide = useSelector(SettingSelector.navbar_show); // array
     const headerNavbar = useSelector(SettingSelector.header_navbar)
     useEffect(() => {
-        // navbarstylemode
         if (headerNavbar === 'navs-sticky' || headerNavbar === 'nav-glass') {
             window.onscroll = () => {
                 if (document.documentElement.scrollTop > 50) {
@@ -59,7 +42,7 @@ const Header = memo((props) => {
 
     useEffect(() => {
         LoadNotificacoes();
-        LoadUtilizador()
+        LoadUtilizador();
     }, []);
 
     function LoadNotificacoes() {
@@ -80,7 +63,6 @@ const Header = memo((props) => {
             });
 
     }
-
 
     function marcarNotificacoesComoLidas() {
         const url = baseUrl + "/notificacoes/marcarTodasComoLidas";
@@ -144,8 +126,40 @@ const Header = memo((props) => {
                 </Link>
             );
         });
-
     }
+
+    function adminNotificacoes() {
+        return (
+            <Dropdown as="li" className="nav-item" >
+                <Dropdown.Toggle as={CustomToggle} href="#" variant="nav-link" id="notification-drop" data-bs-toggle="dropdown">
+                    {dataNotificacoes.reduce((total, data) => total + data.quantidade_nao_lida, 0) > 0 ? (
+                        <i className="fas fa-bell"></i>
+                    ) : (
+                        <i className="far fa-bell"></i>
+                    )}
+                    <span className="bg-danger dots"></span>
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="p-0 sub-drop dropdown-menu-end" aria-labelledby="notification-drop">
+                    <div className="m-0 shadow-none card">
+                        <div className="py-3 card-header d-flex justify-content-between bg-primary">
+                            <div className="header-title">
+                                <h5 className="mb-0 text-white">Notificações</h5>
+                            </div>
+                        </div>
+                        <div className="p-0 card-body">
+                            {Notificacoes()}
+                        </div>
+                        <div className="card-footer  py-3">
+                            <button className="btn btn-light p-1" onClick={marcarNotificacoesComoLidas}>Marcar como Lidas</button>
+                        </div>
+                    </div>
+                </Dropdown.Menu>
+            </Dropdown>
+        )
+    }
+
+    //está vazio pois o manager não tem permissão a vizualizar todas as notificações do backoffice
+    function managerNotificacoes() { return null }
 
     function LoadUtilizador() {
         const url = baseUrl + "/pessoas/getId";
@@ -184,7 +198,12 @@ const Header = memo((props) => {
     const minisidebar = () => {
         document.getElementsByTagName('ASIDE')[0].classList.toggle('sidebar-mini')
     }
+
+    const token = Cookies.get('token');
+    const decodedToken = jwtDecode(token);
+    const idTipo = decodedToken.id_tipo;
     return (
+
         <Fragment>
             <Navbar expand="lg" variant="light" className={`nav iq-navbar ${headerNavbar} ${navbarHide.join(" ")}`}>
                 <Container fluid className="navbar-inner">
@@ -208,35 +227,8 @@ const Header = memo((props) => {
                     </Navbar.Toggle>
                     <Navbar.Collapse id="navbarSupportedContent">
                         <Nav as="ul" className="mb-2 ms-auto navbar-list mb-lg-0 align-items-center">
-                            <Dropdown as="li" className="nav-item" >
-                                <Dropdown.Toggle as={CustomToggle} href="#" variant="nav-link" id="notification-drop" data-bs-toggle="dropdown">
-                                    {dataNotificacoes.reduce((total, data) => total + data.quantidade_nao_lida, 0) > 0 ? (
-                                        <i className="fas fa-bell"></i>
-                                    ) : (
-                                        <i className="far fa-bell"></i>
-                                    )}
-                                    <span className="bg-danger dots"></span>
-                                </Dropdown.Toggle>
-
-
-
-                                <Dropdown.Menu className="p-0 sub-drop dropdown-menu-end" aria-labelledby="notification-drop">
-                                    <div className="m-0 shadow-none card">
-                                        <div className="py-3 card-header d-flex justify-content-between bg-primary">
-                                            <div className="header-title">
-                                                <h5 className="mb-0 text-white">Notificações</h5>
-                                            </div>
-                                        </div>
-                                        <div className="p-0 card-body">
-                                            {Notificacoes()}
-
-                                        </div>
-                                        <div className="card-footer  py-3">
-                                            <button className="btn btn-light p-1" onClick={marcarNotificacoesComoLidas}>Marcar como lida</button>
-                                        </div>
-                                    </div>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                            {idTipo === 2 && managerNotificacoes()}
+                            {idTipo === 3 && adminNotificacoes()}
                             <Dropdown as="li" className="nav-item">
                                 <Dropdown.Toggle as={CustomToggle} variant=" nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src={avatars1} alt="User-Profile" className="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
@@ -246,7 +238,6 @@ const Header = memo((props) => {
                                     </div>
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className="dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <Dropdown.Item href="https://templates.iqonic.design/hope-ui/react/build/dashboard/app/user-profile">Profile</Dropdown.Item>
                                     <Dropdown.Item onClick={() => handleLogout()}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
