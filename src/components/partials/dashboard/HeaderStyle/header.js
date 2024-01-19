@@ -190,7 +190,7 @@ const Header = memo((props) => {
                 <Container fluid className="navbar-inner">
                     <Link to="/dashboard" className="navbar-brand">
                         <Logo color={true} />
-                        <h4 className="logo-title">Olisipon</h4>
+                        <h4 className="logo-title"></h4>
                     </Link>
                     <div className="sidebar-toggle" data-toggle="sidebar" data-active="true" onClick={minisidebar}>
                         <i className="icon">

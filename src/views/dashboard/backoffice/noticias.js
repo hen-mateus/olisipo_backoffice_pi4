@@ -5,8 +5,8 @@ import Card from "../../../components/Card";
 import { Link } from "react-router-dom";
 import { baseUrl } from './baseURL';
 import { useParams } from 'react-router-dom';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const formatTableCell = () => {
     return {
@@ -327,9 +327,14 @@ const Notícias = () => {
                                                     onChange={(e) => setcampCorpoNoticia(e.target.value)} />
                                             </Form.Group>
                                             <Form.Group className="form-group">
-                                                <Form.Label htmlFor="imagemn">Imagem:</Form.Label>
-                                                <Form.Control type="imagemn" id="imagemn" value={campImagemNoticia}
-                                                    onChange={(e) => setcampImagemNoticia(e.target.value)} />
+                                                <Form.Label htmlFor="imagemn">Imagem da Notícia:</Form.Label>
+                                                <Form.Control
+                                                    type="file"
+                                                    className="form-control"
+                                                    name="pic"
+                                                    accept="image/*"
+                                                    onChange={(event) => setcampImagemNoticia(event.target.files[0].name)}
+                                                />
                                             </Form.Group>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoNoticia">Tipo de Notícia:</Form.Label>
@@ -384,7 +389,7 @@ const Notícias = () => {
                                         <Form>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="titulon">Título:</Form.Label>
-                                                <Form.Control type="titulon" id="titulon" value={campCriarTipoNoticia}
+                                                <Form.Control type="titulon" id="titulon" value={campCriarTituloNoticia}
                                                     onChange={(e) => setcampCriarTituloNoticia(e.target.value)} />
                                             </Form.Group>
                                             <Form.Group className="form-group">
@@ -398,9 +403,14 @@ const Notícias = () => {
                                                     onChange={(e) => setcampCriarCorpoNoticia(e.target.value)} />
                                             </Form.Group>
                                             <Form.Group className="form-group">
-                                                <Form.Label htmlFor="imagemn">Imagem:</Form.Label>
-                                                <Form.Control type="imagemn" id="imagemn" value={campCriarImagemNoticia}
-                                                    onChange={(e) => setcampCriarImagemNoticia(e.target.value)} />
+                                                <Form.Label htmlFor="imagemn">Imagem da Notícia:</Form.Label>
+                                                <Form.Control
+                                                    type="file"
+                                                    className="form-control"
+                                                    name="pic"
+                                                    accept="image/*"
+                                                    onChange={(event) => setcampCriarImagemNoticia(event.target.files[0].name)}
+                                                />
                                             </Form.Group>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoNoticia">Tipo de Notícia:</Form.Label>
