@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button , Pagination} from "react-bootstrap";
+import { Row, Col, Table, Button, Pagination } from "react-bootstrap";
 import axios from './axiosConfig';
 import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
 import { baseUrl } from './baseURL';
 
-
 const DadosPessoais = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
-
-  const [dataDadosPessoais, setdataDadosPessoais] = useState([]);
+const [dataDadosPessoais, setdataDadosPessoais] = useState([]);
 
   useEffect(() => {
     LoadDadosPessoais();
   }, []);
 
-    // Pagination logic
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = dataDadosPessoais.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(dataDadosPessoais.length / itemsPerPage);
-  
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = dataDadosPessoais.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(dataDadosPessoais.length / itemsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   function LoadDadosPessoais() {
     const url = baseUrl + "/pessoasauxiliar/";
@@ -80,7 +76,7 @@ const DadosPessoais = () => {
   }
 
   function TabelaAlteracaoDadosPessoais() {
-    return dataDadosPessoais.map((data, index) => {
+    return currentItems.map((data, index) => {
 
       return (
         <tr key={index}>
@@ -101,7 +97,7 @@ const DadosPessoais = () => {
               <Button variant="success" onClick={() => { dadosAprovacao(data.id_pessoas_auxiliar, true); updateDadosPessoa(data.id_pessoa, data.nome_pessoa_auxiliar, data.email_auxiliar) }}>
                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M8.43994 12.0002L10.8139 14.3732L15.5599 9.6272" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>
               </Button>
-              <td></td><td></td>
+              <div className="mx-2"></div>
               <Button variant="danger" onClick={() => dadosAprovacao(data.id_pessoas_auxiliar, false)}>                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            </Button>
             </div>
           </td>
@@ -142,18 +138,18 @@ const DadosPessoais = () => {
         </Col>
       </Row>
       {totalPages > 1 && (
-      <Row>
-        <Col className="d-flex justify-content-end">
-          <Pagination>
-            {Array.from({ length: totalPages }, (_, index) => (
-              <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
-                {index + 1}
-              </Pagination.Item>
-            ))}
-          </Pagination>
-        </Col>
-      </Row>
-    )}
+        <Row>
+          <Col className="d-flex justify-content-end">
+            <Pagination>
+              {Array.from({ length: totalPages }, (_, index) => (
+                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+            </Pagination>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };

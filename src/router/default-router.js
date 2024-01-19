@@ -50,9 +50,7 @@ import EdicaoWeb from '../views/dashboard/backoffice/EdicaoWeb';
 import Ferias from '../views/dashboard/backoffice/Ferias';
 import GestaoDeCustos from '../views/dashboard/backoffice/GestaoDeCustos';
 import Horas from '../views/dashboard/backoffice/Horas';
-import Login from '../views/dashboard/backoffice/Login';
 import Noticias from '../views/dashboard/backoffice/noticias';
-import Notificacoes from '../views/dashboard/backoffice/Notificacoes';
 import Parcerias from '../views/dashboard/backoffice/Parcerias';
 import Recibos from '../views/dashboard/backoffice/Recibos';
 import Reunioes from '../views/dashboard/backoffice/Reunioes';
@@ -89,10 +87,6 @@ export const DefaultRouter = [
             {
                 path: '/noticias',
                 element: <Noticias />
-            },
-            {
-                path: '/notificacoes',
-                element: <Notificacoes />
             },
             {
                 path: '/parcerias',
