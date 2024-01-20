@@ -23,11 +23,12 @@ const AdicionarColaborador = () => {
 
     const [managers, setManagers] = useState([]);
     const [roles, setRoles] = useState([]);
+    const [ultimoNumColaborador, setUltimoNumColaborador] = useState(null);
 
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const response = await axios.get(baseUrl +"/roles");
+                const response = await axios.get(baseUrl + "/roles");
                 setRoles(response.data.data);
             } catch (error) {
                 console.error("Erro ao buscar os roles:", error);
@@ -35,20 +36,42 @@ const AdicionarColaborador = () => {
         };
         const fetchManagers = async () => {
             try {
-                const response = await axios.get(baseUrl +"/pessoas/managers");
+                const response = await axios.get(baseUrl + "/pessoas/managers");
                 setManagers(response.data.data);
             } catch (error) {
                 console.error("Erro ao buscar os managers:", error);
             }
         };
+        const fetchUltimoNumColaborador = async () => {
+            try {
+                const response = await axios.get(baseUrl + "/pessoas");
+                const pessoas = response.data.data;
 
+                if (pessoas.length > 0) {
+                    const ultimoNumero = pessoas.reduce((max, pessoa) => {
+                        return pessoa.numero_colaborador > max ? pessoa.numero_colaborador : max;
+                    }, 0);
+                    setUltimoNumColaborador(ultimoNumero);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar o último número de colaborador:", error);
+            }
+        };
+
+        fetchUltimoNumColaborador();
         fetchRoles();
         fetchManagers();
     }, []);
 
+    function countNumColaborador() {
+        if (ultimoNumColaborador !== null) {
+            return ultimoNumColaborador + 1;
+        } else {
+            return null;
+        }
+    }
+
     function SendSave() {
-
-
         if (campManager === "") {
             alert("Atribua um manager!")
         }
@@ -68,12 +91,12 @@ const AdicionarColaborador = () => {
             alert("Insira um cliente!")
         }
         else if (campNumColaborador === "") {
-            alert("Insira um Numero de Colaborador!")
+            alert("Insira um número do colaborador!")
         } else if (campContribuinte === "") {
             alert("Insira o numero de contribuinte!")
         }
         else {
-            const baseUrl = "http://localhost:3000/pessoas/register"
+            const url = baseUrl + "/pessoas/register"
             const datapost = {
                 id_tipo_param: campIdTipo,
                 nome_pessoa_param: campNome,
@@ -88,7 +111,7 @@ const AdicionarColaborador = () => {
                 pes_id_param: campManager
             }
 
-            axios.post(baseUrl, datapost)
+            axios.post(url, datapost)
                 .then(response => {
 
                     if (response.data.success === true) {
@@ -112,7 +135,7 @@ const AdicionarColaborador = () => {
                         <Card>
                             <Card.Header className="d-flex justify-content-between">
                                 <div className="header-title">
-                                    <h4 className="card-title">Simple Wizard</h4>
+                                    <h4 className="card-title">Adicionar Novo Colaborador</h4>
                                 </div>
                             </Card.Header>
                             <Card.Body>
@@ -156,7 +179,7 @@ const AdicionarColaborador = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                 </div>
-                                                <span>Finish</span>
+                                                <span>Finalizado</span>
                                             </Link>
                                         </li>
                                     </ul>
@@ -167,7 +190,7 @@ const AdicionarColaborador = () => {
                                                     <h3 className="mb-4">Informação da Conta: </h3>
                                                 </div>
                                                 <div className="col-5">
-                                                    <h2 className="steps">Step 1 - 4</h2>
+                                                    <h2 className="steps">Passo 1 - 4</h2>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -215,24 +238,43 @@ const AdicionarColaborador = () => {
                                                     <h3 className="mb-4">Dados Empresariais:</h3>
                                                 </div>
                                                 <div className="col-5">
-                                                    <h2 className="steps">Step 2 - 4</h2>
+                                                    <h2 className="steps">Passo 2 - 4</h2>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Contribuinte</label>
-                                                        <input type="text" className="form-control" name="fname" placeholder="Contribuinte" value={campContribuinte} onChange={value => setcampContribuinte(value.target.value)} />
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            name="fname"
+                                                            placeholder="Contribuinte"
+                                                            value={campContribuinte}
+                                                            onChange={(event) => {
+                                                                const numericValue = event.target.value.replace(/\D/g, '');
+                                                                const truncatedValue = numericValue.slice(0, 9);
+                                                                setcampContribuinte(truncatedValue);
+                                                            }}
+                                                            maxLength={9}
+                                                            pattern="\d*"
+                                                            title="Please enter only numbers"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="form-label">Número de Colaborador</label>
-                                                        <input type="text" className="form-control" name="lname" placeholder="Número de Colaborador" value={campNumColaborador} onChange={value => setcampNumColaborador(value.target.value)} />
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            name="lname"
+                                                            placeholder="Número de Colaborador"
+                                                            value={countNumColaborador() || ""}
+                                                            readOnly
+                                                        />
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6">
@@ -267,7 +309,7 @@ const AdicionarColaborador = () => {
                                                     <h3 className="mb-4">Upload Currículo</h3>
                                                 </div>
                                                 <div className="col-5">
-                                                    <h2 className="steps">Step 3 - 4</h2>
+                                                    <h2 className="steps">Passo 3 - 4</h2>
                                                 </div>
                                             </div>
                                             <div className="form-group">
@@ -285,22 +327,21 @@ const AdicionarColaborador = () => {
                                         <div className="form-card">
                                             <div className="row">
                                                 <div className="col-7">
-                                                    <h3 className="mb-4 text-left">Finish:</h3>
+                                                    <h3 className="mb-4 text-left"></h3>
                                                 </div>
                                                 <div className="col-5">
-                                                    <h2 className="steps">Step 4 - 4</h2>
+                                                    <h2 className="steps">Passo 4 - 4</h2>
                                                 </div>
                                             </div>
                                             <br /><br />
-                                            <h2 className="text-success text-center"><strong>SUCCESS !</strong></h2>
+                                            <h2 className="text-success text-center"><strong>SUCCESSO!</strong></h2>
+                                            <br />
                                             <br />
                                             <div className="row justify-content-center">
-                                                <div className="col-3"> <Image src={imgsuccess} className="img-fluid" alt="fit-image" /> </div>
-                                            </div>
-                                            <br /><br />
-                                            <div className="row justify-content-center">
                                                 <div className="col-7 text-center">
-                                                    <h5 className="purple-text text-center">You Have Successfully Signed Up</h5>
+                                                    <h5 className="purple-text text-center">O colaborador foi adicionado com sucesso!</h5>
+                                                    <br />
+                                                    <h5 className="purple-text text-center">Foi enviado um e-mail com os dados para iniciar a sessão.</h5>
                                                 </div>
                                             </div>
                                         </div>

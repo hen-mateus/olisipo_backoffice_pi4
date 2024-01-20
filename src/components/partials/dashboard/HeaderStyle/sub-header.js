@@ -11,8 +11,6 @@ import topHeader5 from '../../../../assets/images/dashboard/top-header5.png'
 
 
 const SubHeader = memo((props) => {
-
-
     return (
         <Fragment>
             <div className="iq-navbar-header" style={{height: "215px"}}>
