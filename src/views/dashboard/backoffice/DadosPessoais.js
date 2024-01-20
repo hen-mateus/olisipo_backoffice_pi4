@@ -77,7 +77,6 @@ const [dataDadosPessoais, setdataDadosPessoais] = useState([]);
 
   function TabelaAlteracaoDadosPessoais() {
     return currentItems.map((data, index) => {
-
       return (
         <tr key={index}>
           <td className="text-center">
