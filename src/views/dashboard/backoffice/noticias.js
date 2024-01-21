@@ -267,6 +267,12 @@ const Notícias = () => {
 
     function TabelaNoticias() {
         return currentItems.map((data, index) => {
+            const truncateText = (text, maxLength) => {
+                if (text.length > maxLength) {
+                    return text.slice(0, maxLength) + '...';
+                }
+                return text;
+            };
             return (
                 <tr key={index}>
                     <td style={formatTableCell()} className="text-center fs-5 fw-bold">
@@ -276,13 +282,13 @@ const Notícias = () => {
                         {data.subtitulo_noticia}
                     </td>
                     <td style={formatTableCell()} className="text-center">
-                        {data.corpo_noticia}
+                        {truncateText(data.corpo_noticia, 200)}
                     </td>
                     <td style={formatTableCell()} className="text-center fw-bold">
                         {data.tipo_noticia}
                     </td>
                     <td className="text-center" >
-                        <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
+                        <img src={data.imagem_noticia} alt="Imagem" style={{ maxWidth: '100%', height: '100px' }} />
                     </td>
                     <td>
                         <div className="d-flex flex-column align-items-center mb-2 flex-wrap">
@@ -325,6 +331,11 @@ const Notícias = () => {
                                             </Form.Group>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="imagemn">Imagem da Notícia:</Form.Label>
+                                                <Form.Control type="imagemn" placeholder="Introduza o link da imagem..." id="imagemn" value={campImagemNoticia}
+                                                    onChange={(e) => setcampImagemNoticia(e.target.value)} />
+                                            </Form.Group>
+                                            {/*<Form.Group className="form-group">
+                                                <Form.Label htmlFor="imagemn">Imagem da Notícia:</Form.Label>
                                                 <Form.Control
                                                     type="file"
                                                     className="form-control"
@@ -333,6 +344,7 @@ const Notícias = () => {
                                                     onChange={(event) => setcampImagemNoticia(event.target.files[0].name)}
                                                 />
                                             </Form.Group>
+            */}
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoNoticia">Tipo de Notícia:</Form.Label>
                                                 <Form.Control
@@ -401,6 +413,11 @@ const Notícias = () => {
                                             </Form.Group>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="imagemn">Imagem da Notícia:</Form.Label>
+                                                <Form.Control type="imagemn" placeholder="Introduza o link da imagem..." id="imagemn" value={campCriarImagemNoticia}
+                                                    onChange={(e) => setcampCriarImagemNoticia(e.target.value)} />
+                                            </Form.Group>
+                                            {/*<Form.Group className="form-group">
+                                                <Form.Label htmlFor="imagemn">Imagem da Notícia:</Form.Label>
                                                 <Form.Control
                                                     type="file"
                                                     className="form-control"
@@ -409,6 +426,7 @@ const Notícias = () => {
                                                     onChange={(event) => setcampCriarImagemNoticia(event.target.files[0].name)}
                                                 />
                                             </Form.Group>
+    */}
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoNoticia">Tipo de Notícia:</Form.Label>
                                                 <Form.Control

@@ -64,18 +64,18 @@ const Login = () => {
          <section className="login-content">
             <div style={{ backgroundImage: `url(${LoginFundo})`, backgroundSize: 'cover', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                <Row className="mx-0 align-items-center vh-100 justify-content-center">
-                  <Col md="8">
+                  <Col md="9">
                      <Card className="card-transparent bg-transparent shadow-none d-flex justify-content-center mb-0">
                         <Card.Body>
                            <Link to="/webpage" className="navbar-brand d-flex align-items-center mb-4">
                               <Image src={OlisipoLogo} alt="Olisipo Logo" className="logo-image mx-auto mt-auto" height={100} />
                            </Link>
-                           <p className="mb-4 text-center text-dark">Entra para te manteres conectado</p>
+                           <h5 className="mb-4 text-center text-dark">Entra para te manteres conectado</h5>
                            <Form>
                               <Row>
                                  <Col lg="12">
                                     <Form.Group className="form-group">
-                                       <Form.Label htmlFor="email" className="text-dark">Email</Form.Label>
+                                       <Form.Label htmlFor="email" className="text-dark">E-mail</Form.Label>
                                        <Form.Control type="email" className="" id="email" aria-describedby="email" placeholder=" " value={campEmail} onChange={(e) => setcampEmail(e.target.value)} />
                                     </Form.Group >
                                  </Col>

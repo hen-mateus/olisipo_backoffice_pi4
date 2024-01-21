@@ -43,7 +43,7 @@ a {
 /*--------Header---------*/
 
 .header-background {
-    background-image: url(./fundo.jpeg);
+    background-image: url(./fundo.png);
     background-color: #cccccc;
     height: 110vh;
     background-position: center;
@@ -82,7 +82,7 @@ a {
 
 .header-content .texto {
     position: relative;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-left: 25%;
     font-size: 20px;
     width: 50%;
@@ -175,7 +175,7 @@ a {
     width: 70px;
     background-color: #32d700;
     margin: 0 auto;
-    margin-bottom: 8px;
+    margin-bottom: 25px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -222,7 +222,7 @@ a {
     width: 70px;
     background-color: #000000;
     margin: 0 auto;
-    margin-bottom: 8px;
+    margin-bottom: 25px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -333,7 +333,7 @@ a {
     /*--------Header---------*/
 
     .header-background {
-        background-image: url(./fundo.jpeg);
+        background-image: url(./fundo.png);
         background-color: #cccccc;
         height: 100vh;
         background-position: center;
@@ -434,7 +434,7 @@ a {
         margin: -100px 0 0 -50px;
         padding: 55px;
         padding-top: 125px;
-        background-image: url(./fundo.jpeg);
+        background-image: url(./fundo.png);
         background-position: center;
         background-repeat: no-repeat;
         height: 30%;
