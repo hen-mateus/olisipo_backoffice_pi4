@@ -262,16 +262,22 @@ const Parcerias = () => {
 
     function TabelaParcerias() {
         return currentItems.map((data, index) => {
+            const truncateText = (text, maxLength) => {
+                if (text.length > maxLength) {
+                    return text.slice(0, maxLength) + '...';
+                }
+                return text;
+            };
             return (
                 <tr key={index}>
                     <td style={formatTableCell()} className="text-center fs-5 fw-bold">
                         {data.nome_parceria}
                     </td>
                     <td style={formatTableCell()}>
-                        {data.descricao_parceria}
+                        {truncateText(data.descricao_parceria, 200)}
                     </td>
                     <td style={formatTableCell()} className="text-center">
-                        {data.beneficios_parceria}
+                        {truncateText(data.beneficios_parceria, 200)}
                     </td>
                     <td style={formatTableCell()} className="text-center fw-bold">
                         {data.tipo_parceria}
@@ -320,6 +326,12 @@ const Parcerias = () => {
                                             </Form.Group>
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="imagemn">Imagem da Parceria:</Form.Label>
+                                                <Form.Control type="imagemn" placeholder="Introduza o link da imagem..." id="imagemn" value={campImagemParceria}
+                                                    onChange={(e) => setcampImagemParceria(e.target.value)} />
+                                            </Form.Group>
+                                            {/* 
+                                            <Form.Group className="form-group">
+                                                <Form.Label htmlFor="imagemn">Imagem da Parceria:</Form.Label>
                                                 <Form.Control
                                                     type="file"
                                                     id="imagemParceria"
@@ -329,6 +341,7 @@ const Parcerias = () => {
                                                     onChange={(event) => setcampImagemParceria(event.target.files[0].name)}
                                                 />
                                             </Form.Group>
+                                            */}
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoParceria">Tipo de Parceria:</Form.Label>
                                                 <Form.Control
@@ -396,6 +409,12 @@ const Parcerias = () => {
                                                     onChange={(e) => setcampCriarBeneficiosParceria(e.target.value)} />
                                             </Form.Group>
                                             <Form.Group className="form-group">
+                                                <Form.Label htmlFor="imagemn">Imagem da Parceria:</Form.Label>
+                                                <Form.Control type="imagemn" placeholder="Introduza o link da imagem..." id="imagemn" value={campCriarImagemParceria}
+                                                    onChange={(e) => setcampCriarImagemParceria(e.target.value)} />
+                                            </Form.Group>
+                                            {/*
+                                            <Form.Group className="form-group">
                                                 <Form.Label htmlFor="imagemp">Imagem da Parceria:</Form.Label>
                                                 <Form.Control
                                                     type="file"
@@ -405,6 +424,7 @@ const Parcerias = () => {
                                                     onChange={(event) => setcampCriarImagemParceria(event.target.files[0].name)}
                                                 />
                                             </Form.Group>
+                                            */}
                                             <Form.Group className="form-group">
                                                 <Form.Label htmlFor="tipoParceria">Tipo de Parceria:</Form.Label>
                                                 <Form.Control

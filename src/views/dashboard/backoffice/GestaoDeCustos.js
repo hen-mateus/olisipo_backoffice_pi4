@@ -167,7 +167,7 @@ const GestaoDeCustos = () => {
           <td className="text-center">
             {data.valor_ajuda}
           </td>
-          <td style={formatTableCell()}>
+          <td className="text-center" style={formatTableCell()}>
             {data.descritivo_ajuda}
           </td>
           <td className="text-center">

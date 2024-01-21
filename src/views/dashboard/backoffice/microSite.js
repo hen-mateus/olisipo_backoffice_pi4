@@ -74,11 +74,11 @@ const MicroSite = () => {
         return dataConteudoWeb.map((data, index) => {
             const isEven = index % 2 === 0;
 
-            const sectionClassName = isEven ? 'seccao2' : 'seccao1';
-            const titleClassName = isEven ? 'titulosV' : 'titulos';
-            const divClassName = isEven ? 'seccao2-div' : 'seccao1-div';
-            const stakeholdersIconClassName = isEven ? 'stakeholders-icon2' : 'stakeholders-icon';
-            const stakeholdersImageClassName = isEven ? 'stakeholders-image2' : 'stakeholders-image';
+            const sectionClassName = isEven ? 'seccao1' : 'seccao2';
+            const titleClassName = isEven ? 'titulos' : 'titulosV';
+            const divClassName = isEven ? 'seccao1-div' : 'seccao2-div';
+            const stakeholdersIconClassName = isEven ? 'stakeholders-icon' : 'stakeholders-icon2';
+            const stakeholdersImageClassName = isEven ? 'stakeholders-image' : 'stakeholders-image2';
 
             return (
                 <section className={sectionClassName} key={index}>

@@ -7,7 +7,6 @@ import { baseUrl } from './baseURL';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useParams } from "react-router-dom";
-import Index from "..";
 
 const EdicaoWeb = () => {
     const [toggleState, setToggleState] = useState(true);
@@ -161,7 +160,6 @@ const EdicaoWeb = () => {
     const handleSubmit = (e, id_conteudo) => {
         e.preventDefault();
 
-        // Faça algo com os valores, por exemplo, enviar para o servidor
         const data = dataWebSeccao.find((d) => d.id_conteudo === id_conteudo);
         console.log('Valores do formulário:', data);
         const url = baseUrl + `/conteudowebsite/updateseccao/` + data.id_conteudo;
@@ -186,7 +184,7 @@ const EdicaoWeb = () => {
     };
 
     function inserirSeccaoWeb() {
-        if (!campTituloSeccao || !campTexto1 || !campTexto2 || !campTexto3 || !campImagemSeccao) {
+        if (!campTituloSeccao || !campTexto1 || !campTexto2 || !campTexto3) {
             alert("Preencha todos os campos!");
         }
         else {
@@ -198,7 +196,7 @@ const EdicaoWeb = () => {
                 texto1_param: campTexto1,
                 texto2_param: campTexto2,
                 texto3_param: campTexto3,
-                imagem_seccao_param: campImagemSeccao,
+                imagem_seccao_param: null,
                 link1_param: null,
                 link2_param: null,
                 titulo_footer_param: null,
@@ -298,16 +296,6 @@ const EdicaoWeb = () => {
                                 value={data.texto3}
                                 onChange={(e) => handleInputChange(e, index, 'texto3')} />
                         </Form.Group>
-                        <Form.Group className="form-group">
-                            <Form.Label htmlFor={`titulo3s-${index}`}>Imagem Secção:</Form.Label>
-                            <Form.Control
-                                type="file"
-                                className="form-control"
-                                name="pic"
-                                accept="image/*"
-                                onChange={(e) => handleInputChange(e, index, 'imagem_seccao')}
-                            />
-                        </Form.Group>
                         <Button id={`btn2-${index}`} type="submit" variant="primary">Atualizar</Button>
                         <Button variant="danger" className="m-1" onClick={() => DeleteSeccao(data.id_conteudo)}>Eliminar</Button>
                     </Form>
@@ -355,19 +343,6 @@ const EdicaoWeb = () => {
                                             <Form.Control type="texto3" id="texto3" value={campTexto3}
                                                 onChange={(e) => setcampTexto3(e.target.value)} />
                                         </Form.Group>
-                                        <Form.Group className="form-group">
-                                            <Form.Label htmlFor="imagems">Imagem Secção:</Form.Label>
-                                            <Form.Control
-                                                type="file"
-                                                className="form-control"
-                                                name="pic"
-                                                accept="image/*"
-                                                onChange={(event) => {
-                                                    const fileName = event.target.files[0].name;
-                                                    setcampImagemSeccao(fileName);
-                                                }}
-                                            />
-                                        </Form.Group>
                                     </Form>
                                 </Modal.Body>
                                 <Modal.Footer>
@@ -401,6 +376,19 @@ const EdicaoWeb = () => {
                                                         <Form.Label htmlFor="link2">Link 2:</Form.Label>
                                                         <Form.Control type="link2" id="link2" value={campLink2}
                                                             onChange={(e) => setcampLink2(e.target.value)} />
+                                                    </Form.Group>
+                                                    <Form.Group className="form-group">
+                                                        <Form.Label htmlFor="imagems">Imagem Header:</Form.Label>
+                                                        <Form.Control
+                                                            type="file"
+                                                            className="form-control"
+                                                            name="pic"
+                                                            accept="image/*"
+                                                            onChange={(event) => {
+                                                                const fileName = event.target.files[0].name;
+                                                                setcampImagemHeader(fileName);
+                                                            }}
+                                                        />
                                                     </Form.Group>
                                                     <Button type="button" variant="btn btn-primary" onClick={() => updateHeader()}>Atualizar</Button>
                                                 </Form>
