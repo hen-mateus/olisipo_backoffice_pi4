@@ -89,9 +89,6 @@ const AdicionarColaborador = () => {
         }
         else if (campCliente === "") {
             alert("Insira um cliente!")
-        }
-        else if (campNumColaborador === "") {
-            alert("Insira um número do colaborador!")
         } else if (campContribuinte === "") {
             alert("Insira o numero de contribuinte!")
         }
@@ -106,7 +103,7 @@ const AdicionarColaborador = () => {
                 ativa_param: true,
                 deleted_param: false,
                 curriculo_param: campCurriculo,
-                numero_colaborador_param: campNumColaborador,
+                numero_colaborador_param: ultimoNumColaborador + 1,
                 contribuinte_param: campContribuinte,
                 pes_id_param: campManager
             }
