@@ -178,7 +178,7 @@ const MicroSite = () => {
         <div>
             {SecçãoHeaderWebsite()}
             <main>
-                {SecçõesConteudoWebsite()}~
+                {SecçõesConteudoWebsite()}
                 {SecçãoFooterWebsite()}
             </main>
             <script src="../../../assets/images/micro_site_images/script.js" async></script>
